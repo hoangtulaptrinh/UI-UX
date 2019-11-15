@@ -1,0 +1,10 @@
+.InfoRoom{
+  background-color:rgba(47, 49, 54, 1.0);
+  flex: 1;
+  min-height: 100vh;
+  color: white;
+}
+.Header-InfoRoom{
+  background-color:rgba(34, 34, 37, 0.5);
+  height: 10vh;
+}
