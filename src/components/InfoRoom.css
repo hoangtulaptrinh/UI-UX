@@ -1,10 +1,66 @@
 .InfoRoom{
   background-color:rgba(47, 49, 54, 1.0);
-  flex: 1;
+  flex: 0.8;
   min-height: 100vh;
   color: white;
 }
+/*start code scrollbar*/
+
+.Body-InfoRoom{
+  height: 93vh;
+  overflow: auto;
+}
+
+#scrollbar::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: rgb(98, 100, 100);
+}
+
+#scrollbar::-webkit-scrollbar
+{
+	width: 7px;
+	background-color:rgba(45, 47, 52, 0.7);
+}
+
+#scrollbar::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color:rgba(45, 47, 52, 0.7);
+}
+
+/*end code scrollbar*/
 .Header-InfoRoom{
   background-color:rgba(34, 34, 37, 0.5);
-  height: 10vh;
+  height: 7vh;
+}
+.Title-InfoRoom{
+  display: flex;
+  justify-content: center;
+}
+.Title-InfoRoom-Admin{
+  font-size: 23px;
+  color: moccasin;
+}
+.User-InfoRoom{
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+.Avatar-InfoRoom > img{
+  width: 50px;
+  height: 50px;
+  border-radius:50%;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+}
+.Name-User-InfoRoom > p{
+  font-size: 17px;
+  margin: 0 0 0 10px;
+}
+.Member{
+  display: flex;
+  flex-direction: column;
 }

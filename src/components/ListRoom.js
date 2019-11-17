@@ -2,27 +2,41 @@ import React, { useState } from 'react';
 import './ListRoom.css';
 import _ from 'lodash'
 import { MdWork } from 'react-icons/md';
+import { FaCircle } from 'react-icons/fa';
+import { GiLargeDress, GiMusicalNotes } from 'react-icons/gi'
 import classNames from 'classnames'
 import AddMember from './Modal/AddMember'
+import { connect } from 'react-redux';
+import * as actions from '../actions/index';
 
-function ListRoom() {
-  const searchRoom = (e) => {
-    console.log(e.target.value)
-  }
+function ListRoom(props) {
   const [currentRoomMouseDown, setCurrentRoomMouseDown] = useState('');
   const [currentRoomOnClick, setCurrentRoomOnClick] = useState('');
-  const ListRoomArr = [
-    { name: 'Room 1', type: 'Work', numberNotificationUnRead: '2' },
-    { name: 'Room 2', type: 'Work', numberNotificationUnRead: '4' },
-    { name: 'Room 3', type: 'Work', numberNotificationUnRead: '6' }
-  ]
+  const [inputValue, setInputValue] = useState('');
+
   const onClickRoom = (name) => {
     setCurrentRoomOnClick(name)
+    props.setCurrentRoom(name)
   }
+  const searchRoom = (e) => {
+    setInputValue(e.target.value)
+  }
+  const ListRoomArr = _.filter(_.map(props.dataRoom, n => ({
+    nameRoom: n.nameRoom,
+    type: n.type,
+    numberNotificationUnRead: n.numberNotificationUnRead
+  })), n => (_.includes(n.nameRoom.toLowerCase(), inputValue.toLowerCase())))
+
   return (
     <div className="ListRoom">
       <div className='Header-ListRoom'>
-        {currentRoomMouseDown}
+        <div className='Top-Header-ListRoom'>
+          <h4>ddtsoft</h4>
+        </div>
+        <div className='Bot-Header-ListRoom'>
+          <FaCircle className='Icon-Circle' />
+          <h6>Do Tung Duong</h6>
+        </div>
       </div>
 
       <div className='Body-ListRoom'>
@@ -38,28 +52,38 @@ function ListRoom() {
             _.map(ListRoomArr, (item, index) =>
               <div
                 className={classNames('Room', {
-                  RoomSelected: currentRoomOnClick === item.name,
-                  RemoveHover: currentRoomMouseDown === item.name
+                  RoomSelected: currentRoomOnClick === item.nameRoom,
+                  RemoveHover: currentRoomMouseDown === item.nameRoom
                 })}
                 key={index}
-                onClick={() => onClickRoom(item.name)}
-                onMouseDown={() => setCurrentRoomMouseDown(item.name)}
+                onClick={() => onClickRoom(item.nameRoom)}
+                onMouseDown={() => setCurrentRoomMouseDown(item.nameRoom)}
               >
                 <div className='Icon-And-NameRoom'>
-                  <MdWork className='Icon-Left' />
+                  {
+                    item.type === 'Work' ?
+                      <MdWork className='Icon-Left' />
+                      :
+                      item.type === 'Shopping' ?
+                        <GiLargeDress className='Icon-Left' />
+                        :
+                        item.type === 'Party' ?
+                          <GiMusicalNotes />
+                          : null
+                  }
                   <div className='NameRoom'>
-                    {item.name}
+                    {item.nameRoom}
                   </div>
                 </div>
                 <div
                   className={classNames('AddMember-And-NotificationUnRead', {
-                    MoveToCenter: currentRoomOnClick === item.name,
+                    MoveToCenter: currentRoomOnClick === item.nameRoom,
                   })}
                 >
                   <AddMember />
                   <div
                     className={classNames('NotificationUnRead', {
-                      NotificationRead: currentRoomOnClick === item.name,
+                      NotificationRead: currentRoomOnClick === item.nameRoom,
                     })}
                   >
                     {item.numberNotificationUnRead}
@@ -75,4 +99,15 @@ function ListRoom() {
   );
 }
 
-export default ListRoom;
+const mapStatetoProps = (state) => {
+  return {
+    dataRoom: state.dataRoom,
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCurrentRoom: (data) => { dispatch(actions.setCurrentRoom(data)) },
+  }
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(ListRoom);
