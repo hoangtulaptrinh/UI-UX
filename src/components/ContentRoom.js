@@ -4,6 +4,8 @@ import { FaFolderPlus, FaRegSmileWink } from 'react-icons/fa';
 import classNames from 'classnames'
 import { connect } from 'react-redux';
 import _ from 'lodash'
+import { MdPeople } from 'react-icons/md';
+import * as actions from '../actions/index';
 
 function ContentRoom(props) {
 
@@ -20,10 +22,20 @@ function ContentRoom(props) {
       document.removeEventListener('click', clickOutSide)
     }
   }
+  const showInfoRoom = () => {
+    props.setShowInfoRoom();
+  }
   return (
     <div className="ContentRoom">
       <div className='Header-ContentRoom'>
-        Header-ContentRoom
+        <p># {props.currentRoom}</p>
+        <div className='Icon-Header-ContentRoom'>
+          <MdPeople
+            className={classNames('', {
+              LightThisIcon: props.showInfoRoom === true
+            })}
+            onClick={showInfoRoom} />
+        </div>
       </div>
 
       <div className="main-room" id="scrollbar-style">
@@ -74,8 +86,13 @@ function ContentRoom(props) {
 const mapStatetoProps = (state) => {
   return {
     dataRoom: state.dataRoom,
-    currentRoom: state.currentRoom
+    currentRoom: state.currentRoom,
+    showInfoRoom: state.showInfoRoom
   }
 }
-
-export default connect(mapStatetoProps)(ContentRoom);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setShowInfoRoom: () => { dispatch(actions.setShowInfoRoom()) },
+  }
+}
+export default connect(mapStatetoProps, mapDispatchToProps)(ContentRoom);

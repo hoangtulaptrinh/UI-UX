@@ -2,6 +2,7 @@ import React from 'react';
 import './InfoRoom.css';
 import { connect } from 'react-redux';
 import _ from 'lodash'
+import classNames from 'classnames'
 
 function InfoRoom(props) {
   const ListRoomArr = _.map(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, (item) => ({
@@ -10,9 +11,13 @@ function InfoRoom(props) {
     level: item.level
   }))
   return (
-    <div className="InfoRoom">
+    <div
+      className={classNames('InfoRoom', {
+        HideThisDiv: props.showInfoRoom === false
+      })}
+    >
       <div className='Header-InfoRoom'>
-        Header-InfoRoom
+        <p>Info Room</p>
       </div>
       <div className='Body-InfoRoom' id="scrollbar">
 
@@ -56,7 +61,8 @@ function InfoRoom(props) {
 const mapStatetoProps = (state) => {
   return {
     dataRoom: state.dataRoom,
-    currentRoom: state.currentRoom
+    currentRoom: state.currentRoom,
+    showInfoRoom: state.showInfoRoom
   }
 }
 

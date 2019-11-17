@@ -1,6 +1,6 @@
 .InfoRoom{
   background-color:rgba(47, 49, 54, 1.0);
-  flex: 0.8;
+  flex: 1;
   min-height: 100vh;
   color: white;
 }
@@ -33,8 +33,16 @@
 
 /*end code scrollbar*/
 .Header-InfoRoom{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color:rgba(34, 34, 37, 0.5);
   height: 7vh;
+}
+.Header-InfoRoom > p {
+  padding: 20px;
+  font-size: 25px;
+  margin: 0;
 }
 .Title-InfoRoom{
   display: flex;
@@ -63,4 +71,7 @@
 .Member{
   display: flex;
   flex-direction: column;
+}
+.HideThisDiv{
+  display: none;
 }

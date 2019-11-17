@@ -5,8 +5,16 @@
   color: white;
 }
 .Header-ContentRoom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
   background-color: rgba(44, 48, 49, 0.6);
   height: 7vh;
+}
+.Header-ContentRoom > p{
+  margin: 0;
+  font-size: 25px;
 }
 .Chat-Message{
   padding: 20px;
@@ -112,4 +120,14 @@
 }
 .ClickIcon{
   color: rgb(230, 230, 225);
+}
+.Icon-Header-ContentRoom{
+  color: #8d8d92;
+  font-size: 25px;
+}
+.Icon-Header-ContentRoom:hover{
+  color: white;
+}
+.LightThisIcon{
+  color: white;
 }
