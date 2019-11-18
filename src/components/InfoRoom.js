@@ -10,16 +10,22 @@ function InfoRoom(props) {
     name: item.name,
     level: item.level
   }))
+  const lightTheme = props.changeTheme;
   return (
     <div
       className={classNames('InfoRoom', {
-        HideThisDiv: props.showInfoRoom === false
+        HideThisDiv: props.showInfoRoom === false,
+        InfoRoomLightTheme: lightTheme === true,
       })}
     >
       <div className='Header-InfoRoom'>
         <p>Info Room</p>
       </div>
-      <div className='Body-InfoRoom' id="scrollbar">
+      <div
+        className={classNames('Body-InfoRoom', {
+          BodyInfoRoomLightTheme: lightTheme === true,
+        })}
+        id="scrollbar">
 
         <div className='Admin'>
           <div className='Title-InfoRoom'>
@@ -62,7 +68,8 @@ const mapStatetoProps = (state) => {
   return {
     dataRoom: state.dataRoom,
     currentRoom: state.currentRoom,
-    showInfoRoom: state.showInfoRoom
+    showInfoRoom: state.showInfoRoom,
+    changeTheme: state.changeTheme
   }
 }
 

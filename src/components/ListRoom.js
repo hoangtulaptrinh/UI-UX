@@ -26,10 +26,18 @@ function ListRoom(props) {
     type: n.type,
     numberNotificationUnRead: n.numberNotificationUnRead
   })), n => (_.includes(n.nameRoom.toLowerCase(), inputValue.toLowerCase())))
-
+  const lightTheme = props.changeTheme;
   return (
-    <div className="ListRoom">
-      <div className='Header-ListRoom'>
+    <div
+      className={classNames('ListRoom', {
+        ListRoomLightTheme: lightTheme === true,
+      })}
+    >
+      <div
+        className={classNames('Header-ListRoom', {
+          HeaderListRoomLightTheme: lightTheme === true,
+        })}
+      >
         <div className='Top-Header-ListRoom'>
           <h4>ddtsoft</h4>
         </div>
@@ -42,7 +50,12 @@ function ListRoom(props) {
       <div className='Body-ListRoom'>
         <div className="wrapper">
           <div className="search-icon">
-            <input className="search-circle" type="text" onChange={searchRoom} />
+            <input
+              className={classNames('search-circle', {
+                SearchCircleLightTheme: lightTheme === true,
+              })}
+
+              type="text" onChange={searchRoom} />
             <div className="search-bar" />
           </div>
         </div>
@@ -59,7 +72,11 @@ function ListRoom(props) {
                 onClick={() => onClickRoom(item.nameRoom)}
                 onMouseDown={() => setCurrentRoomMouseDown(item.nameRoom)}
               >
-                <div className='Icon-And-NameRoom'>
+                <div
+                  className={classNames('Icon-And-NameRoom', {
+                    IconAndNameRoomLightTheme: lightTheme === true,
+                  })}
+                >
                   {
                     item.type === 'Work' ?
                       <MdWork className='Icon-Left' />
@@ -102,6 +119,7 @@ function ListRoom(props) {
 const mapStatetoProps = (state) => {
   return {
     dataRoom: state.dataRoom,
+    changeTheme: state.changeTheme
   }
 }
 const mapDispatchToProps = (dispatch) => {

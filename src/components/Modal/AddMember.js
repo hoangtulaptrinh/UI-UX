@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { MdPersonAdd } from 'react-icons/md';
 import './AddMember.css'
+import classNames from 'classnames'
+import { connect } from 'react-redux';
+
 const AddMember = (props) => {
   const {
     className
@@ -10,10 +13,14 @@ const AddMember = (props) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
-
+  const lightTheme = props.changeTheme;
   return (
     <div className='Model-AddMember'>
-      <MdPersonAdd onClick={toggle} className='Icon-AddMember' />
+      <MdPersonAdd onClick={toggle}
+        className={classNames('Icon-AddMember', {
+          IconAddMemberLightTheme: lightTheme === true,
+        })}
+      />
       <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalHeader toggle={toggle}>Add Member To This Room</ModalHeader>
         <ModalBody>
@@ -24,4 +31,10 @@ const AddMember = (props) => {
   );
 }
 
-export default AddMember;
+const mapStatetoProps = (state) => {
+  return {
+    changeTheme: state.changeTheme
+  }
+}
+
+export default connect(mapStatetoProps)(AddMember);

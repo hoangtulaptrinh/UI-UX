@@ -75,3 +75,28 @@
 .HideThisDiv{
   display: none;
 }
+/* LightTheme */
+.InfoRoomLightTheme{
+  background: #f0f3f3;
+  color: black;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .10);
+}
+.InfoRoomLightTheme > .Header-InfoRoom {
+  background: #f0f3f3;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .10);
+}
+.BodyInfoRoomLightTheme#scrollbar::-webkit-scrollbar-track
+{
+  background-color:rgba(255, 255, 255, 0.7);
+}
+.BodyInfoRoomLightTheme#scrollbar::-webkit-scrollbar
+{
+  background-color:rgba(255, 255, 255, 0.7);
+}
+.BodyInfoRoomLightTheme#scrollbar::-webkit-scrollbar-thumb
+{
+  background-color:rgba(195, 194, 194, 0.7);
+}
+.BodyInfoRoomLightTheme > .Admin > .Title-InfoRoom > .Title-InfoRoom-Admin{
+  color: #00a1ff;
+}

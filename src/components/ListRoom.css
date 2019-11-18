@@ -142,3 +142,21 @@ input {
   font-size: 12px;
   color: rgb(54, 250, 64);
 }
+/* LightTheme */
+.ListRoomLightTheme{
+  background: #f0f3f3;
+  color: black;
+}
+.HeaderListRoomLightTheme{
+  background: #f0f3f3;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .10);
+}
+.HeaderListRoomLightTheme > .Top-Header-ListRoom >h4{
+  color: #eb5454;
+}
+.IconAndNameRoomLightTheme > .Icon-Left{
+  color: black;
+}
+.SearchCircleLightTheme{
+  background: #f0f3f3;
+}

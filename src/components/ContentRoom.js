@@ -26,8 +26,13 @@ function ContentRoom(props) {
   const showInfoRoom = () => {
     props.setShowInfoRoom();
   }
+  const lightTheme = props.changeTheme;
   return (
-    <div className="ContentRoom">
+    <div
+      className={classNames('ContentRoom', {
+        ContentRoomLightTheme: lightTheme === true,
+      })}
+    >
       <div className='Header-ContentRoom'>
         <p># {props.currentRoom}</p>
         <div className='Icon-Header-ContentRoom'>
@@ -36,19 +41,28 @@ function ContentRoom(props) {
           </div>
           <MdPeople
             className={classNames('', {
-              LightThisIcon: props.showInfoRoom === true
+              MdPeopleLightTheme: lightTheme === true,
+              LightThisIcon: props.showInfoRoom === true,
+              MdPeopleLightThemeLightThisIcon: lightTheme === true && props.showInfoRoom === true
             })}
             onClick={showInfoRoom} />
         </div>
       </div>
-
-      <div className="main-room" id="scrollbar-style">
+      <div
+        className={classNames('main-room', {
+          MainRoomLightTheme: lightTheme === true
+        })}
+        id="scrollbar-style">
         {
           _.map(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, (item, index) =>
             <div className='Chat-Message' key={index} >
               <div className='Custom-Container'>
                 <img src={item.avatar} alt='Img-User' />
-                <div className='Name-Time-Message'>
+                <div
+                  className={classNames('Name-Time-Message', {
+                    NameTimeMessageLightTheme: lightTheme === true
+                  })}
+                >
                   <div className='Name-Time'>
                     <p className='Name'>{item.name}</p>
                     <p className='Time'>{item.time}</p>
@@ -61,15 +75,23 @@ function ContentRoom(props) {
         }
       </div>
 
-      <div className='Footer-ContentRoom'>
+      <div
+        className={classNames('Footer-ContentRoom', {
+          FooterContentRoomLightTheme: lightTheme === true
+        })}
+      >
         <div
           className={classNames('Message', {
-            ClickMessage: clickOnInput === true
+            ClickMessage: clickOnInput === true,
+            MessageLightTheme: lightTheme === true,
+            ClickMessageMessageLightTheme: clickOnInput === true && lightTheme === true
           })}
         >
           <FaFolderPlus
             className={classNames('Footer-Icon', {
-              ClickIcon: clickOnInput === true
+              ClickIcon: clickOnInput === true,
+              FooterIconLightTheme: lightTheme === true,
+              ClickIconFooterIconLightTheme: clickOnInput === true && lightTheme === true
             })}
           />
           <input className='Footer-Input'
@@ -78,7 +100,9 @@ function ContentRoom(props) {
           />
           <FaRegSmileWink
             className={classNames('Footer-Icon', {
-              ClickIcon: clickOnInput === true
+              ClickIcon: clickOnInput === true,
+              FooterIconLightTheme: lightTheme === true,
+              ClickIconFooterIconLightTheme: clickOnInput === true && lightTheme === true
             })}
           />
         </div>
@@ -91,7 +115,8 @@ const mapStatetoProps = (state) => {
   return {
     dataRoom: state.dataRoom,
     currentRoom: state.currentRoom,
-    showInfoRoom: state.showInfoRoom
+    showInfoRoom: state.showInfoRoom,
+    changeTheme: state.changeTheme
   }
 }
 const mapDispatchToProps = (dispatch) => {

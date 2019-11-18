@@ -139,3 +139,60 @@
 .LightThisIcon{
   color: white;
 }
+/* LightTheme */
+.ContentRoomLightTheme{
+  background: #f0f3f3;
+  color: black;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .10);
+}
+.ContentRoomLightTheme > .Header-ContentRoom{
+  background: #f0f3f3;
+}
+.MdPeopleLightTheme{
+  color: #8d8d92;
+}
+.MdPeopleLightThemeLightThisIcon{
+  color: black;
+}
+.MainRoomLightTheme{
+  background: #f0f3f3;
+  border-top: solid 0.1px rgb(221, 219, 219);
+}
+.MainRoomLightTheme#scrollbar-style::-webkit-scrollbar-track
+{
+  background-color:rgba(255, 255, 255, 0.7);
+}
+.MainRoomLightTheme#scrollbar-style::-webkit-scrollbar
+{
+  background-color:rgba(255, 255, 255, 0.7);
+}
+.MainRoomLightTheme#scrollbar-style::-webkit-scrollbar-thumb
+{
+  background-color:rgba(195, 194, 194, 0.7);
+}
+.MessageLightTheme{
+  background: #f0f3f3;
+  border: solid 1px #cacaca;
+}
+.MessageLightTheme > .Footer-Input{
+  background: #f0f3f3;
+  color: rgb(116, 113, 113);
+}
+.NameTimeMessageLightTheme> .Name-Time >.Name{
+  color: rgb(243, 6, 6);
+}
+.NameTimeMessageLightTheme> .Name-Time>.Time{
+  color: #d900ff;
+}
+.NameTimeMessageLightTheme>.Show-Message{
+  color: #040e22;
+}
+.FooterIconLightTheme{
+  color: rgb(231, 229, 229);
+}
+.ClickIconFooterIconLightTheme{
+  color: rgb(80, 77, 77);
+}
+.ClickMessageMessageLightTheme{
+  border: solid 1px rgb(80, 77, 77);
+}

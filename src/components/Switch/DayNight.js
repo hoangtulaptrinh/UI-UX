@@ -1,9 +1,11 @@
 import React from 'react';
 import './DayNight.scss';
+import { connect } from 'react-redux';
+import * as actions from '../../actions/index';
 
 function DayNight(props) {
-  const changeTheme = (e) => {
-    console.log(e.target.value)
+  const changeTheme = () => {
+    props.setChangeTheme();
   }
   return (
     <div className="toggleWrapper">
@@ -24,5 +26,15 @@ function DayNight(props) {
     </div>
   )
 }
-
-export default DayNight;
+const mapStatetoProps = (state) => {
+  return {
+    dataRoom: state.dataRoom,
+    changeTheme: state.changeTheme
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setChangeTheme: () => { dispatch(actions.setChangeTheme()) },
+  }
+}
+export default connect(mapStatetoProps, mapDispatchToProps)(DayNight);
