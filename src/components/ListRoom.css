@@ -6,7 +6,7 @@
 }
 .Header-ListRoom{
   background-color:rgba(34, 34, 37, 0.5);
-  height: 7vh;
+  height: 10vh;
   padding: 5px 10px 5px 10px;
 }
 input {
@@ -124,7 +124,11 @@ input {
   justify-content: center;
 }
 .Top-Header-ListRoom{
+  display: flex;
   color: rgb(209, 203, 203);
+}
+.Top-Header-ListRoom > h4{
+  padding-left: 17px;
 }
 .Bot-Header-ListRoom{
   display: flex;

@@ -1,6 +1,6 @@
 .ContentRoom{
   background-color: rgba(54, 57, 63, 1.0);
-  flex: 5;
+  flex: 3.5;
   min-height: 100vh;
   color: white;
 }
@@ -10,7 +10,7 @@
   align-items: center;
   padding: 20px;
   background-color: rgba(44, 48, 49, 0.6);
-  height: 7vh;
+  height: 10vh;
 }
 .Header-ContentRoom > p{
   margin: 0;
@@ -53,13 +53,14 @@
   color: #e8f05e;
 }
 .Show-Message{
+  display: flex;
   color: #adecee;
 }
 /*start code scrollbar*/
 
 .main-room
 {
-  height: 83vh;
+  height: 80vh;
 	width: 100%;
 	background:rgba(54, 57, 63, 1.0);
   overflow: auto;
