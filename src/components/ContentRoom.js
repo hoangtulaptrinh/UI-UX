@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash'
 import { MdPeople } from 'react-icons/md';
 import * as actions from '../actions/index';
+import DayNight from './Switch/DayNight'
 
 function ContentRoom(props) {
 
@@ -30,6 +31,9 @@ function ContentRoom(props) {
       <div className='Header-ContentRoom'>
         <p># {props.currentRoom}</p>
         <div className='Icon-Header-ContentRoom'>
+          <div className='Switch-Day-Night'>
+            <DayNight />
+          </div>
           <MdPeople
             className={classNames('', {
               LightThisIcon: props.showInfoRoom === true
