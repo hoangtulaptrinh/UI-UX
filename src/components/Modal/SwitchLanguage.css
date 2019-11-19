@@ -22,8 +22,8 @@
 }
 
 .rocker-small {
-  font-size: 15px; /* Sizes the switch */
-  margin: 1em;
+  font-size: 14px; /* Sizes the switch */
+  margin: 0;
 }
 
 .rocker::before {
