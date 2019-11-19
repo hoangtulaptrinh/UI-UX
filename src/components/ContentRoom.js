@@ -4,10 +4,11 @@ import { FaFolderPlus, FaRegSmileWink } from 'react-icons/fa';
 import classNames from 'classnames'
 import { connect } from 'react-redux';
 import _ from 'lodash'
-import { MdPeople } from 'react-icons/md';
+import { MdPeople, MdGif } from 'react-icons/md';
 import * as actions from '../actions/index';
 import DayNight from './Switch/DayNight'
 import SwitchLanguage from './Modal/SwitchLanguage'
+import Gif from './Popover/Gif'
 
 function ContentRoom(props) {
 
@@ -104,13 +105,31 @@ function ContentRoom(props) {
             ref={wrapperRef}
             onClick={clickOnThisInput}
           />
-          <FaRegSmileWink
-            className={classNames('Footer-Icon', {
-              ClickIcon: clickOnInput === true,
-              FooterIconLightTheme: lightTheme === true,
-              ClickIconFooterIconLightTheme: clickOnInput === true && lightTheme === true
-            })}
-          />
+          <div className='Footer-Icon-Right'>
+            <div
+              className={classNames('Footer-Icon Gif-Icon', {
+                ClickIcon: clickOnInput === true,
+                FooterIconLightTheme: lightTheme === true,
+                ClickIconFooterIconLightTheme: clickOnInput === true && lightTheme === true
+              })}
+            >
+              <Gif />
+            </div>
+            <MdGif
+              className={classNames('Footer-Icon Gif-Icon', {
+                ClickIcon: clickOnInput === true,
+                FooterIconLightTheme: lightTheme === true,
+                ClickIconFooterIconLightTheme: clickOnInput === true && lightTheme === true
+              })}
+            />
+            <FaRegSmileWink
+              className={classNames('Footer-Icon', {
+                ClickIcon: clickOnInput === true,
+                FooterIconLightTheme: lightTheme === true,
+                ClickIconFooterIconLightTheme: clickOnInput === true && lightTheme === true
+              })}
+            />
+          </div>
         </div>
       </div>
     </div>

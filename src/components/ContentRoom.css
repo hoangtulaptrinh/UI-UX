@@ -119,6 +119,9 @@
   font-size: 25px;
   color: #5c5c5d;
 }
+.Footer-Icon:hover{
+  color: white;
+}
 .ClickMessage{
   border: solid 1px rgb(137, 139, 139);
 }
@@ -138,6 +141,14 @@
 }
 .LightThisIcon{
   color: white;
+}
+.Gif-Icon{
+  padding-right: 10px;
+  font-size: 50px;
+}
+.Footer-Icon-Right{
+  display: flex;
+  align-items: center;
 }
 /* LightTheme */
 .ContentRoomLightTheme{
@@ -188,7 +199,10 @@
   color: #040e22;
 }
 .FooterIconLightTheme{
-  color: rgb(231, 229, 229);
+  color: rgb(185, 179, 179);
+}
+.FooterIconLightTheme:hover{
+  color: rgb(80, 77, 77);
 }
 .ClickIconFooterIconLightTheme{
   color: rgb(80, 77, 77);
@@ -202,3 +216,4 @@
 .FooterContentRoomLightTheme{
   border-top: 1px solid rgb(206, 202, 202);
 }
+/* test */

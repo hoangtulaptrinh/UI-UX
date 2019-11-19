@@ -56,11 +56,11 @@ function InfoRoom(props) {
         <div className='Admin'>
           <div className='Title-InfoRoom'>
             <p className='Title-InfoRoom-Admin'>
-            {
+              {
                 props.changeVietNamLanguage ?
-                  <p>Member</p>
+                  <p>Admin</p>
                   :
-                  <p>{props.dataVietNamLanguage.Member}</p>
+                  <p>{props.dataVietNamLanguage.Admin}</p>
               }
             </p>
           </div>
