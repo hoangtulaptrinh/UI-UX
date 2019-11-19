@@ -7,6 +7,7 @@ import _ from 'lodash'
 import { MdPeople } from 'react-icons/md';
 import * as actions from '../actions/index';
 import DayNight from './Switch/DayNight'
+import SwitchLanguage from './Modal/SwitchLanguage'
 
 function ContentRoom(props) {
 
@@ -36,6 +37,7 @@ function ContentRoom(props) {
       <div className='Header-ContentRoom'>
         <p># {props.currentRoom}</p>
         <div className='Icon-Header-ContentRoom'>
+          <SwitchLanguage />
           <div className='Switch-Day-Night'>
             <DayNight />
           </div>
@@ -56,7 +58,11 @@ function ContentRoom(props) {
         {
           _.map(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, (item, index) =>
             <div className='Chat-Message' key={index} >
-              <div className='Custom-Container'>
+              <div
+                className={classNames('Custom-Container', {
+                  CustomContainerLightTheme: lightTheme === true
+                })}
+              >
                 <img src={item.avatar} alt='Img-User' />
                 <div
                   className={classNames('Name-Time-Message', {

@@ -5,3 +5,5 @@ export const setCurrentRoom = (data) => { return { type: actionTypes.setCurrentR
 export const setShowInfoRoom = () => { return { type: actionTypes.setShowInfoRoom } }
 
 export const setChangeTheme = () => { return { type: actionTypes.setChangeTheme } }
+
+export const setChangeVietNamLanguage = () => { return { type: actionTypes.setChangeVietNamLanguage } }

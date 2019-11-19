@@ -1,10 +1,10 @@
 import actionTypes from '../const/actionTypes';
 
-var initialState = true;
+var initialState = false;
 var myReducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case actionTypes.setShowInfoRoom:
+    case actionTypes.setChangeVietNamLanguage:
       return state = !state;
 
     default:

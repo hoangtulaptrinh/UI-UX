@@ -13,7 +13,7 @@
   height: 10vh;
 }
 .Header-ContentRoom > p{
-  flex: 7;
+  flex: 6;
   margin: 0;
   font-size: 35px;
 }
@@ -126,7 +126,7 @@
   color: rgb(230, 230, 225);
 }
 .Icon-Header-ContentRoom{
-  flex: 1.5;
+  flex: 4;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -179,7 +179,7 @@
   color: rgb(116, 113, 113);
 }
 .NameTimeMessageLightTheme> .Name-Time >.Name{
-  color: rgb(243, 6, 6);
+  color: rgb(255, 7, 7);
 }
 .NameTimeMessageLightTheme> .Name-Time>.Time{
   color: #d900ff;
@@ -195,4 +195,10 @@
 }
 .ClickMessageMessageLightTheme{
   border: solid 1px rgb(80, 77, 77);
+}
+.CustomContainerLightTheme{
+   border-top: 1px solid rgb(206, 202, 202);
+}
+.FooterContentRoomLightTheme{
+  border-top: 1px solid rgb(206, 202, 202);
 }

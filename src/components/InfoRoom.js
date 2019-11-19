@@ -19,7 +19,12 @@ function InfoRoom(props) {
       })}
     >
       <div className='Header-InfoRoom'>
-        <p>Info Room</p>
+        {
+          props.changeVietNamLanguage ?
+            <p>Info Room</p>
+            :
+            <p>{props.dataVietNamLanguage.InfoRoom}</p>
+        }
       </div>
       <div
         className={classNames('Body-InfoRoom', {
@@ -29,7 +34,14 @@ function InfoRoom(props) {
 
         <div className='Admin'>
           <div className='Title-InfoRoom'>
-            <p className='Title-InfoRoom-Admin'>Admin</p>
+            <p className='Title-InfoRoom-Admin'>
+              {
+                props.changeVietNamLanguage ?
+                  <p>Admin</p>
+                  :
+                  <p>{props.dataVietNamLanguage.Admin}</p>
+              }
+            </p>
           </div>
           <div className='User-InfoRoom'>
             <div className='Avatar-InfoRoom'>
@@ -43,7 +55,14 @@ function InfoRoom(props) {
 
         <div className='Admin'>
           <div className='Title-InfoRoom'>
-            <p className='Title-InfoRoom-Admin'>Member</p>
+            <p className='Title-InfoRoom-Admin'>
+            {
+                props.changeVietNamLanguage ?
+                  <p>Member</p>
+                  :
+                  <p>{props.dataVietNamLanguage.Member}</p>
+              }
+            </p>
           </div>
           <div className='Member'>
             {_.map(ListRoomArr, (item, index) =>
@@ -69,7 +88,9 @@ const mapStatetoProps = (state) => {
     dataRoom: state.dataRoom,
     currentRoom: state.currentRoom,
     showInfoRoom: state.showInfoRoom,
-    changeTheme: state.changeTheme
+    changeTheme: state.changeTheme,
+    dataVietNamLanguage: state.dataVietNamLanguage,
+    changeVietNamLanguage: state.changeVietNamLanguage
   }
 }
 
