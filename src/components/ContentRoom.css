@@ -95,9 +95,7 @@
   height: 10vh;
   margin: 0 20px 0 20px;
   border-top: solid 1px #5c5c5d;
-}
-.Footer-ContentRoom{
-  padding: 20px;
+  padding: 32px 20px 20px 20px;
 }
 .Message{
   display: flex;
@@ -217,3 +215,21 @@
   border-top: 1px solid rgb(206, 202, 202);
 }
 /* test */
+.test{
+  position: relative;
+  margin-top: -295px;
+  height: 300px;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  overflow: auto;
+  display: none;
+}
+.ShowGif{
+  display: block;
+}
+.img-gif{
+  width: 300px;
+  height: 250px;
+}

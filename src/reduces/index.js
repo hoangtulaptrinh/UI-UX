@@ -6,6 +6,7 @@ import showInfoRoom from './showInfoRoom'
 import changeTheme from './changeTheme'
 import dataVietNamLanguage from './dataVietNamLanguage'
 import changeVietNamLanguage from './changeVietNamLanguage'
+import arrGif from './arrGif'
 
 const myReducer = combineReducers({
   dataRoom: dataRoom,
@@ -13,7 +14,8 @@ const myReducer = combineReducers({
   showInfoRoom: showInfoRoom,
   changeTheme: changeTheme,
   dataVietNamLanguage: dataVietNamLanguage,
-  changeVietNamLanguage: changeVietNamLanguage
+  changeVietNamLanguage: changeVietNamLanguage,
+  arrGif: arrGif
 });
 
 export default myReducer;

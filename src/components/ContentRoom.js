@@ -8,12 +8,12 @@ import { MdPeople, MdGif } from 'react-icons/md';
 import * as actions from '../actions/index';
 import DayNight from './Switch/DayNight'
 import SwitchLanguage from './Modal/SwitchLanguage'
-import Gif from './Popover/Gif'
+import { Row, Col } from 'reactstrap';
 
 function ContentRoom(props) {
-
   const wrapperRef = useRef(); //hook
   const [clickOnInput, setClickOnInput] = useState(false);
+  const [showGif, setShowGif] = useState(false);
   const clickOnThisInput = () => {
     setClickOnInput(true);
     document.addEventListener('click', clickOutSide)
@@ -113,7 +113,6 @@ function ContentRoom(props) {
                 ClickIconFooterIconLightTheme: clickOnInput === true && lightTheme === true
               })}
             >
-              <Gif />
             </div>
             <MdGif
               className={classNames('Footer-Icon Gif-Icon', {
@@ -121,6 +120,7 @@ function ContentRoom(props) {
                 FooterIconLightTheme: lightTheme === true,
                 ClickIconFooterIconLightTheme: clickOnInput === true && lightTheme === true
               })}
+              onClick={() => setShowGif(!showGif)}
             />
             <FaRegSmileWink
               className={classNames('Footer-Icon', {
@@ -130,6 +130,18 @@ function ContentRoom(props) {
               })}
             />
           </div>
+        </div>
+        <div className={classNames('test', {
+          ShowGif: showGif === true
+        })}
+        >
+          <Row>
+            {_.map(props.arrGif, (item, index) => (
+              <Col sm="3" key={index}>
+                <img className='img-gif' src={item} alt='gif' />
+              </Col>
+            ))}
+          </Row>
         </div>
       </div>
     </div>
@@ -141,7 +153,8 @@ const mapStatetoProps = (state) => {
     dataRoom: state.dataRoom,
     currentRoom: state.currentRoom,
     showInfoRoom: state.showInfoRoom,
-    changeTheme: state.changeTheme
+    changeTheme: state.changeTheme,
+    arrGif: state.arrGif
   }
 }
 const mapDispatchToProps = (dispatch) => {
