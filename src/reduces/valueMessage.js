@@ -1,10 +1,10 @@
 import actionTypes from '../const/actionTypes';
 
-var initialState = 'Work';
+var initialState = '';
 var myReducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case actionTypes.setCurrentRoom:
+    case actionTypes.setValueMessage:
       return state = action.data;
 
     default:

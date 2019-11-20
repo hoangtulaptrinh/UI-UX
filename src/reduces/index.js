@@ -7,6 +7,8 @@ import changeTheme from './changeTheme'
 import dataVietNamLanguage from './dataVietNamLanguage'
 import changeVietNamLanguage from './changeVietNamLanguage'
 import arrGif from './arrGif'
+import Emoji from './Emoji'
+import valueMessage from './valueMessage'
 
 const myReducer = combineReducers({
   dataRoom: dataRoom,
@@ -15,7 +17,9 @@ const myReducer = combineReducers({
   changeTheme: changeTheme,
   dataVietNamLanguage: dataVietNamLanguage,
   changeVietNamLanguage: changeVietNamLanguage,
-  arrGif: arrGif
+  arrGif: arrGif,
+  Emoji: Emoji,
+  valueMessage: valueMessage
 });
 
 export default myReducer;

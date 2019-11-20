@@ -1,4 +1,5 @@
-// import actionTypes from '../const/actionTypes';
+import actionTypes from '../const/actionTypes';
+import _ from 'lodash'
 
 var initialState = [
   {
@@ -44,6 +45,14 @@ var initialState = [
 
 var myReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.setSendMessage:
+      state[_.findIndex(state, { nameRoom: action.data.nameRoom })].data.push({ avatar: 'https://i.imgur.com/VjnUSxab.jpg', name: 'Hinataaaaaaa', time: 'Today at 4:45 PM', message: action.data.message, level: 'Member' });
+      return state;
+
+    case actionTypes.setSendGif:
+      state[_.findIndex(state, { nameRoom: action.data.nameRoom })].data.push({ avatar: 'https://i.imgur.com/VjnUSxab.jpg', name: 'Hinataaaaaaa', time: 'Today at 4:45 PM', gif: action.data.gif, level: 'Member' });
+      return state;
+
     default:
       return state;
   }

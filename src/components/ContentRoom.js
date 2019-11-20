@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './ContentRoom.css';
-import { FaFolderPlus, FaRegSmileWink } from 'react-icons/fa';
+import { FaFolderPlus } from 'react-icons/fa';
 import classNames from 'classnames'
 import { connect } from 'react-redux';
 import _ from 'lodash'
@@ -9,11 +9,14 @@ import * as actions from '../actions/index';
 import DayNight from './Switch/DayNight'
 import SwitchLanguage from './Modal/SwitchLanguage'
 import { Row, Col } from 'reactstrap';
+import IconPopover from './Popovers/Icon'
 
 function ContentRoom(props) {
+  const valueMessage = props.valueMessage;
   const wrapperRef = useRef(); //hook
   const [clickOnInput, setClickOnInput] = useState(false);
   const [showGif, setShowGif] = useState(false);
+  // const [reRender, setReRender] = useState(false);
   const clickOnThisInput = () => {
     setClickOnInput(true);
     document.addEventListener('click', clickOutSide)
@@ -23,10 +26,34 @@ function ContentRoom(props) {
     if (!wrapperRef.current.contains(target)) {
       setClickOnInput(false)
       document.removeEventListener('click', clickOutSide)
+      document.removeEventListener('keydown', sendMessage)
+    }
+  }
+  useEffect(() => {
+    document.addEventListener('keydown', sendMessage)
+    return function cleanup() {
+      document.removeEventListener('keydown', sendMessage)
+    };
+  });
+  const sendMessage = (event) => {
+    if (event.keyCode === 13 && valueMessage !== '') {
+      props.setSendMessage(props.currentRoom, valueMessage);
+      // setReRender(!reRender);
+      props.setValueMessage('');
     }
   }
   const showInfoRoom = () => {
     props.setShowInfoRoom();
+  }
+  const changeInputValue = (e) => {
+    props.setValueMessage(e.target.value);
+  }
+  const addEmoji = (item) => {
+    props.setValueMessage(`${valueMessage}${item}`)
+  }
+  const letShowGif = (item) => {
+    props.setSendGif(props.currentRoom, item)
+    setShowGif(!showGif)
   }
   const lightTheme = props.changeTheme;
   return (
@@ -74,7 +101,12 @@ function ContentRoom(props) {
                     <p className='Name'>{item.name}</p>
                     <p className='Time'>{item.time}</p>
                   </div>
-                  <p className='Show-Message'>{item.message}</p>
+                  {
+                    item.message !== undefined ?
+                      <p className='Show-Message'>{item.message}</p>
+                      :
+                      <img src={item.gif} alt='gif' />
+                  }
                 </div>
               </div>
             </div>
@@ -104,16 +136,10 @@ function ContentRoom(props) {
           <input className='Footer-Input'
             ref={wrapperRef}
             onClick={clickOnThisInput}
+            onChange={changeInputValue}
+            value={valueMessage}
           />
           <div className='Footer-Icon-Right'>
-            <div
-              className={classNames('Footer-Icon Gif-Icon', {
-                ClickIcon: clickOnInput === true,
-                FooterIconLightTheme: lightTheme === true,
-                ClickIconFooterIconLightTheme: clickOnInput === true && lightTheme === true
-              })}
-            >
-            </div>
             <MdGif
               className={classNames('Footer-Icon Gif-Icon', {
                 ClickIcon: clickOnInput === true,
@@ -122,13 +148,15 @@ function ContentRoom(props) {
               })}
               onClick={() => setShowGif(!showGif)}
             />
-            <FaRegSmileWink
-              className={classNames('Footer-Icon', {
+            <div
+              className={classNames('Footer-Icon Icon-Popover', {
                 ClickIcon: clickOnInput === true,
                 FooterIconLightTheme: lightTheme === true,
                 ClickIconFooterIconLightTheme: clickOnInput === true && lightTheme === true
               })}
-            />
+            >
+              <IconPopover addEmoji={addEmoji} />
+            </div>
           </div>
         </div>
         <div className={classNames('test', {
@@ -138,13 +166,17 @@ function ContentRoom(props) {
           <Row>
             {_.map(props.arrGif, (item, index) => (
               <Col sm="3" key={index}>
-                <img className='img-gif' src={item} alt='gif' />
+                <img className='img-gif'
+                  src={item}
+                  alt='gif'
+                  onClick={() => letShowGif(item)}
+                />
               </Col>
             ))}
           </Row>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 
@@ -154,12 +186,16 @@ const mapStatetoProps = (state) => {
     currentRoom: state.currentRoom,
     showInfoRoom: state.showInfoRoom,
     changeTheme: state.changeTheme,
-    arrGif: state.arrGif
+    arrGif: state.arrGif,
+    valueMessage: state.valueMessage
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     setShowInfoRoom: () => { dispatch(actions.setShowInfoRoom()) },
+    setSendMessage: (nameRoom, message) => { dispatch(actions.setSendMessage({ nameRoom: nameRoom, message: message })) },
+    setValueMessage: (data) => { dispatch(actions.setValueMessage(data)) },
+    setSendGif: (nameRoom, gif) => { dispatch(actions.setSendGif({ nameRoom: nameRoom, gif: gif })) }
   }
 }
 export default connect(mapStatetoProps, mapDispatchToProps)(ContentRoom);
