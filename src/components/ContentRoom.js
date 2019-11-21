@@ -8,12 +8,14 @@ import { MdPeople, MdGif } from 'react-icons/md';
 import * as actions from '../actions/index';
 import DayNight from './Switch/DayNight'
 import SwitchLanguage from './Modal/SwitchLanguage'
-import { Row, Col } from 'reactstrap';
 import IconPopover from './Popovers/Icon'
+import { nextTick } from 'q';
+import Masonry from 'react-masonry-css'
 
 function ContentRoom(props) {
   const valueMessage = props.valueMessage;
   const wrapperRef = useRef(); //hook
+  const mainRoomRef = useRef(); //hook
   const [clickOnInput, setClickOnInput] = useState(false);
   const [showGif, setShowGif] = useState(false);
   // const [reRender, setReRender] = useState(false);
@@ -26,7 +28,7 @@ function ContentRoom(props) {
     if (!wrapperRef.current.contains(target)) {
       setClickOnInput(false)
       document.removeEventListener('click', clickOutSide)
-      document.removeEventListener('keydown', sendMessage)
+      // document.removeEventListener('keydown', sendMessage)
     }
   }
   useEffect(() => {
@@ -36,10 +38,12 @@ function ContentRoom(props) {
     };
   });
   const sendMessage = (event) => {
-    if (event.keyCode === 13 && valueMessage !== '') {
+    if (event.keyCode === 13 && valueMessage !== '' && clickOnInput === true) {
       props.setSendMessage(props.currentRoom, valueMessage);
       // setReRender(!reRender);
       props.setValueMessage('');
+      // khi send messenger thì chuyển xuống cuối để đọc tin nhắn mới nhất
+      mainRoomRef.current.scrollTop = mainRoomRef.current.scrollHeight
     }
   }
   const showInfoRoom = () => {
@@ -54,6 +58,11 @@ function ContentRoom(props) {
   const letShowGif = (item) => {
     props.setSendGif(props.currentRoom, item)
     setShowGif(!showGif)
+    //nextTich là hàm call back đợi cho mọi thứ render (virtual dom) xong xuôi hết mới chạy 
+    nextTick(() => {
+      // khi send messenger thì chuyển xuống cuối để đọc tin nhắn mới nhất
+      mainRoomRef.current.scrollTop = mainRoomRef.current.scrollHeight
+    })
   }
   const lightTheme = props.changeTheme;
   return (
@@ -82,7 +91,9 @@ function ContentRoom(props) {
         className={classNames('main-room', {
           MainRoomLightTheme: lightTheme === true
         })}
-        id="scrollbar-style">
+        id="scrollbar-style"
+        ref={mainRoomRef}
+      >
         {
           _.map(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, (item, index) =>
             <div className='Chat-Message' key={index} >
@@ -162,18 +173,22 @@ function ContentRoom(props) {
         <div className={classNames('test', {
           ShowGif: showGif === true
         })}
-        >
-          <Row>
+          id="test-scrollbar-style">
+          <Masonry
+            breakpointCols={3}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column"
+          >
             {_.map(props.arrGif, (item, index) => (
-              <Col sm="3" key={index}>
+              <div className='div-gif'>
                 <img className='img-gif'
                   src={item}
                   alt='gif'
                   onClick={() => letShowGif(item)}
                 />
-              </Col>
+              </div>
             ))}
-          </Row>
+          </Masonry>
         </div>
       </div>
     </div >

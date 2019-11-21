@@ -17,7 +17,8 @@ const Emoji = (props) => {
       <div id="Popover1" >
         <FaRegSmileWink />
       </div>
-      <Popover placement="top-end"
+      <Popover
+        placement="top-end"
         isOpen={popoverOpen}
         target="Popover1"
         toggle={toggle}

@@ -73,6 +73,7 @@ function InfoRoom(props) {
                 <div className='Name-User-InfoRoom'>
                   <p>{item.name}</p>
                 </div>
+                <div className='AhihiTest'></div>
               </div>)
             }
           </div>

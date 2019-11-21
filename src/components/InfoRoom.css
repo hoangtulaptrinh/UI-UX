@@ -100,3 +100,12 @@
 .BodyInfoRoomLightTheme > .Admin > .Title-InfoRoom > .Title-InfoRoom-Admin{
   color: #00a1ff;
 }
+.AhihiTest{
+  z-index: 1000;
+  background: red;
+  width: 101px;
+  height: 80px;
+  margin-left: -300px;
+  margin-top: -86px;
+  display: none;
+}
