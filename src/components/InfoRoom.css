@@ -101,11 +101,13 @@
   color: #00a1ff;
 }
 .AhihiTest{
-  z-index: 1000;
-  background: red;
-  width: 101px;
-  height: 80px;
-  margin-left: -300px;
-  margin-top: -86px;
+  right: 18.6vw;
   display: none;
+}
+.addZindexCss{
+  display: block;
+}
+.name-show-info{
+  display: flex;
+  justify-content: center;
 }
