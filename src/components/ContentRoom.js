@@ -176,7 +176,7 @@ function ContentRoom(props) {
         })}
           id="test-scrollbar-style">
           <Masonry
-            breakpointCols={3}
+            breakpointCols={5}
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column"
           >

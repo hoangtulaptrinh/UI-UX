@@ -16,20 +16,26 @@ function InfoRoom(props) {
   }))
   const lightTheme = props.changeTheme;
   const showInfoDiv = (e, index) => {
-    if (e.target.offsetTop - ahihiRef.current.scrollTop > 380) {
-      setdivStyle({
+    setIndexDiv(index)
+    document.addEventListener('click', clickOutSide)
+    if (e.target.offsetTop - ahihiRef.current.scrollTop > 250) {
+       return setdivStyle({
         position: 'absolute',
-        top: e.target.offsetTop - ahihiRef.current.scrollTop - 380,
+        top: e.target.offsetTop - ahihiRef.current.scrollTop - 200,
+      })
+    }
+    if (window.innerHeight - e.target.offsetTop - ahihiRef.current.scrollTop < 250) {
+      return setdivStyle({
+        position: 'absolute',
+        top: e.target.offsetTop - ahihiRef.current.scrollTop - 500,
       })
     }
     else {
-      setdivStyle({
+      return setdivStyle({
         position: 'absolute',
         top: e.target.offsetTop - ahihiRef.current.scrollTop,
       })
     }
-    setIndexDiv(index)
-    document.addEventListener('click', clickOutSide)
   }
   const clickOutSide = (event) => {
     const { target } = event;

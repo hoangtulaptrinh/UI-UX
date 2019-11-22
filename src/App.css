@@ -1,4 +1,8 @@
 .App {
   display: flex;
   font-family: 'Pacifico', cursive;
+  max-height: 100vh;
+}
+html,body{
+  overflow: hidden;
 }
