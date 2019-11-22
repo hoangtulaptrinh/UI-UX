@@ -6,6 +6,7 @@ import classNames from 'classnames'
 
 function InfoRoom(props) {
   const ahihiRef = useRef();
+  const testRef = useRef();
   const [indexDiv, setIndexDiv] = useState(-1);
   const [divStyle, setdivStyle] = useState({});
   const ListRoomArr = _.map(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, (item) => ({
@@ -15,13 +16,27 @@ function InfoRoom(props) {
   }))
   const lightTheme = props.changeTheme;
   const showInfoDiv = (e, index) => {
-    setdivStyle({
-      position: 'absolute',
-      top: e.target.offsetTop - ahihiRef.current.scrollTop - 270,
-    })
+    if (e.target.offsetTop - ahihiRef.current.scrollTop > 380) {
+      setdivStyle({
+        position: 'absolute',
+        top: e.target.offsetTop - ahihiRef.current.scrollTop - 380,
+      })
+    }
+    else {
+      setdivStyle({
+        position: 'absolute',
+        top: e.target.offsetTop - ahihiRef.current.scrollTop,
+      })
+    }
     setIndexDiv(index)
-    console.log('offsetTop is: ' + e.target.offsetTop)
-    console.log('scroll Top is: ' + ahihiRef.current.scrollTop)
+    document.addEventListener('click', clickOutSide)
+  }
+  const clickOutSide = (event) => {
+    const { target } = event;
+    if (!ahihiRef.current.contains(target)) {
+      setIndexDiv(-1)
+      document.removeEventListener('click', clickOutSide)
+    }
   }
   return (
     <div
@@ -56,12 +71,33 @@ function InfoRoom(props) {
             </p>
           </div>
           <div className='User-InfoRoom'>
-            <div className='Avatar-InfoRoom'>
-              <img src={_.filter(ListRoomArr, { level: 'Admin' })[0].avatar} alt='Img-User' />
+            <div className='Avatar-InfoRoom' ref={testRef}>
+              <img src={_.filter(ListRoomArr, { level: 'Admin' })[0].avatar} alt='Img-User'
+                onClick={(e) => showInfoDiv(e, 99999)}
+              />
             </div>
             <div className='Name-User-InfoRoom'>
               <p>{_.filter(ListRoomArr, { level: 'Admin' })[0].name}</p>
             </div>
+            {/* infoADmin */}
+            <div
+              className={classNames('AhihiTest', {
+                addZindexCss: 99999 === indexDiv,
+              })}
+              style={divStyle}>
+              <div className='Top'>
+                <img src={_.filter(ListRoomArr, { level: 'Admin' })[0].avatar} alt='Img-User' />
+                <div className='name-show-info'>
+                  <p>{_.filter(ListRoomArr, { level: 'Admin' })[0].name}</p>
+                  <p
+                    className={classNames('levelAdmin', {
+                      levelAdminLightTheme: lightTheme === true,
+                    })}
+                  >Admin</p>
+                </div>
+              </div>
+            </div>
+            {/* infoADmin */}
           </div>
         </div>
 
@@ -77,24 +113,33 @@ function InfoRoom(props) {
             </p>
           </div>
           <div className='Member' >
-            {_.map(ListRoomArr, (item, index) =>
-              <div className='User-InfoRoom' key={index} onClick={(e) => showInfoDiv(e, index)} >
+            {_.map(_.filter(ListRoomArr, { level: 'Member' }), (item, index) =>
+              <div className='User-InfoRoom' key={index} >
                 <div className='Avatar-InfoRoom'>
-                  <img src={item.avatar} alt='Img-User' />
+                  <img src={item.avatar} alt='Img-User' onClick={(e) => showInfoDiv(e, index)} />
                 </div>
                 <div className='Name-User-InfoRoom'>
                   <p>{item.name}</p>
                 </div>
+                {/* Member-Info */}
                 <div
                   className={classNames('AhihiTest', {
                     addZindexCss: index === indexDiv,
                   })}
                   style={divStyle}>
-                  <img src={item.avatar} alt='Img-User' />
-                  <div className='name-show-info'>
-                    <p>{item.name}</p>
+                  <div className='Top'>
+                    <img src={item.avatar} alt='Img-User' />
+                    <div className='name-show-info'>
+                      <p>{item.name}</p>
+                      <p
+                        className={classNames('levelMember', {
+                          levelMemberLightTheme: lightTheme === true,
+                        })}
+                      >Member</p>
+                    </div>
                   </div>
                 </div>
+                {/* Member-Info */}
               </div>)
             }
           </div>

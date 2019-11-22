@@ -171,6 +171,7 @@ function ContentRoom(props) {
           </div>
         </div>
         <div className={classNames('test', {
+          testLightTheme: lightTheme === true,
           ShowGif: showGif === true
         })}
           id="test-scrollbar-style">

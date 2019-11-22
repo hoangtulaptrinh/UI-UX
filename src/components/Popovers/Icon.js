@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Popover, PopoverHeader, PopoverBody, Row, Col } from 'reactstrap';
+import { Popover, PopoverBody, Row, Col } from 'reactstrap';
 import { FaRegSmileWink } from 'react-icons/fa';
 import './Icon.css'
 import _ from 'lodash'
 import { connect } from 'react-redux';
+import classNames from 'classnames'
 
 const Emoji = (props) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -25,8 +26,11 @@ const Emoji = (props) => {
         className='All-Popover'
         hideArrow={true}
       >
-        <PopoverHeader>Popover Title</PopoverHeader>
-        <PopoverBody className='PopoverBody'>
+        <PopoverBody id='scroll-body-icon'
+          className={classNames('PopoverBody', {
+            PopoverBodyLightTheme: props.changeTheme === true,
+          })}
+        >
           <Row>
             {
               _.map(Array.from(props.Emoji), (item, index) =>
@@ -48,7 +52,8 @@ const Emoji = (props) => {
 
 const mapStatetoProps = (state) => {
   return {
-    Emoji: state.Emoji
+    Emoji: state.Emoji,
+    changeTheme: state.changeTheme,
   }
 }
 

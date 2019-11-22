@@ -101,15 +101,39 @@
   color: #00a1ff;
 }
 .AhihiTest{
-  height: 300px;
+  width: 200px;
   right: 18.6vw;
   display: none;
-  border: solid 1px red;
 }
 .addZindexCss{
+  z-index: 9999;
   display: block;
 }
 .name-show-info{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.Avatar-InfoRoom:hover{
+  cursor: pointer;
+}
+.AhihiTest> .Top{
+  display: flex;
+  flex-direction: column;
+}
+.AhihiTest > .Top > img{
+  width: 100%;
+  height: 100%;
+}
+.levelMember{
+  color: moccasin;
+}
+.levelAdmin{
+  color: moccasin;
+}
+.levelMemberLightTheme{
+  color: #00a1ff;
+}
+.levelAdminLightTheme{
+  color: #00a1ff;
 }
