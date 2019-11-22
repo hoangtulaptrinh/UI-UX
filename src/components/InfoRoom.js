@@ -17,12 +17,11 @@ function InfoRoom(props) {
   const showInfoDiv = (e, index) => {
     setdivStyle({
       position: 'absolute',
-      top: e.target.offsetTop,
+      top: e.target.offsetTop - ahihiRef.current.scrollTop - 270,
     })
     setIndexDiv(index)
-    console.log(e.target.offsetTop)
-    console.log(e.target)
-    console.log(ahihiRef)
+    console.log('offsetTop is: ' + e.target.offsetTop)
+    console.log('scroll Top is: ' + ahihiRef.current.scrollTop)
   }
   return (
     <div
@@ -39,7 +38,7 @@ function InfoRoom(props) {
             <p>{props.dataVietNamLanguage.InfoRoom}</p>
         }
       </div>
-      <div
+      <div ref={ahihiRef}
         className={classNames('Body-InfoRoom', {
           BodyInfoRoomLightTheme: lightTheme === true,
         })}
@@ -66,14 +65,14 @@ function InfoRoom(props) {
           </div>
         </div>
 
-        <div className='Admin' ref={ahihiRef}>
+        <div className='Admin' >
           <div className='Title-InfoRoom'>
             <p className='Title-InfoRoom-Admin'>
               {
                 props.changeVietNamLanguage ?
-                  <p>Admin</p>
+                  <p>Member</p>
                   :
-                  <p>{props.dataVietNamLanguage.Admin}</p>
+                  <p>{props.dataVietNamLanguage.Member}</p>
               }
             </p>
           </div>

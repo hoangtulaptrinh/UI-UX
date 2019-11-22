@@ -101,8 +101,10 @@
   color: #00a1ff;
 }
 .AhihiTest{
+  height: 300px;
   right: 18.6vw;
   display: none;
+  border: solid 1px red;
 }
 .addZindexCss{
   display: block;
