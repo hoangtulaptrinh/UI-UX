@@ -18,16 +18,16 @@ function InfoRoom(props) {
   const showInfoDiv = (e, index) => {
     setIndexDiv(index)
     document.addEventListener('click', clickOutSide)
-    if (e.target.offsetTop - ahihiRef.current.scrollTop > 250) {
-       return setdivStyle({
-        position: 'absolute',
-        top: e.target.offsetTop - ahihiRef.current.scrollTop - 200,
-      })
-    }
-    if (window.innerHeight - e.target.offsetTop - ahihiRef.current.scrollTop < 250) {
+    if (window.innerHeight - e.target.offsetTop - ahihiRef.current.scrollTop < 0) {
       return setdivStyle({
         position: 'absolute',
-        top: e.target.offsetTop - ahihiRef.current.scrollTop - 500,
+        top: e.target.offsetTop - ahihiRef.current.scrollTop - 250,
+      })
+    }
+    if (e.target.offsetTop - ahihiRef.current.scrollTop > 250) {
+      return setdivStyle({
+        position: 'absolute',
+        top: e.target.offsetTop - ahihiRef.current.scrollTop - 200,
       })
     }
     else {
@@ -36,7 +36,7 @@ function InfoRoom(props) {
         top: e.target.offsetTop - ahihiRef.current.scrollTop,
       })
     }
-  }
+  } 
   const clickOutSide = (event) => {
     const { target } = event;
     if (!ahihiRef.current.contains(target)) {
