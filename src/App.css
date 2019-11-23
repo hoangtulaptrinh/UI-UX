@@ -2,6 +2,7 @@
   display: flex;
   font-family: 'Pacifico', cursive;
   max-height: 100vh;
+  max-width: 100vw;
 }
 html,body{
   overflow: hidden;

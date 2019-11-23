@@ -2,6 +2,7 @@
   background-color: rgba(54, 57, 63, 1.0);
   flex: 3.5;
   min-height: 100vh;
+  max-width: 63.6363636363vw;
   color: white;
 }
 .Header-ContentRoom{
@@ -67,6 +68,7 @@
 	width: 100%;
 	background:rgba(54, 57, 63, 1.0);
   overflow: auto;
+  overflow-x: hidden;
 }
 
 #scrollbar-style::-webkit-scrollbar-track
