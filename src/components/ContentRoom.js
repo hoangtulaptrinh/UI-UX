@@ -37,7 +37,7 @@ function ContentRoom(props) {
     };
   });
   const sendMessage = (event) => {
-    if (event.keyCode === 13 && valueMessage !== '' && clickOnInput === true) {
+    if (event.keyCode === 13 && !event.shiftKey && valueMessage !== '' && clickOnInput === true) {
       props.setSendMessage(props.currentRoom, valueMessage);
       props.setValueMessage('');
       // khi send messenger thì chuyển xuống cuối để đọc tin nhắn mới nhất
@@ -142,7 +142,8 @@ function ContentRoom(props) {
               ClickIconFooterIconLightTheme: clickOnInput === true && lightTheme === true
             })}
           />
-          <input className='Footer-Input'
+          <textarea className='Footer-Input'
+            type="textarea"
             ref={wrapperRef}
             onClick={clickOnThisInput}
             onChange={changeInputValue}
@@ -179,7 +180,7 @@ function ContentRoom(props) {
             columnClassName="my-masonry-grid_column"
           >
             {_.map(props.arrGif, (item, index) => (
-              <div className='div-gif'>
+              <div className='div-gif' key={index}>
                 <img className='img-gif'
                   src={item}
                   alt='gif'
