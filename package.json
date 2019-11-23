@@ -12,6 +12,7 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-icons": "^3.8.0",
+    "marked": "^0.7.0",
     "react-masonry-component": "^6.2.1",
     "react-masonry-css": "^1.0.14",
     "react-redux": "^7.1.3",

@@ -11,6 +11,7 @@ import SwitchLanguage from './Modal/SwitchLanguage'
 import IconPopover from './Popovers/Icon'
 import { nextTick } from 'q';
 import Masonry from 'react-masonry-css'
+import marked from 'marked';
 
 function ContentRoom(props) {
   const valueMessage = props.valueMessage;
@@ -18,7 +19,6 @@ function ContentRoom(props) {
   const mainRoomRef = useRef(); //hook
   const [clickOnInput, setClickOnInput] = useState(false);
   const [showGif, setShowGif] = useState(false);
-  // const [reRender, setReRender] = useState(false);
   const clickOnThisInput = () => {
     setClickOnInput(true);
     document.addEventListener('click', clickOutSide)
@@ -28,7 +28,6 @@ function ContentRoom(props) {
     if (!wrapperRef.current.contains(target)) {
       setClickOnInput(false)
       document.removeEventListener('click', clickOutSide)
-      // document.removeEventListener('keydown', sendMessage)
     }
   }
   useEffect(() => {
@@ -40,7 +39,6 @@ function ContentRoom(props) {
   const sendMessage = (event) => {
     if (event.keyCode === 13 && valueMessage !== '' && clickOnInput === true) {
       props.setSendMessage(props.currentRoom, valueMessage);
-      // setReRender(!reRender);
       props.setValueMessage('');
       // khi send messenger thì chuyển xuống cuối để đọc tin nhắn mới nhất
       mainRoomRef.current.scrollTop = mainRoomRef.current.scrollHeight
@@ -114,7 +112,7 @@ function ContentRoom(props) {
                   </div>
                   {
                     item.message !== undefined ?
-                      <p className='Show-Message'>{item.message}</p>
+                      <div className='Show-Message' dangerouslySetInnerHTML={{ __html: marked(item.message) }} />
                       :
                       <img src={item.gif} alt='gif' />
                   }
