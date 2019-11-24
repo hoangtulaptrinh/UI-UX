@@ -30,8 +30,18 @@ const AddMember = (props) => {
               <p>{props.dataVietNamLanguage.AddMemberToThisRoom}</p>
           }
         </ModalHeader>
-        <ModalBody>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <ModalBody className='ModalBody'>
+          {/* css kính lúp để ở file ListRoom.css */}
+          <div className="wrapper">
+            <div className="search-icon">
+              <input
+                className={classNames('search-circle', {
+                  SearchCircleLightTheme: lightTheme === true,
+                })}
+                type="text" />
+              <div className="search-bar" />
+            </div>
+          </div>
         </ModalBody>
       </Modal>
     </div>

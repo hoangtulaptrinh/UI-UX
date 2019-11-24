@@ -70,7 +70,20 @@ function ContentRoom(props) {
       })}
     >
       <div className='Header-ContentRoom'>
-        <p># {props.currentRoom}</p>
+        <p className='Name-Room'># {props.currentRoom}</p>
+        {/* số người hiện tại trong phòng dùng uniqBy để lọc bỏ trùng ặp về tên */}
+        <div className='Number-People-Room'>
+          {props.changeVietNamLanguage ?
+            <p>Current number of people in the room : {_.uniqBy(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, 'name').length}</p>
+            :
+            <p>{props.dataVietNamLanguage.CurrentNumberOfPeopleInTheRoom} : {_.uniqBy(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, 'name').length}</p>
+          }
+          {props.changeVietNamLanguage ?
+            <p>Online people : ???</p>
+            :
+            <p>{props.dataVietNamLanguage.OnlinePeople} : ???</p>
+          }
+        </div>
         <div className='Icon-Header-ContentRoom'>
           <SwitchLanguage />
           <div className='Switch-Day-Night'>
@@ -202,7 +215,9 @@ const mapStatetoProps = (state) => {
     showInfoRoom: state.showInfoRoom,
     changeTheme: state.changeTheme,
     arrGif: state.arrGif,
-    valueMessage: state.valueMessage
+    valueMessage: state.valueMessage,
+    dataVietNamLanguage: state.dataVietNamLanguage,
+    changeVietNamLanguage: state.changeVietNamLanguage
   }
 }
 const mapDispatchToProps = (dispatch) => {

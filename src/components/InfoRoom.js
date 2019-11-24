@@ -9,11 +9,11 @@ function InfoRoom(props) {
   const testRef = useRef();
   const [indexDiv, setIndexDiv] = useState(-1);
   const [divStyle, setdivStyle] = useState({});
-  const ListRoomArr = _.map(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, (item) => ({
+  const ListRoomArr = _.uniqBy(_.map(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, (item) => ({
     avatar: item.avatar,
     name: item.name,
     level: item.level
-  }))
+  })), 'name');
   const lightTheme = props.changeTheme;
   const showInfoDiv = (e, index) => {
     setIndexDiv(index)
@@ -36,7 +36,7 @@ function InfoRoom(props) {
         top: e.target.offsetTop - ahihiRef.current.scrollTop,
       })
     }
-  } 
+  }
   const clickOutSide = (event) => {
     const { target } = event;
     if (!ahihiRef.current.contains(target)) {
