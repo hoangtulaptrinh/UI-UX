@@ -37,7 +37,8 @@ function ContentRoom(props) {
     };
   });
   const sendMessage = (event) => {
-    if (event.keyCode === 13 && !event.shiftKey && valueMessage !== '' && clickOnInput === true) {
+    // valueMessage.trim() loại bỏ khoảng trống để check empty text area
+    if (event.keyCode === 13 && !event.shiftKey && valueMessage.trim() !== '' && clickOnInput === true) {
       props.setSendMessage(props.currentRoom, valueMessage);
       props.setValueMessage('');
       // khi send messenger thì chuyển xuống cuối để đọc tin nhắn mới nhất
