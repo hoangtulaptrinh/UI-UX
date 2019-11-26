@@ -12,6 +12,8 @@ import IconPopover from './Popovers/Icon'
 import { nextTick } from 'q';
 import Masonry from 'react-masonry-css'
 import marked from 'marked';
+import toBr from 'newline-to-br';
+import PieChart from './Popovers/PieChart'
 
 function ContentRoom(props) {
   const valueMessage = props.valueMessage;
@@ -85,6 +87,7 @@ function ContentRoom(props) {
             <p>{props.dataVietNamLanguage.OnlinePeople} : ???</p>
           }
         </div>
+        <PieChart />
         <div className='Icon-Header-ContentRoom'>
           <SwitchLanguage />
           <div className='Switch-Day-Night'>
@@ -126,7 +129,7 @@ function ContentRoom(props) {
                   </div>
                   {
                     item.message !== undefined ?
-                      <div className='Show-Message' dangerouslySetInnerHTML={{ __html: marked(item.message) }} />
+                      <div className='Show-Message' dangerouslySetInnerHTML={{ __html: toBr(marked(item.message)) }} />
                       :
                       <img src={item.gif} alt='gif' />
                   }
