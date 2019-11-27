@@ -2,3 +2,40 @@
   font-size: 38px;
   cursor: pointer;
 }
+.PieChart-Body{
+  display: flex;
+  max-width: 300px;
+}
+.circle-div{
+  display: flex;
+  width: 50px;
+  height: 50px;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  --border-radius: 25px;
+  border-radius: 25px;
+}
+.state-number{
+  display: flex;
+}
+.state-number > p{
+  margin: 5px 5px 0 0;
+}
+.Info-Chart {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+/* Light-Theme */
+.PieChartBodyLightTheme{
+  background-color: #3d3e3f;
+}
+.StateNumberBodyLightTheme > p{
+  color: white;
+}
+.HeaderChartBodyLightTheme{
+  background-color: #6d6f70 !important;
+  border-bottom: 1px solid #363636 !important;
+  color: white;
+}
+/* Light-Theme */

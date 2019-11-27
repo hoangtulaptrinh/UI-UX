@@ -70,6 +70,7 @@ function ContentRoom(props) {
     <div
       className={classNames('ContentRoom', {
         ContentRoomLightTheme: lightTheme === true,
+        MaxWidth: props.showInfoRoom === false
       })}
     >
       <div className='Header-ContentRoom'>

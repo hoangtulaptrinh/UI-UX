@@ -313,3 +313,6 @@
 {
 	background-color:rgba(195, 194, 194, 0.7);
 }
+.MaxWidth{
+  max-width: 80vw;
+}
