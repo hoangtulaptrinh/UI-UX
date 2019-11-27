@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
 }
-#Popover1{
+#PopoverLegacy1{
   display: flex;
   align-items: center;
 }
@@ -42,4 +42,10 @@
 .PopoverBodyLightTheme#scroll-body-icon::-webkit-scrollbar-thumb
 {
   background-color:rgba(195, 194, 194, 0.7);
+}
+.p-icon{
+  cursor: pointer;
+}
+.popover.show.bs-popover-auto {
+  left: 12px !important;
 }

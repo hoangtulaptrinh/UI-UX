@@ -95,7 +95,7 @@ function ContentRoom(props) {
             <DayNight />
           </div>
           <MdPeople
-            className={classNames('', {
+            className={classNames('MdPeople', {
               MdPeopleLightTheme: lightTheme === true,
               LightThisIcon: props.showInfoRoom === true,
               MdPeopleLightThemeLightThisIcon: lightTheme === true && props.showInfoRoom === true

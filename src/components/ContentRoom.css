@@ -14,13 +14,16 @@
   height: 10vh;
 }
 .Name-Room{
-  flex: 2.2;
+  flex: 1.8;
   margin: 0;
   font-size: 35px;
 }
+.MdPeople{
+  cursor: pointer;
+}
 .Number-People-Room{
   display: flex;
-  flex: 4.8;
+  flex: 3.3;
   flex-direction: column;
   justify-content: center;
 }
@@ -130,6 +133,7 @@
 .Footer-Icon{
   font-size: 25px;
   color: #5c5c5d;
+  cursor: pointer;
 }
 .Footer-Icon:hover{
   color: white;

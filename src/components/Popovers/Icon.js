@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Popover, PopoverBody, Row, Col } from 'reactstrap';
+import { Popover, PopoverBody, Row, Col, UncontrolledPopover } from 'reactstrap';
 import { FaRegSmileWink } from 'react-icons/fa';
 import './Icon.css'
 import _ from 'lodash'
@@ -15,37 +15,30 @@ const Emoji = (props) => {
   }
   return (
     <div className='IconPopover'>
-      <div id="Popover1" >
+      <div id="PopoverLegacy1" >
         <FaRegSmileWink />
       </div>
-      <Popover
-        placement="top-end"
-        isOpen={popoverOpen}
-        target="Popover1"
-        toggle={toggle}
-        className='All-Popover'
-        hideArrow={true}
-      >
-        <PopoverBody id='scroll-body-icon'
-          className={classNames('PopoverBody', {
-            PopoverBodyLightTheme: props.changeTheme === true,
-          })}
-        >
-          <Row>
-            {
-              _.map(Array.from(props.Emoji), (item, index) =>
-                <Col sm="2" key={index}>
-                  <p
-                    onClick={() => chooseEmoji(item)}
-                  >
-                    {item}
-                  </p>
-                </Col>
-              )
-            }
-          </Row>
-        </PopoverBody>
-      </Popover>
+      <UncontrolledPopover className='All-Popover' trigger="legacy" placement="top-end" target="PopoverLegacy1" hideArrow={true} >
+          <PopoverBody id='scroll-body-icon'
+            className={classNames('PopoverBody', {
+              PopoverBodyLightTheme: props.changeTheme === true,
+            })}
+          >
+            <Row>
+              {
+                _.map(Array.from(props.Emoji), (item, index) =>
+                  <Col sm="2" key={index}>
+                    <p className='p-icon'
+                      onClick={() => chooseEmoji(item)}
+                    >
+                      {item}
+                    </p>
+                  </Col>
+                )
+              }
+            </Row>
+          </PopoverBody>
+      </UncontrolledPopover>
     </div>
   );
 }
