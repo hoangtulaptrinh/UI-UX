@@ -1,0 +1,18 @@
+.IntroRoom{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.IntroRoom> p{
+  font-size: 25px;
+  margin: 18.5px;
+}
+.Body-IntroRoom{
+  background: #e5f7f7;
+}
+.BodyIntroRoomLightTheme{
+  background: rgb(55, 55, 56);
+}
+.card{
+  border: none !important;
+}

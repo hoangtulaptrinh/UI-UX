@@ -3,6 +3,7 @@ import './InfoRoom.css';
 import { connect } from 'react-redux';
 import _ from 'lodash'
 import classNames from 'classnames'
+import IntroRoom from './Collapse/IntroRoom'
 
 function InfoRoom(props) {
   const ahihiRef = useRef();
@@ -52,12 +53,7 @@ function InfoRoom(props) {
       })}
     >
       <div className='Header-InfoRoom' >
-        {
-          props.changeVietNamLanguage ?
-            <p>Info Room</p>
-            :
-            <p>{props.dataVietNamLanguage.InfoRoom}</p>
-        }
+        <IntroRoom />
       </div>
       <div ref={ahihiRef}
         className={classNames('Body-InfoRoom', {
