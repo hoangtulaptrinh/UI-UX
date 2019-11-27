@@ -14,8 +14,14 @@ import Masonry from 'react-masonry-css'
 import marked from 'marked';
 import toBr from 'newline-to-br';
 import PieChart from './Popovers/PieChart'
+import { Tooltip } from 'reactstrap';
 
 function ContentRoom(props) {
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const toggle = () => {
+    setTooltipOpen(!tooltipOpen);
+  }
+  //
   const valueMessage = props.valueMessage;
   const wrapperRef = useRef(); //hook
   const mainRoomRef = useRef(); //hook
@@ -118,7 +124,11 @@ function ContentRoom(props) {
                   CustomContainerLightTheme: lightTheme === true
                 })}
               >
-                <img src={item.avatar} alt='Img-User' />
+                <img src={item.avatar} alt='Img-User' href="#" id="TooltipExample" />
+                <Tooltip className='Tooltip' placement="right" isOpen={tooltipOpen} target="TooltipExample" toggle={toggle}>
+                  <div className='Info-User-On-Chat'>
+                  </div>
+                </Tooltip>
                 <div
                   className={classNames('Name-Time-Message', {
                     NameTimeMessageLightTheme: lightTheme === true

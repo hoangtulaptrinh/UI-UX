@@ -28,9 +28,7 @@ const IntroRoom = (props) => {
             })}
           >
             {
-              <p>
-                {_.find(props.dataRoom, { nameRoom: props.currentRoom }).Intro}
-              </p>
+              _.find(props.dataRoom, { nameRoom: props.currentRoom }).Intro
             }
           </CardBody>
         </Card>

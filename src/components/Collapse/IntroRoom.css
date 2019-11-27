@@ -10,6 +10,7 @@
 }
 .Body-IntroRoom{
   background: #e5f7f7;
+  white-space: pre-line;
 }
 .BodyIntroRoomLightTheme{
   background: rgb(55, 55, 56);

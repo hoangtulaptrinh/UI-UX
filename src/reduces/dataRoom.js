@@ -17,7 +17,7 @@ var initialState = [
     ],
   },
   {
-    nameRoom: 'Shopping', type: 'Shopping', numberNotificationUnRead: '4', Intro: " 1) Create a 'to buy' list and don't veer off into the makeup department no matter how much that new Dior lipstick is calling your name 2) Wear proper undergarments and shoes for a good view of your outfit 3) Shop mornings - it's less crowded, the merchandise is tidy, and the sales associates are fresh "
+    nameRoom: 'Shopping', type: 'Shopping', numberNotificationUnRead: '4', Intro: " 1) Create a 'to buy' list and don't veer off into the makeup department no matter how much that new Dior lipstick is calling your name \n 2) Wear proper undergarments and shoes for a good view of your outfit \n 3) Shop mornings - it's less crowded, the merchandise is tidy, and the sales associates are fresh "
     , data: [
       { avatar: 'https://i.imgur.com/hYQgQKQb.jpg', name: 'Cute Girl', time: 'Today at 9:34 AM', message: 'hello', level: 'Member' },
       { avatar: 'https://i.imgur.com/YAE3htvb.jpg', name: 'Thirsty Girl ', time: 'Today at 1:34 PM', message: 'hello', level: 'Member' },
