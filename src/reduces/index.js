@@ -9,6 +9,8 @@ import changeVietNamLanguage from './changeVietNamLanguage'
 import arrGif from './arrGif'
 import Emoji from './Emoji'
 import valueMessage from './valueMessage'
+import listRoom from './listRoom'
+import currentUser from './currentUser'
 
 const myReducer = combineReducers({
   dataRoom: dataRoom,
@@ -19,7 +21,9 @@ const myReducer = combineReducers({
   changeVietNamLanguage: changeVietNamLanguage,
   arrGif: arrGif,
   Emoji: Emoji,
-  valueMessage: valueMessage
+  valueMessage: valueMessage,
+  listRoom: listRoom,
+  currentUser: currentUser
 });
 
 export default myReducer;

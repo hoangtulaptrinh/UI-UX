@@ -5,5 +5,7 @@ export default {
   setChangeVietNamLanguage: 'SET_CHANGE_VIETNAM_LANGUAGE',
   setSendMessage: 'SET_SEND_MESSAGE',
   setValueMessage: 'SET_VALUE_MESSAGE',
-  setSendGif: 'SET_SEND_GIF'
+  setSendGif: 'SET_SEND_GIF',
+  getListRoom: 'GET_LIST_ROOM',
+  setCurrentUser: 'SET_CURRENT_USER'
 };

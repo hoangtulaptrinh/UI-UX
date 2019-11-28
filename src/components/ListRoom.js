@@ -119,7 +119,8 @@ function ListRoom(props) {
 const mapStatetoProps = (state) => {
   return {
     dataRoom: state.dataRoom,
-    changeTheme: state.changeTheme
+    changeTheme: state.changeTheme,
+    listRoom: state.listRoom
   }
 }
 const mapDispatchToProps = (dispatch) => {
