@@ -35,7 +35,7 @@ const PieChart = (props) => {
             labels={() => { }} // ẩn đi label
             data={[
               { x: "Online", y: 1 },
-              { x: "Offline", y: _.uniqBy(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, 'name').length - 1 }
+              { x: "Offline", y: _.uniqBy(_.find(props.dataRoom, { id: props.currentRoom }).data, 'name').length - 1 }
             ]}
           />
           <div className='Info-Chart'>
@@ -58,7 +58,7 @@ const PieChart = (props) => {
                 })}
               >
                 <p>Offline:</p>
-                <p>{_.uniqBy(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, 'name').length - 1}</p>
+                <p>{_.uniqBy(_.find(props.dataRoom, { id: props.currentRoom }).data, 'name').length - 1}</p>
               </div>
             </div>
           </div>

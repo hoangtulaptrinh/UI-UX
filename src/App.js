@@ -8,9 +8,8 @@ import { connect } from 'react-redux';
 
 function App(props) {
   useEffect(() => {
-    props.getApi();
+    props.getApi(props.currentUser);
   }, [])
-   console.log(props.currentUser)
   return (
     <div className="App">
       <ListRoom />

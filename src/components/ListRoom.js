@@ -8,15 +8,16 @@ import classNames from 'classnames'
 import AddMember from './Modal/AddMember'
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
+import { useHistory } from "react-router-dom";
 
 function ListRoom(props) {
-  const [currentRoomMouseDown, setCurrentRoomMouseDown] = useState('');
-  const [currentRoomOnClick, setCurrentRoomOnClick] = useState('');
+  let history = useHistory();
+  const [currentRoomMouseDown, setCurrentRoomMouseDown] = useState(1);
+  const [currentRoomOnClick, setCurrentRoomOnClick] = useState(1);
   const [inputValue, setInputValue] = useState('');
-
-  const onClickRoom = (name) => {
-    setCurrentRoomOnClick(name)
-    props.setCurrentRoom(name)
+  const onClickRoom = (id) => {
+    setCurrentRoomOnClick(id)
+    props.setCurrentRoom(id)
   }
   const searchRoom = (e) => {
     setInputValue(e.target.value)
@@ -24,9 +25,13 @@ function ListRoom(props) {
   const ListRoomArr = _.filter(_.map(props.dataRoom, n => ({
     nameRoom: n.nameRoom,
     type: n.type,
-    numberNotificationUnRead: n.numberNotificationUnRead
+    numberNotificationUnRead: n.numberNotificationUnRead,
+    id: n.id
   })), n => (_.includes(n.nameRoom.toLowerCase(), inputValue.toLowerCase())))
   const lightTheme = props.changeTheme;
+  const logOut = () =>{
+    history.goBack();
+  }
   return (
     <div
       className={classNames('ListRoom', {
@@ -38,12 +43,17 @@ function ListRoom(props) {
           HeaderListRoomLightTheme: lightTheme === true,
         })}
       >
-        <div className='Top-Header-ListRoom'>
-          <h4>ddtsoft</h4>
+        <div>
+          <div className='Top-Header-ListRoom'>
+            <h4>ddtsoft</h4>
+          </div>
+          <div className='Bot-Header-ListRoom'>
+            <FaCircle className='Icon-Circle' />
+            <h6>{props.currentUser.attributes.name}</h6>
+          </div>
         </div>
-        <div className='Bot-Header-ListRoom'>
-          <FaCircle className='Icon-Circle' />
-          <h6>Do Tung Duong</h6>
+        <div className='LogOut' onClick={logOut} >
+          Log-Out
         </div>
       </div>
 
@@ -65,12 +75,12 @@ function ListRoom(props) {
             _.map(ListRoomArr, (item, index) =>
               <div
                 className={classNames('Room', {
-                  RoomSelected: currentRoomOnClick === item.nameRoom,
-                  RemoveHover: currentRoomMouseDown === item.nameRoom
+                  RoomSelected: currentRoomOnClick === item.id,
+                  RemoveHover: currentRoomMouseDown === item.id
                 })}
                 key={index}
-                onClick={() => onClickRoom(item.nameRoom)}
-                onMouseDown={() => setCurrentRoomMouseDown(item.nameRoom)}
+                onClick={() => onClickRoom(item.id)}
+                onMouseDown={() => setCurrentRoomMouseDown(item.id)}
               >
                 <div
                   className={classNames('Icon-And-NameRoom', {
@@ -94,16 +104,19 @@ function ListRoom(props) {
                 </div>
                 <div
                   className={classNames('AddMember-And-NotificationUnRead', {
-                    MoveToCenter: currentRoomOnClick === item.nameRoom,
+                    MoveToCenter: currentRoomOnClick === item.id || item.numberNotificationUnRead === 0,
                   })}
                 >
                   <AddMember />
                   <div
                     className={classNames('NotificationUnRead', {
-                      NotificationRead: currentRoomOnClick === item.nameRoom,
+                      NotificationRead: currentRoomOnClick === item.id,
+                      HideNotificationRead: item.numberNotificationUnRead === 0
                     })}
                   >
-                    {item.numberNotificationUnRead}
+                    {
+                      item.numberNotificationUnRead
+                    }
                   </div>
                 </div>
               </div>
@@ -120,7 +133,9 @@ const mapStatetoProps = (state) => {
   return {
     dataRoom: state.dataRoom,
     changeTheme: state.changeTheme,
-    listRoom: state.listRoom
+    listRoom: state.listRoom,
+    currentRoom: state.currentRoom,
+    currentUser: state.currentUser
   }
 }
 const mapDispatchToProps = (dispatch) => {

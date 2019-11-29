@@ -7,5 +7,6 @@ export default {
   setValueMessage: 'SET_VALUE_MESSAGE',
   setSendGif: 'SET_SEND_GIF',
   getListRoom: 'GET_LIST_ROOM',
-  setCurrentUser: 'SET_CURRENT_USER'
+  setCurrentUser: 'SET_CURRENT_USER',
+  setDataRoom: 'SET_DATA_ROOM'
 };

@@ -2,16 +2,18 @@ import actionTypes from '../const/actionTypes';
 import * as apiCaller from '../components/Api/apiCaller'
 import axios from 'axios'
 
+export let check;
+
 export const getApi = (data) => {
   var config = {
-    headers: { 'Authorization': "Bearer " + "DbU7k37iHYV2ZtQYPizFQEkm" }
+    headers: { 'Authorization': "Bearer " + data.attributes.authToken }
   };
   return (dispatch) => {
     axios.get(
-      'http://c539d822.ngrok.io/api/joined_rooms',
+      'http://71acadfd.ngrok.io/api/joined_rooms',
       config
-    ).then((response) => {
-      console.log(response.data.data)
+    ).then((res) => {
+      dispatch(setDataRoom(res.data.data))
     }).catch((error) => {
       console.log(error)
     });
@@ -27,16 +29,18 @@ export const login = (data) => {
     }
   }
   return (dispatch) => {
-    apiCaller.request_infused_by_data('http://c539d822.ngrok.io/api/login', 'post', obj)
+    apiCaller.request_infused_by_data('http://71acadfd.ngrok.io/api/login', 'post', obj)
       .then(res => {
+        check = res;
         dispatch(setCurrentUser(res.data.data))
-        // console.log(111)
       })
       .catch(error => {
         console.log(error)
       });
   }
 }
+
+export const setDataRoom = (data) => { return { type: actionTypes.setDataRoom, data: data } }
 
 export const setCurrentUser = (data) => { return { type: actionTypes.setCurrentUser, data: data } }
 

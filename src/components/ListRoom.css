@@ -5,6 +5,9 @@
   color: rgb(158, 161, 165);
 }
 .Header-ListRoom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color:rgba(34, 34, 37, 0.5);
   height: 10vh;
   padding: 5px 10px 5px 10px;
@@ -125,7 +128,7 @@ input {
 }
 .Top-Header-ListRoom{
   display: flex;
-  color: rgb(209, 203, 203);
+  color: rgb(0, 108, 250);
 }
 .Top-Header-ListRoom > h4{
   padding-left: 17px;
@@ -159,4 +162,10 @@ input {
 }
 .SearchCircleLightTheme{
   background: #f0f3f3;
+}
+.HideNotificationRead{
+  display: none;
+}
+.LogOut{
+  cursor: pointer;
 }

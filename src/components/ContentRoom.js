@@ -80,13 +80,13 @@ function ContentRoom(props) {
       })}
     >
       <div className='Header-ContentRoom'>
-        <p className='Name-Room'># {props.currentRoom}</p>
+        <p className='Name-Room'># {_.find(props.dataRoom, { id: props.currentRoom }).nameRoom}</p>
         {/* số người hiện tại trong phòng dùng uniqBy để lọc bỏ trùng ặp về tên */}
         <div className='Number-People-Room'>
           {props.changeVietNamLanguage ?
-            <p>Current number of people in the room : {_.uniqBy(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, 'name').length}</p>
+            <p>Current number of people in the room : {_.uniqBy(_.find(props.dataRoom, { id: props.currentRoom }).data, 'id').length}</p>
             :
-            <p>{props.dataVietNamLanguage.CurrentNumberOfPeopleInTheRoom} : {_.uniqBy(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, 'name').length}</p>
+            <p>{props.dataVietNamLanguage.CurrentNumberOfPeopleInTheRoom} : {_.uniqBy(_.find(props.dataRoom, { id: props.currentRoom }).data, 'id').length}</p>
           }
           {props.changeVietNamLanguage ?
             <p>Online people : ???</p>
@@ -117,7 +117,7 @@ function ContentRoom(props) {
         ref={mainRoomRef}
       >
         {
-          _.map(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, (item, index) =>
+          _.map(_.find(props.dataRoom, { id: props.currentRoom }).data, (item, index) =>
             <div className='Chat-Message' key={index} >
               <div
                 className={classNames('Custom-Container', {

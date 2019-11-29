@@ -10,7 +10,7 @@ function InfoRoom(props) {
   const testRef = useRef();
   const [indexDiv, setIndexDiv] = useState(-1);
   const [divStyle, setdivStyle] = useState({});
-  const ListRoomArr = _.uniqBy(_.map(_.find(props.dataRoom, { nameRoom: props.currentRoom }).data, (item) => ({
+  const ListRoomArr = _.uniqBy(_.map(_.find(props.dataRoom, { id: props.currentRoom }).data, (item) => ({
     avatar: item.avatar,
     name: item.name,
     level: item.level

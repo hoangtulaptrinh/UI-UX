@@ -1,17 +1,22 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 import './Login.css'
 import { useHistory } from "react-router-dom";
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
-import _ from 'lodash'
 
 function Login(props) {
   let history = useHistory();
-  const [reRender, setReRenDer] = useState(false)
-  async function handleClick() {
+  function handleClick() {
     props.login(userNameLogin.current.value, passWordLogin.current.value, checkRememberMe.current.checked)
-    setReRenDer(!reRender)
-    history.push('App')
+    setTimeout(function () {
+      if (actions.check !== undefined) {
+        history.push('/App')
+      }
+      else {
+        alert('sai mk roi thang ngu')
+      }
+    }
+      , 3000);
   }
   const userNameLogin = useRef();
   const passWordLogin = useRef();
