@@ -8,5 +8,6 @@ export default {
   setSendGif: 'SET_SEND_GIF',
   getListRoom: 'GET_LIST_ROOM',
   setCurrentUser: 'SET_CURRENT_USER',
-  setDataRoom: 'SET_DATA_ROOM'
+  setDataRoom: 'SET_DATA_ROOM',
+  setAllowLogin: 'SET_ALLOW_LOGIN'
 };

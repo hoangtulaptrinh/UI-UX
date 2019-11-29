@@ -8,15 +8,10 @@ function Login(props) {
   let history = useHistory();
   function handleClick() {
     props.login(userNameLogin.current.value, passWordLogin.current.value, checkRememberMe.current.checked)
-    setTimeout(function () {
-      if (actions.check !== undefined) {
-        history.push('/App')
-      }
-      else {
-        alert('sai mk roi thang ngu')
-      }
-    }
-      , 3000);
+  }
+  if (props.allowLogin === true) {
+    props.setAllowLogin()
+    history.push('/App')
   }
   const userNameLogin = useRef();
   const passWordLogin = useRef();
@@ -83,12 +78,13 @@ function Login(props) {
 
 const mapStatetoProps = (state) => {
   return {
-    currentUser: state.currentUser
+    allowLogin: state.allowLogin
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (userName, passWord, checkRememberMe) => { dispatch(actions.login({ userName: userName, passWord: passWord, checkRememberMe: checkRememberMe })) },
+    setAllowLogin: () => { dispatch(actions.setAllowLogin(false)) }
   }
 }
 

@@ -2,8 +2,6 @@ import actionTypes from '../const/actionTypes';
 import * as apiCaller from '../components/Api/apiCaller'
 import axios from 'axios'
 
-export let check;
-
 export const getApi = (data) => {
   var config = {
     headers: { 'Authorization': "Bearer " + data.attributes.authToken }
@@ -31,14 +29,19 @@ export const login = (data) => {
   return (dispatch) => {
     apiCaller.request_infused_by_data('http://71acadfd.ngrok.io/api/login', 'post', obj)
       .then(res => {
-        check = res;
         dispatch(setCurrentUser(res.data.data))
+      })
+      .then(res => {
+        dispatch(setAllowLogin(true))
       })
       .catch(error => {
         console.log(error)
+        dispatch(setAllowLogin(false))
       });
   }
 }
+
+export const setAllowLogin = (data) => { return { type: actionTypes.setAllowLogin, data: data } }
 
 export const setDataRoom = (data) => { return { type: actionTypes.setDataRoom, data: data } }
 

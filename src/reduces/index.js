@@ -11,6 +11,7 @@ import Emoji from './Emoji'
 import valueMessage from './valueMessage'
 import listRoom from './listRoom'
 import currentUser from './currentUser'
+import allowLogin from './allowLogin'
 
 const myReducer = combineReducers({
   dataRoom: dataRoom,
@@ -23,7 +24,8 @@ const myReducer = combineReducers({
   Emoji: Emoji,
   valueMessage: valueMessage,
   listRoom: listRoom,
-  currentUser: currentUser
+  currentUser: currentUser,
+  allowLogin: allowLogin
 });
 
 export default myReducer;
