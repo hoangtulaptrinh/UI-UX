@@ -12,8 +12,8 @@ import { useHistory } from "react-router-dom";
 
 function ListRoom(props) {
   let history = useHistory();
-  const [currentRoomMouseDown, setCurrentRoomMouseDown] = useState(1);
-  const [currentRoomOnClick, setCurrentRoomOnClick] = useState(1);
+  const [currentRoomMouseDown, setCurrentRoomMouseDown] = useState(-1);
+  const [currentRoomOnClick, setCurrentRoomOnClick] = useState(-1);
   const [inputValue, setInputValue] = useState('');
   const onClickRoom = (id) => {
     setCurrentRoomOnClick(id)
@@ -29,8 +29,9 @@ function ListRoom(props) {
     id: n.id
   })), n => (_.includes(n.nameRoom.toLowerCase(), inputValue.toLowerCase())))
   const lightTheme = props.changeTheme;
-  const logOut = () =>{
+  const logOut = () => {
     history.goBack();
+    props.setCurrentRoom(-1)
   }
   return (
     <div

@@ -28,7 +28,10 @@ const IntroRoom = (props) => {
             })}
           >
             {
-              _.find(props.dataRoom, { id: props.currentRoom }).Intro
+              props.currentRoom !== -1 ?
+                _.find(props.dataRoom, { id: props.currentRoom }).Intro
+                :
+                null
             }
           </CardBody>
         </Card>

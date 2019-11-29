@@ -24,44 +24,50 @@ const PieChart = (props) => {
         >
           Chart
         </PopoverHeader>
-        <PopoverBody
-          className={classNames('PieChart-Body', {
-            PieChartBodyLightTheme: lightTheme === false
-          })}
-        >
-          <VictoryPie
-            colorScale={colorScale}
-            innerRadius={100}
-            labels={() => { }} // ẩn đi label
-            data={[
-              { x: "Online", y: 1 },
-              { x: "Offline", y: _.uniqBy(_.find(props.dataRoom, { id: props.currentRoom }).data, 'name').length - 1 }
-            ]}
-          />
-          <div className='Info-Chart'>
-            <div className='Online'>
-              <div style={{ background: colorScale[0] }} className='circle-div' />
+        <PopoverBody>
+          {
+            props.currentRoom !== -1 ?
               <div
-                className={classNames('state-number', {
-                  StateNumberBodyLightTheme: lightTheme === false
-                })}
-              >
-                <p>Online:</p>
-                <p>1</p>
+                className={classNames('PieChart-Body', {
+                  PieChartBodyLightTheme: lightTheme === false
+                })}>
+                <VictoryPie
+                  colorScale={colorScale}
+                  innerRadius={100}
+                  labels={() => { }} // ẩn đi label
+                  data={[
+                    { x: "Online", y: 1 },
+                    { x: "Offline", y: _.uniqBy(_.find(props.dataRoom, { id: props.currentRoom }).data, 'name').length - 1 }
+                  ]}
+                />
+                <div className='Info-Chart'>
+                  <div className='Online'>
+                    <div style={{ background: colorScale[0] }} className='circle-div' />
+                    <div
+                      className={classNames('state-number', {
+                        StateNumberBodyLightTheme: lightTheme === false
+                      })}
+                    >
+                      <p>Online:</p>
+                      <p>1</p>
+                    </div>
+                  </div>
+                  <div className='Offline'>
+                    <div style={{ background: colorScale[1] }} className='circle-div' />
+                    <div
+                      className={classNames('state-number', {
+                        StateNumberBodyLightTheme: lightTheme === false
+                      })}
+                    >
+                      <p>Offline:</p>
+                      <p>{_.uniqBy(_.find(props.dataRoom, { id: props.currentRoom }).data, 'name').length - 1}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className='Offline'>
-              <div style={{ background: colorScale[1] }} className='circle-div' />
-              <div
-                className={classNames('state-number', {
-                  StateNumberBodyLightTheme: lightTheme === false
-                })}
-              >
-                <p>Offline:</p>
-                <p>{_.uniqBy(_.find(props.dataRoom, { id: props.currentRoom }).data, 'name').length - 1}</p>
-              </div>
-            </div>
-          </div>
+              :
+              null
+          }
         </PopoverBody>
       </UncontrolledPopover>
     </div>

@@ -5,13 +5,18 @@ import ContentRoom from './components/ContentRoom'
 import InfoRoom from './components/InfoRoom'
 import * as actions from './actions/index';
 import { connect } from 'react-redux';
+import classNames from 'classnames'
 
 function App(props) {
   useEffect(() => {
     props.getApi(props.currentUser);
   }, [])
   return (
-    <div className="App">
+    <div
+      className={classNames('App', {
+        BackGroundIMG: props.currentRoom === -1
+      })}
+    >
       <ListRoom />
       <ContentRoom />
       <InfoRoom />
@@ -21,7 +26,8 @@ function App(props) {
 
 const mapStatetoProps = (state) => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    currentRoom: state.currentRoom
   }
 }
 const mapDispatchToProps = (dispatch) => {

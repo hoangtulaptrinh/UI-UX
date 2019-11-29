@@ -76,24 +76,16 @@ function ContentRoom(props) {
     <div
       className={classNames('ContentRoom', {
         ContentRoomLightTheme: lightTheme === true,
-        MaxWidth: props.showInfoRoom === false
+        MaxWidth: props.showInfoRoom === false,
       })}
     >
       <div className='Header-ContentRoom'>
-        <p className='Name-Room'># {_.find(props.dataRoom, { id: props.currentRoom }).nameRoom}</p>
-        {/* số người hiện tại trong phòng dùng uniqBy để lọc bỏ trùng ặp về tên */}
-        <div className='Number-People-Room'>
-          {props.changeVietNamLanguage ?
-            <p>Current number of people in the room : {_.uniqBy(_.find(props.dataRoom, { id: props.currentRoom }).data, 'id').length}</p>
+        <p className='Name-Room'># {
+          props.currentRoom !== -1 ?
+            _.find(props.dataRoom, { id: props.currentRoom }).nameRoom
             :
-            <p>{props.dataVietNamLanguage.CurrentNumberOfPeopleInTheRoom} : {_.uniqBy(_.find(props.dataRoom, { id: props.currentRoom }).data, 'id').length}</p>
-          }
-          {props.changeVietNamLanguage ?
-            <p>Online people : ???</p>
-            :
-            <p>{props.dataVietNamLanguage.OnlinePeople} : ???</p>
-          }
-        </div>
+            null
+        }</p>
         <PieChart />
         <div className='Icon-Header-ContentRoom'>
           <SwitchLanguage />
@@ -117,37 +109,40 @@ function ContentRoom(props) {
         ref={mainRoomRef}
       >
         {
-          _.map(_.find(props.dataRoom, { id: props.currentRoom }).data, (item, index) =>
-            <div className='Chat-Message' key={index} >
-              <div
-                className={classNames('Custom-Container', {
-                  CustomContainerLightTheme: lightTheme === true
-                })}
-              >
-                <img src={item.avatar} alt='Img-User' href="#" id="TooltipExample" />
-                <Tooltip className='Tooltip' placement="right" isOpen={tooltipOpen} target="TooltipExample" toggle={toggle}>
-                  <div className='Info-User-On-Chat'>
-                  </div>
-                </Tooltip>
+          props.currentRoom !== -1 ?
+            _.map(_.find(props.dataRoom, { id: props.currentRoom }).data, (item, index) =>
+              <div className='Chat-Message' key={index} >
                 <div
-                  className={classNames('Name-Time-Message', {
-                    NameTimeMessageLightTheme: lightTheme === true
+                  className={classNames('Custom-Container', {
+                    CustomContainerLightTheme: lightTheme === true
                   })}
                 >
-                  <div className='Name-Time'>
-                    <p className='Name'>{item.name}</p>
-                    <p className='Time'>{item.time}</p>
+                  <img src={item.avatar} alt='Img-User' href="#" id="TooltipExample" />
+                  <Tooltip className='Tooltip' placement="right" isOpen={tooltipOpen} target="TooltipExample" toggle={toggle}>
+                    <div className='Info-User-On-Chat'>
+                    </div>
+                  </Tooltip>
+                  <div
+                    className={classNames('Name-Time-Message', {
+                      NameTimeMessageLightTheme: lightTheme === true
+                    })}
+                  >
+                    <div className='Name-Time'>
+                      <p className='Name'>{item.name}</p>
+                      <p className='Time'>{item.time}</p>
+                    </div>
+                    {
+                      item.message !== undefined ?
+                        <div className='Show-Message' dangerouslySetInnerHTML={{ __html: toBr(marked(item.message)) }} />
+                        :
+                        <img src={item.gif} alt='gif' />
+                    }
                   </div>
-                  {
-                    item.message !== undefined ?
-                      <div className='Show-Message' dangerouslySetInnerHTML={{ __html: toBr(marked(item.message)) }} />
-                      :
-                      <img src={item.gif} alt='gif' />
-                  }
                 </div>
               </div>
-            </div>
-          )
+            )
+            :
+            null
         }
       </div>
 
