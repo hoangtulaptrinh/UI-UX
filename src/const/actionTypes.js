@@ -9,5 +9,7 @@ export default {
   getListRoom: 'GET_LIST_ROOM',
   setCurrentUser: 'SET_CURRENT_USER',
   setDataRoom: 'SET_DATA_ROOM',
-  setAllowLogin: 'SET_ALLOW_LOGIN'
+  setAllowLogin: 'SET_ALLOW_LOGIN',
+  setStatusLogin: 'SET_STATUS_LOGIN',
+  setStatusRegister: 'SET_STATUS_REGISTER',
 };

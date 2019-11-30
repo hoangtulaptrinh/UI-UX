@@ -8,7 +8,7 @@ export const getApi = (data) => {
   };
   return (dispatch) => {
     axios.get(
-      'http://71acadfd.ngrok.io/api/joined_rooms',
+      'http://6e96c465.ngrok.io/api/joined_rooms',
       config
     ).then((res) => {
       dispatch(setDataRoom(res.data.data))
@@ -27,7 +27,7 @@ export const login = (data) => {
     }
   }
   return (dispatch) => {
-    apiCaller.request_infused_by_data('http://71acadfd.ngrok.io/api/login', 'post', obj)
+    apiCaller.request_infused_by_data('http://6e96c465.ngrok.io/api/login', 'post', obj)
       .then(res => {
         dispatch(setCurrentUser(res.data.data))
       })
@@ -35,11 +35,34 @@ export const login = (data) => {
         dispatch(setAllowLogin(true))
       })
       .catch(error => {
-        console.log(error)
+        console.log(error.response.data.errors)
         dispatch(setAllowLogin(false))
+        dispatch(setStatusLogin(error.response.data.errors))
       });
   }
 }
+
+export const register = (data) => {
+  const obj = {
+    user: {
+      name: data.name,
+      email: data.mail,
+      password: data.pass,
+      password_confirmation: data.repeatPass
+    }
+  };
+  return (dispatch) => {
+    apiCaller.request_infused_by_data('http://6e96c465.ngrok.io/api/signup', 'post', obj)
+      .catch(error => {
+        console.log(error.response.data)
+        dispatch(setStatusRegister(error.response.data.errors))
+      });
+  }
+}
+
+export const setStatusRegister = (data) => { return { type: actionTypes.setStatusRegister, data: data } }
+
+export const setStatusLogin = (data) => { return { type: actionTypes.setStatusLogin, data: data } }
 
 export const setAllowLogin = (data) => { return { type: actionTypes.setAllowLogin, data: data } }
 

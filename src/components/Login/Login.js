@@ -13,9 +13,22 @@ function Login(props) {
     props.setAllowLogin()
     history.push('/App')
   }
+  const letRegister = () => {
+    props.register(userNameRegister.current.value, emailRegister.current.value, passWordRegister.current.value, repeatPassWordRegister.current.value)
+  }
+  //login
   const userNameLogin = useRef();
   const passWordLogin = useRef();
   const checkRememberMe = useRef();
+  //register
+  const userNameRegister = useRef();
+  const emailRegister = useRef();
+  const passWordRegister = useRef();
+  const repeatPassWordRegister = useRef();
+  // error login
+  // if (props.statusLogin.length !== 0) {
+  alert([1, 1, 1, 1, 1].join('\n'))
+  // }
   return (
     <div className='Login' >
       <div className="login-wrap">
@@ -47,22 +60,22 @@ function Login(props) {
             <div className="sign-up-htm">
               <div className="group">
                 <label htmlFor="user" className="label">Username</label>
-                <input id="user" type="text" className="input height" />
-              </div>
-              <div className="group">
-                <label htmlFor="pass" className="label">Password</label>
-                <input id="pass" type="password" className="input height" data-type="password" />
-              </div>
-              <div className="group">
-                <label htmlFor="pass" className="label">Repeat Password</label>
-                <input id="pass" type="password" className="input height" data-type="password" />
+                <input id="user" type="text" className="input height" ref={userNameRegister} />
               </div>
               <div className="group">
                 <label htmlFor="pass" className="label">Email Address</label>
-                <input id="pass" type="text" className="input height" />
+                <input id="pass" type="text" className="input height" ref={emailRegister} />
               </div>
               <div className="group">
-                <input type="submit" className="button height" value="SIGN UP" />
+                <label htmlFor="pass" className="label">Password</label>
+                <input id="pass" type="password" className="input height" data-type="password" ref={passWordRegister} />
+              </div>
+              <div className="group">
+                <label htmlFor="pass" className="label">Repeat Password</label>
+                <input id="pass" type="password" className="input height" data-type="password" ref={repeatPassWordRegister} />
+              </div>
+              <div className="group">
+                <input type="submit" className="button height" value="SIGN UP" onClick={letRegister} />
               </div>
               <div className="hr" />
               <div className="foot-lnk">
@@ -78,13 +91,18 @@ function Login(props) {
 
 const mapStatetoProps = (state) => {
   return {
-    allowLogin: state.allowLogin
+    allowLogin: state.allowLogin,
+    statusLogin: state.statusLogin,
+    statusRegister: state.statusRegister
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (userName, passWord, checkRememberMe) => { dispatch(actions.login({ userName: userName, passWord: passWord, checkRememberMe: checkRememberMe })) },
-    setAllowLogin: () => { dispatch(actions.setAllowLogin(false)) }
+    setAllowLogin: () => { dispatch(actions.setAllowLogin(false)) },
+    register: (name, mail, pass, repeatPass) => { dispatch(actions.register({ name: name, mail: mail, pass: pass, repeatPass: repeatPass })) },
+    setStatusLogin: () => { dispatch(actions.setStatusLogin([])) },
+    setStatusRegister: () => { dispatch(actions.setStatusRegister([])) }
   }
 }
 

@@ -12,6 +12,8 @@ import valueMessage from './valueMessage'
 import listRoom from './listRoom'
 import currentUser from './currentUser'
 import allowLogin from './allowLogin'
+import statusLogin from './statusLogin'
+import statusRegister from './statusRegister'
 
 const myReducer = combineReducers({
   dataRoom: dataRoom,
@@ -25,7 +27,9 @@ const myReducer = combineReducers({
   valueMessage: valueMessage,
   listRoom: listRoom,
   currentUser: currentUser,
-  allowLogin: allowLogin
+  allowLogin: allowLogin,
+  statusLogin: statusLogin,
+  statusRegister: statusRegister
 });
 
 export default myReducer;
