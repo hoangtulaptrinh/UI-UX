@@ -18,9 +18,11 @@ import { Tooltip } from 'reactstrap';
 import ActionCable from 'actioncable';
 
 function ContentRoom(props) {
+  const [joinRoom, isJoinRoom] = useState(false);
   // action cable
-  var messagesCable = {};
+  const [messagesCable, setMessagesCable] = useState({});
   const [messages, setMessages] = useState([]);
+  console.log('ngoai', messages)
   //
   const startListening = () => {
     messagesCable.cable = ActionCable.createConsumer(
@@ -56,7 +58,6 @@ function ContentRoom(props) {
               type: n.type
             }))
             const dataMessages = [...messages, ...mapIdDataToInt]
-            console.log(mapIdDataToInt,data.messages.included)
             setMessages(dataMessages)
           }
         },
@@ -69,6 +70,23 @@ function ContentRoom(props) {
       }
     );
   }
+  //
+  const changeRoom = () => {
+    //TypeError: Cannot read property 'unsubscribe' of undefined 
+    // tức là cái obj chứa unsubscribe bị undefined chứ không phải unsubscribe bị undefined
+    if (props.currentRoom !== -1) {
+      if (joinRoom === true) {
+        messagesCable.channel.unsubscribe();
+      }
+      isJoinRoom(true);
+      setMessages([]);
+    }
+  }
+  //
+  if (props.currentRoom !== -1 && messages.length === 0) {
+    startListening();
+  }
+  //
   // action cable
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const toggle = () => {
@@ -97,11 +115,25 @@ function ContentRoom(props) {
       document.removeEventListener('keydown', sendMessage)
     };
   })
+  //
+  useEffect(
+    () => {
+      changeRoom();
+    },
+    [props.currentRoom]
+  );
+  // useEffect(
+  //   () => {
+  //     if (messages === []) {
+
+  //     }
+  //   },
+  //   [messages]
+  // );
+  //
   const sendMessage = (event) => {
     // valueMessage.trim() loại bỏ khoảng trống để check empty text area
     if (event.keyCode === 13 && !event.shiftKey && valueMessage.trim() !== '' && clickOnInput === true && props.currentRoom !== -1) {
-      startListening();
-      console.log(props.currentRoom)
       props.setSendMessage(props.currentRoom, valueMessage);
       props.setValueMessage('');
       // khi send messenger thì chuyển xuống cuối để đọc tin nhắn mới nhất
