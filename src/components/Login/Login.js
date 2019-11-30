@@ -26,9 +26,15 @@ function Login(props) {
   const passWordRegister = useRef();
   const repeatPassWordRegister = useRef();
   // error login
-  // if (props.statusLogin.length !== 0) {
-  alert([1, 1, 1, 1, 1].join('\n'))
-  // }
+  if (props.statusLogin.length !== 0) {
+    alert(props.statusLogin.join('\n'))
+    props.setStatusLogin()
+  }
+  // error register
+  if (props.statusRegister.length !== 0) {
+    alert(props.statusRegister.join('\n'))
+    props.setStatusRegister()
+  }
   return (
     <div className='Login' >
       <div className="login-wrap">

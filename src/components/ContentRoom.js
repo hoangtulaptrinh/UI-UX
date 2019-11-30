@@ -15,8 +15,12 @@ import marked from 'marked';
 import toBr from 'newline-to-br';
 import PieChart from './Popovers/PieChart'
 import { Tooltip } from 'reactstrap';
+import ActionCable from 'actioncable';
 
 function ContentRoom(props) {
+  // action cable
+
+  // action cable
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const toggle = () => {
     setTooltipOpen(!tooltipOpen);

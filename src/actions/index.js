@@ -8,7 +8,7 @@ export const getApi = (data) => {
   };
   return (dispatch) => {
     axios.get(
-      'http://6e96c465.ngrok.io/api/joined_rooms',
+      'http://192.168.1.189:3000/api/joined_rooms',
       config
     ).then((res) => {
       dispatch(setDataRoom(res.data.data))
@@ -27,7 +27,7 @@ export const login = (data) => {
     }
   }
   return (dispatch) => {
-    apiCaller.request_infused_by_data('http://6e96c465.ngrok.io/api/login', 'post', obj)
+    apiCaller.request_infused_by_data('http://192.168.1.189:3000/api/login', 'post', obj)
       .then(res => {
         dispatch(setCurrentUser(res.data.data))
       })
@@ -52,7 +52,7 @@ export const register = (data) => {
     }
   };
   return (dispatch) => {
-    apiCaller.request_infused_by_data('http://6e96c465.ngrok.io/api/signup', 'post', obj)
+    apiCaller.request_infused_by_data('http://192.168.1.189:3000/api/signup', 'post', obj)
       .catch(error => {
         console.log(error.response.data)
         dispatch(setStatusRegister(error.response.data.errors))
