@@ -19,7 +19,56 @@ import ActionCable from 'actioncable';
 
 function ContentRoom(props) {
   // action cable
-
+  var messagesCable = {};
+  const [messages, setMessages] = useState([]);
+  //
+  const startListening = () => {
+    messagesCable.cable = ActionCable.createConsumer(
+      `http://192.168.1.189:3000/cable?token=${props.currentUser.attributes.authToken}&room_id=${props.currentRoom}`
+    );
+    messagesCable.channel = messagesCable.cable.subscriptions.create(
+      {
+        channel: "MessagesChannel"
+      },
+      {
+        //chạy khi kết nối thành công vs ruby khi component này didMount 
+        connected: () => {
+          if (messages.length === 0) {
+            messagesCable.channel.getInitialMessages(); //lấy tin nhắn mới về
+          }
+        },
+        //chạy khi ruby có gì muốn nói với FE
+        received: data => {
+          if (data.type === "receive" || data.type === "receive_latest") {
+            const mapIdDataToInt = _.map(data.messages.data, n => ({
+              id: parseInt(n.id),
+              attributes: n.attributes,
+              relationships: {
+                room: n.relationships.room,
+                user: {
+                  data: {
+                    id: parseInt(n.relationships.user.data.id),
+                    type: n.relationships.user.data.type,
+                    name: _.find(data.messages.included, { 'id': `${n.relationships.user.data.id}` }).attributes.name
+                  }
+                }
+              },
+              type: n.type
+            }))
+            const dataMessages = [...messages, ...mapIdDataToInt]
+            console.log(mapIdDataToInt,data.messages.included)
+            setMessages(dataMessages)
+          }
+        },
+        //lấy tin nhắn cũ về
+        getInitialMessages: () => {
+          return messagesCable.channel.perform("receive_latest", {
+            total_messages: 20
+          });
+        }
+      }
+    );
+  }
   // action cable
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const toggle = () => {
@@ -47,15 +96,18 @@ function ContentRoom(props) {
     return function cleanup() {
       document.removeEventListener('keydown', sendMessage)
     };
-  });
+  })
   const sendMessage = (event) => {
     // valueMessage.trim() loại bỏ khoảng trống để check empty text area
-    if (event.keyCode === 13 && !event.shiftKey && valueMessage.trim() !== '' && clickOnInput === true) {
+    if (event.keyCode === 13 && !event.shiftKey && valueMessage.trim() !== '' && clickOnInput === true && props.currentRoom !== -1) {
+      startListening();
+      console.log(props.currentRoom)
       props.setSendMessage(props.currentRoom, valueMessage);
       props.setValueMessage('');
       // khi send messenger thì chuyển xuống cuối để đọc tin nhắn mới nhất
       mainRoomRef.current.scrollTop = mainRoomRef.current.scrollHeight
     }
+    props.setValueMessage('');
   }
   const showInfoRoom = () => {
     props.setShowInfoRoom();
@@ -231,7 +283,8 @@ const mapStatetoProps = (state) => {
     arrGif: state.arrGif,
     valueMessage: state.valueMessage,
     dataVietNamLanguage: state.dataVietNamLanguage,
-    changeVietNamLanguage: state.changeVietNamLanguage
+    changeVietNamLanguage: state.changeVietNamLanguage,
+    currentUser: state.currentUser
   }
 }
 const mapDispatchToProps = (dispatch) => {

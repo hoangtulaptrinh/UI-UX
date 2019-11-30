@@ -23,7 +23,6 @@ var myReducer = (state = initialState, action) => {
           Intro: n.attributes.description,
         }
       ))
-      console.log(dataRoom)
       return dataRoom;
 
     default:
