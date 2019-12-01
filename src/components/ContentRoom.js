@@ -20,8 +20,8 @@ import ActionCable from 'actioncable';
 function ContentRoom(props) {
   // action cable
   const [messagesCable] = useState({});
+  const [oneMessages, setOneMessages] = useState([]);
   const [messages, setMessages] = useState([]);
-  console.log('ngoai', messages)
   //
   const startListening = () => {
     messagesCable.cable = ActionCable.createConsumer(
@@ -40,7 +40,7 @@ function ContentRoom(props) {
         },
         //chạy khi ruby có gì muốn nói với FE
         received: data => {
-          if (data.type === "receive" || data.type === "receive_latest") {
+          if (data.type === "receive") {
             const mapIdDataToInt = _.map(data.messages.data, n => ({
               id: parseInt(n.id),
               attributes: n.attributes,
@@ -56,12 +56,10 @@ function ContentRoom(props) {
               },
               type: n.type
             }))
-            console.log('trc receive',messages);
-            setMessages(_.concat(messages, mapIdDataToInt))
-            console.log('sau receive',messages);
+            setOneMessages(mapIdDataToInt)
           }
           ///////////////////
-          if (data.type === "receive" || data.type === "receive_latest") {
+          if (data.type === "receive_latest") {
             const mapIdDataToInt = _.map(data.messages.data, n => ({
               id: parseInt(n.id),
               attributes: n.attributes,
@@ -77,15 +75,17 @@ function ContentRoom(props) {
               },
               type: n.type
             }))
-            console.log('trc receive',messages);
-            setMessages(_.concat(messages, mapIdDataToInt))
-            console.log('sau receive',messages);
+            setMessages(mapIdDataToInt)
+            nextTick(() => {
+              // khi lấy tin nhắn cũ thì chuyển xuống cuối để đọc tin nhắn mới nhất
+              mainRoomRef.current.scrollTop = mainRoomRef.current.scrollHeight
+            })
           }
         },
         //lấy tin nhắn cũ về
         getInitialMessages: () => {
           return messagesCable.channel.perform("receive_latest", {
-            total_messages: 3
+            total_messages: 15
           });
         }
       }
@@ -96,16 +96,14 @@ function ContentRoom(props) {
     //TypeError: Cannot read property 'unsubscribe' of undefined 
     // tức là cái obj chứa unsubscribe bị undefined chứ không phải unsubscribe bị undefined
     if (props.currentRoom !== -1) {
-      // if (messagesCable.channel !== undefined) {
-      //   messagesCable.channel.unsubscribe();
-      // }
-      // setMessages([]);
-      console.log('changeRoom', messages)
+      if (messagesCable.channel !== undefined) {
+        messagesCable.channel.unsubscribe();
+      }
+      setMessages([]);
     }
   }
   //
   if (props.currentRoom !== -1 && messages.length === 0) {
-    console.log('props.currentRoom !== -1 && messages.length === 0')
     startListening();
   }
   //
@@ -140,23 +138,26 @@ function ContentRoom(props) {
   //
   useEffect(
     () => {
-      console.log('use Effect ChangeRoom:',messages)
       changeRoom();
     },
     [props.currentRoom]
   );
   useEffect(
     () => {
-      console.log('use Effect:',messages)
+      setMessages(_.concat(messages, oneMessages))
+      nextTick(() => {
+        // khi nhận đc tin nhắn mới thì chuyển xuống cuối để đọc tin nhắn mới nhất
+        mainRoomRef.current.scrollTop = mainRoomRef.current.scrollHeight
+      })
     },
-    [messages]
+    [oneMessages]
   );
   const sendMessage = (event) => {
     // valueMessage.trim() loại bỏ khoảng trống để check empty text area
     if (event.keyCode === 13 && !event.shiftKey && valueMessage.trim() !== '' && clickOnInput === true && props.currentRoom !== -1) {
-      actions.sendMessage(props.currentUser.attributes.authToken, props.currentRoom, valueMessage);
+      props.letSendMessage(props.currentUser.attributes.authToken, props.currentRoom, valueMessage);
+      props.setValueMessage('');
     }
-    props.setValueMessage('');
   }
   const showInfoRoom = () => {
     props.setShowInfoRoom();
@@ -170,11 +171,6 @@ function ContentRoom(props) {
   const letShowGif = (item) => {
     props.setSendGif(props.currentRoom, item)
     setShowGif(!showGif)
-    //nextTich là hàm call back đợi cho mọi thứ render (virtual dom) xong xuôi hết mới chạy 
-    nextTick(() => {
-      // khi send messenger thì chuyển xuống cuối để đọc tin nhắn mới nhất
-      mainRoomRef.current.scrollTop = mainRoomRef.current.scrollHeight
-    })
   }
   const lightTheme = props.changeTheme;
   return (
@@ -343,6 +339,7 @@ const mapDispatchToProps = (dispatch) => {
     setSendMessage: (nameRoom, message) => { dispatch(actions.setSendMessage({ nameRoom: nameRoom, message: message })) },
     setValueMessage: (data) => { dispatch(actions.setValueMessage(data)) },
     setSendGif: (nameRoom, gif) => { dispatch(actions.setSendGif({ nameRoom: nameRoom, gif: gif })) },
+    letSendMessage: (token, idRoom, value) => { dispatch(actions.letSendMessage({ token: token, idRoom: idRoom, value: value })) }
   }
 }
 export default connect(mapStatetoProps, mapDispatchToProps)(ContentRoom);

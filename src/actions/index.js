@@ -60,16 +60,18 @@ export const register = (data) => {
   }
 }
 
-export const sendMessage = (data) => {
+export const letSendMessage = (data) => {
+  console.log(data.token)
   const obj = {
-    user: {
+    message: {
+      content: data.value
     }
   }
-  return (dispatch) => {
-    apiCaller.request_infused_by_data('http://192.168.1.189:3000/api/login', 'post', obj)
-      .then(res => {
-        dispatch(setCurrentUser(res.data.data))
-      })
+  var config = {
+    headers: { 'Authorization': "Bearer " + data.token }
+  };
+  return () => {
+    axios.post(`http://192.168.1.189:3000/api/rooms/${data.idRoom}/messages`, obj, config)
       .then(res => {
         console.log(res)
       })
