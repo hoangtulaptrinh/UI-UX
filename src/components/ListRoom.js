@@ -31,7 +31,9 @@ function ListRoom(props) {
   const lightTheme = props.changeTheme;
   const logOut = () => {
     history.goBack();
-    props.setCurrentRoom(-1)
+    props.setCurrentRoom(-1);
+    props.setAllowLogin();
+    // props.setCurrentUser();
   }
   return (
     <div
@@ -142,6 +144,8 @@ const mapStatetoProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setCurrentRoom: (data) => { dispatch(actions.setCurrentRoom(data)) },
+    setAllowLogin: () => { dispatch(actions.setAllowLogin(false)) },
+    setCurrentUser: () => { dispatch(actions.setCurrentUser({})) }
   }
 }
 

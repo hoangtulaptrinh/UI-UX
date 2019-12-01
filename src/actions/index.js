@@ -60,6 +60,25 @@ export const register = (data) => {
   }
 }
 
+export const sendMessage = (data) => {
+  const obj = {
+    user: {
+    }
+  }
+  return (dispatch) => {
+    apiCaller.request_infused_by_data('http://192.168.1.189:3000/api/login', 'post', obj)
+      .then(res => {
+        dispatch(setCurrentUser(res.data.data))
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(error => {
+        console.log(error.response.data.errors)
+      });
+  }
+}
+
 export const setStatusRegister = (data) => { return { type: actionTypes.setStatusRegister, data: data } }
 
 export const setStatusLogin = (data) => { return { type: actionTypes.setStatusLogin, data: data } }

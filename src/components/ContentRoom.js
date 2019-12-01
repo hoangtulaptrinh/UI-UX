@@ -18,9 +18,8 @@ import { Tooltip } from 'reactstrap';
 import ActionCable from 'actioncable';
 
 function ContentRoom(props) {
-  const [joinRoom, isJoinRoom] = useState(false);
   // action cable
-  const [messagesCable, setMessagesCable] = useState({});
+  const [messagesCable] = useState({});
   const [messages, setMessages] = useState([]);
   console.log('ngoai', messages)
   //
@@ -57,14 +56,36 @@ function ContentRoom(props) {
               },
               type: n.type
             }))
-            const dataMessages = [...messages, ...mapIdDataToInt]
-            setMessages(dataMessages)
+            console.log('trc receive',messages);
+            setMessages(_.concat(messages, mapIdDataToInt))
+            console.log('sau receive',messages);
+          }
+          ///////////////////
+          if (data.type === "receive" || data.type === "receive_latest") {
+            const mapIdDataToInt = _.map(data.messages.data, n => ({
+              id: parseInt(n.id),
+              attributes: n.attributes,
+              relationships: {
+                room: n.relationships.room,
+                user: {
+                  data: {
+                    id: parseInt(n.relationships.user.data.id),
+                    type: n.relationships.user.data.type,
+                    name: _.find(data.messages.included, { 'id': `${n.relationships.user.data.id}` }).attributes.name
+                  }
+                }
+              },
+              type: n.type
+            }))
+            console.log('trc receive',messages);
+            setMessages(_.concat(messages, mapIdDataToInt))
+            console.log('sau receive',messages);
           }
         },
         //lấy tin nhắn cũ về
         getInitialMessages: () => {
           return messagesCable.channel.perform("receive_latest", {
-            total_messages: 20
+            total_messages: 3
           });
         }
       }
@@ -75,15 +96,16 @@ function ContentRoom(props) {
     //TypeError: Cannot read property 'unsubscribe' of undefined 
     // tức là cái obj chứa unsubscribe bị undefined chứ không phải unsubscribe bị undefined
     if (props.currentRoom !== -1) {
-      if (joinRoom === true) {
-        messagesCable.channel.unsubscribe();
-      }
-      isJoinRoom(true);
-      setMessages([]);
+      // if (messagesCable.channel !== undefined) {
+      //   messagesCable.channel.unsubscribe();
+      // }
+      // setMessages([]);
+      console.log('changeRoom', messages)
     }
   }
   //
   if (props.currentRoom !== -1 && messages.length === 0) {
+    console.log('props.currentRoom !== -1 && messages.length === 0')
     startListening();
   }
   //
@@ -118,26 +140,21 @@ function ContentRoom(props) {
   //
   useEffect(
     () => {
+      console.log('use Effect ChangeRoom:',messages)
       changeRoom();
     },
     [props.currentRoom]
   );
-  // useEffect(
-  //   () => {
-  //     if (messages === []) {
-
-  //     }
-  //   },
-  //   [messages]
-  // );
-  //
+  useEffect(
+    () => {
+      console.log('use Effect:',messages)
+    },
+    [messages]
+  );
   const sendMessage = (event) => {
     // valueMessage.trim() loại bỏ khoảng trống để check empty text area
     if (event.keyCode === 13 && !event.shiftKey && valueMessage.trim() !== '' && clickOnInput === true && props.currentRoom !== -1) {
-      props.setSendMessage(props.currentRoom, valueMessage);
-      props.setValueMessage('');
-      // khi send messenger thì chuyển xuống cuối để đọc tin nhắn mới nhất
-      mainRoomRef.current.scrollTop = mainRoomRef.current.scrollHeight
+      actions.sendMessage(props.currentUser.attributes.authToken, props.currentRoom, valueMessage);
     }
     props.setValueMessage('');
   }
@@ -198,14 +215,14 @@ function ContentRoom(props) {
       >
         {
           props.currentRoom !== -1 ?
-            _.map(_.find(props.dataRoom, { id: props.currentRoom }).data, (item, index) =>
+            _.map(messages, (item, index) =>
               <div className='Chat-Message' key={index} >
                 <div
                   className={classNames('Custom-Container', {
                     CustomContainerLightTheme: lightTheme === true
                   })}
                 >
-                  <img src={item.avatar} alt='Img-User' href="#" id="TooltipExample" />
+                  <img src={'https://i.imgur.com/VjnUSxab.jpg'} alt='Img-User' href="#" id="TooltipExample" />
                   <Tooltip className='Tooltip' placement="right" isOpen={tooltipOpen} target="TooltipExample" toggle={toggle}>
                     <div className='Info-User-On-Chat'>
                     </div>
@@ -216,14 +233,15 @@ function ContentRoom(props) {
                     })}
                   >
                     <div className='Name-Time'>
-                      <p className='Name'>{item.name}</p>
-                      <p className='Time'>{item.time}</p>
+                      <p className='Name'>{item.relationships.user.data.name}</p>
+                      <p className='Time'>{item.attributes.created_at}</p>
                     </div>
                     {
-                      item.message !== undefined ?
-                        <div className='Show-Message' dangerouslySetInnerHTML={{ __html: toBr(marked(item.message)) }} />
+                      item.attributes.content !== '' ?
+                        <div className='Show-Message' dangerouslySetInnerHTML={{ __html: toBr(marked(item.attributes.content)) }} />
                         :
-                        <img src={item.gif} alt='gif' />
+                        null
+                      // <img src={item.gif} alt='gif' />
                     }
                   </div>
                 </div>
@@ -324,7 +342,7 @@ const mapDispatchToProps = (dispatch) => {
     setShowInfoRoom: () => { dispatch(actions.setShowInfoRoom()) },
     setSendMessage: (nameRoom, message) => { dispatch(actions.setSendMessage({ nameRoom: nameRoom, message: message })) },
     setValueMessage: (data) => { dispatch(actions.setValueMessage(data)) },
-    setSendGif: (nameRoom, gif) => { dispatch(actions.setSendGif({ nameRoom: nameRoom, gif: gif })) }
+    setSendGif: (nameRoom, gif) => { dispatch(actions.setSendGif({ nameRoom: nameRoom, gif: gif })) },
   }
 }
 export default connect(mapStatetoProps, mapDispatchToProps)(ContentRoom);
