@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './ListRoom.css';
 import _ from 'lodash'
-import { MdWork } from 'react-icons/md';
-import { FaCircle } from 'react-icons/fa';
+import { MdWork, MdMovie } from 'react-icons/md';
+import { FaBook, FaMusic } from 'react-icons/fa';
 import { GiLargeDress, GiMusicalNotes } from 'react-icons/gi'
 import classNames from 'classnames'
 import AddMember from './Modal/AddMember'
@@ -11,6 +11,7 @@ import * as actions from '../actions/index';
 import { useHistory } from "react-router-dom";
 import CreateRoom from './Modal/CreateRoom'
 import ChangeInfo from './Modal/ChangeInfo'
+import { IoLogoGameControllerB } from 'react-icons/io';
 
 function ListRoom(props) {
   let history = useHistory();
@@ -48,7 +49,10 @@ function ListRoom(props) {
         })}
       >
         <div className='Top-Top'>
-          <div className='Top-Header-ListRoom'>
+          <div
+            className={classNames('Top-Header-ListRoom', {
+              TopHeaderListRoomLightTheme: lightTheme === false,
+            })}>
             <h4>ddtsoft</h4>
           </div>
           <div className='LogOut' onClick={logOut} >
@@ -65,7 +69,7 @@ function ListRoom(props) {
             <ChangeInfo />
           </div>
           <div className='Bot-Header-ListRoom-Name'>
-            <FaCircle className='Icon-Circle' />
+            {/* <FaCircle className='Icon-Circle' /> */}
             <h6>{props.currentUser.attributes.name}</h6>
           </div>
         </div>
@@ -93,7 +97,11 @@ function ListRoom(props) {
           </div>
         </div>
 
-        <div className='Show-ListRoom'>
+        <div
+          className={classNames('Show-ListRoom', {
+            ShowListRoomLightTheme: lightTheme === false,
+          })}
+          id='scroll-show-list-room'>
           {
             _.map(ListRoomArr, (item, index) =>
               <div
@@ -111,15 +119,28 @@ function ListRoom(props) {
                   })}
                 >
                   {
-                    item.type === 'Work' ?
+                    item.type === 'work' ?
                       <MdWork className='Icon-Left' />
                       :
-                      item.type === 'Shopping' ?
+                      item.type === 'shopping' ?
                         <GiLargeDress className='Icon-Left' />
                         :
-                        item.type === 'Party' ?
+                        item.type === 'party' ?
                           <GiMusicalNotes />
-                          : null
+                          :
+                          item.type === 'study' ?
+                            <FaBook className='Icon-Left' />
+                            :
+                            item.type === 'game' ?
+                              <IoLogoGameControllerB className='Icon-Left' />
+                              :
+                              item.type === 'music' ?
+                                <FaMusic className='Icon-Left' />
+                                :
+                                item.type === 'movie' ?
+                                  <MdMovie className='Icon-Left' />
+                                  :
+                                  null
                   }
                   <div className='NameRoom'>
                     {item.nameRoom}

@@ -16,6 +16,7 @@ import statusLogin from './statusLogin'
 import statusRegister from './statusRegister'
 import allowRegister from './allowRegister'
 import reRender from './reRender'
+import allUser from './allUser'
 
 const myReducer = combineReducers({
   dataRoom: dataRoom,
@@ -33,7 +34,8 @@ const myReducer = combineReducers({
   statusLogin: statusLogin,
   statusRegister: statusRegister,
   allowRegister: allowRegister,
-  reRender: reRender
+  reRender: reRender,
+  allUser: allUser
 });
 
 export default myReducer;

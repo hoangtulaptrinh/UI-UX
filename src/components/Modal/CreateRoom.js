@@ -13,14 +13,21 @@ const CreateRoom = (props) => {
 
   const [modal, setModal] = useState(false);
 
-  const [roomType, setRoomType] = useState('Room Type');
-
   const toggle = () => setModal(!modal);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle1 = () => setDropdownOpen(prevState => !prevState);
-
+  var NameRoom, Description, RoomType;
+  if (props.changeVietNamLanguage === true) {
+    NameRoom = 'Name Room'
+    Description = 'Description'
+  }
+  if (props.changeVietNamLanguage === false) {
+    NameRoom = 'Tên Phòng'
+    Description = 'Miêu Tả Qua Về Phòng'
+  }
+  const [roomType, setRoomType] = useState('Room Type');
   const lightTheme = props.changeTheme;
   return (
     <div>
@@ -32,8 +39,8 @@ const CreateRoom = (props) => {
               FormLightTheme: lightTheme === false,
             })}
           >
-            <input type="text" placeholder="name room" />
-            <input type="text" placeholder="description" />
+            <input type="text" placeholder={NameRoom} />
+            <input type="text" placeholder={Description} />
             <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
               <DropdownToggle className='Drop-Down' caret>
                 {roomType}
@@ -52,13 +59,21 @@ const CreateRoom = (props) => {
                   toggle1()
                 }}>Party</div>
                 <div className='type-type' onClick={() => {
-                  setRoomType('Movie')
+                  setRoomType('Study')
                   toggle1()
-                }}>Movie</div>
+                }}>Study</div>
+                <div className='type-type' onClick={() => {
+                  setRoomType('Game')
+                  toggle1()
+                }}>Game</div>
                 <div className='type-type' onClick={() => {
                   setRoomType('Music')
                   toggle1()
                 }}>Music</div>
+                <div className='type-type' onClick={() => {
+                  setRoomType('Movie')
+                  toggle1()
+                }}>Movie</div>
               </DropdownMenu>
             </Dropdown>
             <button

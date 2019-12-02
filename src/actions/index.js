@@ -2,7 +2,7 @@ import actionTypes from '../const/actionTypes';
 import * as apiCaller from '../components/Api/apiCaller'
 import axios from 'axios'
 
-export const base_link = 'http://480b1c27.ngrok.io/';
+export const base_link = 'http://5808d5ce.ngrok.io/';
 
 export const getApi = (data) => {
   var config = {
@@ -37,16 +37,31 @@ export const getRoomMember = (data) => {
 }
 
 export const addMemberToThisRoom = (data) => {
+  const obj = {
+    invite: {
+      user_id: data.idUser
+    }
+  }
   var config = {
     headers: { 'Authorization': "Bearer " + data.token }
   };
   return (dispatch) => {
+    axios.post(
+      `${base_link}api/rooms/${data.idRoom}/invite`, obj, config)
+      .then((res) => {
+        console.log(res)
+      }).catch((error) => {
+        console.log(error)
+      });
+  }
+}
+
+export const getAllUsers = () => {
+  return (dispatch) => {
     axios.get(
-      `${base_link}api/rooms/${data.idRoom}/invite`,
-      config
+      `${base_link}api/users`,
     ).then((res) => {
-      // dispatch(addMemberToRoom(res.data.data, data.idRoom))
-      console.log(res)
+      dispatch(setAllUser(res.data.data))
     }).catch((error) => {
       console.log(error)
     });
@@ -114,6 +129,8 @@ export const letSendMessage = (data) => {
       });
   }
 }
+
+export const setAllUser = (data) => { return { type: actionTypes.setAllUser, data: data } }
 
 export const addMemberToRoom = (data, idRoom) => { return { type: actionTypes.addMemberToRoom, data: data, idRoom: idRoom } }
 

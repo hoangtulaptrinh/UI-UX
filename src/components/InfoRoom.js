@@ -10,7 +10,7 @@ function InfoRoom(props) {
   const testRef = useRef();
   const [indexDiv, setIndexDiv] = useState(-1);
   const [divStyle, setdivStyle] = useState({});
-  var ListRoomArr;;
+  var ListRoomArr;
   if (props.currentRoom === -1) {
     ListRoomArr = []
   }

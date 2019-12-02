@@ -4,8 +4,8 @@
 	background:#c8c8c8d2;
   font:600 16px/18px 'Open Sans',sans-serif;
   height: 100vh;
-  background:url(https://initiate.alphacoders.com/images/705/cropped-1366-768-705599.jpg?4453) no-repeat center;
-}
+  background:url(../../img/naruto_hinata.jpg) no-repeat center;
+}jpg
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
 .clearfix:after{clear:both;display:block}

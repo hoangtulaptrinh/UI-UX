@@ -1,22 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { MdPersonAdd } from 'react-icons/md';
+import { MdPersonAdd, MdBeenhere } from 'react-icons/md';
 import { IoMdPersonAdd } from 'react-icons/io'
 import './AddMember.css'
 import classNames from 'classnames'
 import { connect } from 'react-redux';
+import * as actions from '../../actions/index';
+import _ from 'lodash'
 
 const AddMember = (props) => {
   const {
     className
   } = props;
-
   const [modal, setModal] = useState(false);
-
+  useEffect(
+    () => {
+      if (modal === true) {
+        props.getAllUsers()
+        console.log('Get User')
+      }
+    },
+    [modal]
+  );
+  var listUser;
+  if (props.currentRoom === -1) {
+    listUser = [];
+  }
+  if (props.currentRoom !== -1) {
+    const fullUser = _.map(props.allUser, n => ({
+      id: parseInt(n.id),
+      name: n.attributes.name
+    }))
+    const fullIdUser = _.map(props.allUser, n => parseInt(n.id))
+    const idUserOnThisRoom = _.map(_.find(props.dataRoom, { id: props.currentRoom }).Member, item => parseInt(item.id))
+    _.remove(fullIdUser, i => _.includes(idUserOnThisRoom, i));
+    listUser = _.map(fullUser, user => ({
+      id: user.id,
+      name: user.name,
+      onThisRoom: _.includes(fullIdUser, user.id)
+    }))
+  }
   const toggle = () => setModal(!modal);
   const lightTheme = props.changeTheme;
-  // console.log(props.currentUser.attributes.authToken)
-  // console.log(props.currentRoom)
+  const addThisMemberToThisRoom = (idUser) => {
+    props.addMemberToThisRoom(props.currentUser.attributes.authToken, idUser, props.currentRoom)
+  }
   return (
     <div className='Model-AddMember'>
       <MdPersonAdd onClick={toggle}
@@ -58,20 +86,35 @@ const AddMember = (props) => {
               ArrListMemberLightTheme: lightTheme === true,
             })}
             id="scrollbarAddMember">
-            <div className='Member-To-Add'>
-              <div className='User-Add-Member'>
-                <div className='Img-Member-To-Add'>
-                  <img src='https://i.imgur.com/VjnUSxab.jpg' alt='Add-Img-User' />
+            {listUser.length !== 0 ?
+              _.map(listUser, (item, index) =>
+                <div className='Member-To-Add' key={index}>
+                  <div className='User-Add-Member'>
+                    <div className='Img-Member-To-Add'>
+                      <img src='https://i.imgur.com/VjnUSxab.jpg' alt='Add-Img-User' />
+                    </div>
+                    <div className='Name-Member-To-Add'>
+                      {item.name}
+                    </div>
+                  </div>
+                  {item.onThisRoom === true ?
+                    <IoMdPersonAdd
+                      className={classNames('Icon-AddMember', {
+                        IconAddMemberLightTheme: lightTheme === true,
+                      })}
+                      onClick={() => addThisMemberToThisRoom(item.id)}
+                    />
+                    :
+                    <MdBeenhere
+                      className={classNames('Icon-OnThisRoom', {
+                        IconAddMemberLightTheme: lightTheme === true,
+                      })} />
+                  }
                 </div>
-                <div className='Name-Member-To-Add'>
-                  Member
-              </div>
-              </div>
-              <IoMdPersonAdd
-                className={classNames('Icon-AddMember', {
-                  IconAddMemberLightTheme: lightTheme === true,
-                })} />
-            </div>
+              )
+              :
+              null
+            }
           </div>
         </ModalBody>
       </Modal>
@@ -81,12 +124,22 @@ const AddMember = (props) => {
 
 const mapStatetoProps = (state) => {
   return {
+    dataRoom: state.dataRoom,
     changeTheme: state.changeTheme,
     dataVietNamLanguage: state.dataVietNamLanguage,
     changeVietNamLanguage: state.changeVietNamLanguage,
     currentUser: state.currentUser,
     currentRoom: state.currentRoom,
+    allUser: state.allUser,
+    reRender: state.reRender
   }
 }
 
-export default connect(mapStatetoProps)(AddMember);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAllUsers: () => { dispatch(actions.getAllUsers()) },
+    addMemberToThisRoom: (token, idUser, idRoom) => { dispatch(actions.addMemberToThisRoom({ token: token, idUser: idUser, idRoom: idRoom })) }
+  }
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(AddMember);

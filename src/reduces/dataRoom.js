@@ -9,12 +9,11 @@ var myReducer = (state = initialState, action) => {
       return state;
 
     case actionTypes.setDataRoom:
-      action.data[0].attributes.name = 'Work'
       const dataRoom = _.map(action.data, (n) => (
         {
           id: parseInt(n.id),
           nameRoom: n.attributes.name,
-          type: 'Work',
+          type: n.attributes.room_type,
           numberNotificationUnRead: n.attributes.unread,
           Intro: n.attributes.description,
           Member: []

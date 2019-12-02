@@ -1,14 +1,12 @@
 import actionTypes from '../const/actionTypes';
 
-var initialState = false;
+var initialState = [];
+
 var myReducer = (state = initialState, action) => {
   switch (action.type) {
-
-    case actionTypes.addMemberToRoom:
-      return !state;
-
     case actionTypes.setAllUser:
-      return !state;
+      return state = action.data;
+
     default:
       return state;
   }
