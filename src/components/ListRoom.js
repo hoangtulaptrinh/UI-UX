@@ -9,6 +9,8 @@ import AddMember from './Modal/AddMember'
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import { useHistory } from "react-router-dom";
+import CreateRoom from './Modal/CreateRoom'
+import ChangeInfo from './Modal/ChangeInfo'
 
 function ListRoom(props) {
   let history = useHistory();
@@ -33,7 +35,6 @@ function ListRoom(props) {
     history.goBack();
     props.setCurrentRoom(-1);
     props.setAllowLogin();
-    // props.setCurrentUser();
   }
   return (
     <div
@@ -46,21 +47,40 @@ function ListRoom(props) {
           HeaderListRoomLightTheme: lightTheme === true,
         })}
       >
-        <div>
+        <div className='Top-Top'>
           <div className='Top-Header-ListRoom'>
             <h4>ddtsoft</h4>
           </div>
-          <div className='Bot-Header-ListRoom'>
+          <div className='LogOut' onClick={logOut} >
+            {
+              props.changeVietNamLanguage ?
+                <p>Log Out</p>
+                :
+                <p>{props.dataVietNamLanguage.LogOut}</p>
+            }
+          </div>
+        </div>
+        <div className='Bot-Bot'>
+          <div className='Bot-Header-ListRoom-Img'>
+            <ChangeInfo />
+          </div>
+          <div className='Bot-Header-ListRoom-Name'>
             <FaCircle className='Icon-Circle' />
             <h6>{props.currentUser.attributes.name}</h6>
           </div>
         </div>
-        <div className='LogOut' onClick={logOut} >
-          Log-Out
-        </div>
       </div>
 
       <div className='Body-ListRoom'>
+        <div className='create-room'>
+          <CreateRoom />
+          {
+            props.changeVietNamLanguage ?
+              <p>Create A New Room</p>
+              :
+              <p>{props.dataVietNamLanguage.CreateANewRoom}</p>
+          }
+        </div>
         <div className="wrapper">
           <div className="search-icon">
             <input
@@ -138,7 +158,9 @@ const mapStatetoProps = (state) => {
     changeTheme: state.changeTheme,
     listRoom: state.listRoom,
     currentRoom: state.currentRoom,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    dataVietNamLanguage: state.dataVietNamLanguage,
+    changeVietNamLanguage: state.changeVietNamLanguage,
   }
 }
 const mapDispatchToProps = (dispatch) => {

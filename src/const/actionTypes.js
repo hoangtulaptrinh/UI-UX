@@ -12,4 +12,6 @@ export default {
   setAllowLogin: 'SET_ALLOW_LOGIN',
   setStatusLogin: 'SET_STATUS_LOGIN',
   setStatusRegister: 'SET_STATUS_REGISTER',
+  setAllowRegister: 'SET_ALLOW_REGISTER',
+  addMemberToRoom:'ADD_MEMBER_TO_ROOM'
 };

@@ -1,10 +1,20 @@
-import React, { useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './Login.css'
 import { useHistory } from "react-router-dom";
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 
 function Login(props) {
+  useEffect(() => {
+    props.setCurrentUser();
+  }, [])
+  //register
+  useEffect(() => {
+    if (props.statusRegister.length !== 0) {
+      alert(props.statusRegister.join('\n'))
+      props.setStatusRegister()
+    }
+  }, [props.statusRegister])
   let history = useHistory();
   function handleClick() {
     props.login(userNameLogin.current.value, passWordLogin.current.value, checkRememberMe.current.checked)
@@ -12,6 +22,10 @@ function Login(props) {
   if (props.allowLogin === true) {
     props.setAllowLogin()
     history.push('/App')
+  }
+  if (props.allowRegister === true) {
+    alert('dang ky thanh cong moi ban dang nhap')
+    props.setAllowRegister();
   }
   const letRegister = () => {
     props.register(userNameRegister.current.value, emailRegister.current.value, passWordRegister.current.value, repeatPassWordRegister.current.value)
@@ -31,10 +45,6 @@ function Login(props) {
     props.setStatusLogin()
   }
   // error register
-  if (props.statusRegister.length !== 0) {
-    alert(props.statusRegister.join('\n'))
-    props.setStatusRegister()
-  }
   return (
     <div className='Login' >
       <div className="login-wrap">
@@ -99,7 +109,9 @@ const mapStatetoProps = (state) => {
   return {
     allowLogin: state.allowLogin,
     statusLogin: state.statusLogin,
-    statusRegister: state.statusRegister
+    statusRegister: state.statusRegister,
+    currentUser: state.currentUser,
+    allowRegister: state.allowRegister
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -108,7 +120,9 @@ const mapDispatchToProps = (dispatch) => {
     setAllowLogin: () => { dispatch(actions.setAllowLogin(false)) },
     register: (name, mail, pass, repeatPass) => { dispatch(actions.register({ name: name, mail: mail, pass: pass, repeatPass: repeatPass })) },
     setStatusLogin: () => { dispatch(actions.setStatusLogin([])) },
-    setStatusRegister: () => { dispatch(actions.setStatusRegister([])) }
+    setStatusRegister: () => { dispatch(actions.setStatusRegister([])) },
+    setCurrentUser: () => { dispatch(actions.setCurrentUser({})) },
+    setAllowRegister: () => { dispatch(actions.setAllowRegister(false)) },
   }
 }
 

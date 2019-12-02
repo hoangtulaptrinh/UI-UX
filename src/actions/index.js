@@ -2,16 +2,51 @@ import actionTypes from '../const/actionTypes';
 import * as apiCaller from '../components/Api/apiCaller'
 import axios from 'axios'
 
+export const base_link = 'http://480b1c27.ngrok.io/';
+
 export const getApi = (data) => {
   var config = {
     headers: { 'Authorization': "Bearer " + data.attributes.authToken }
   };
   return (dispatch) => {
     axios.get(
-      'http://192.168.1.189:3000/api/joined_rooms',
+      `${base_link}api/joined_rooms`,
       config
     ).then((res) => {
       dispatch(setDataRoom(res.data.data))
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
+}
+
+export const getRoomMember = (data) => {
+  var config = {
+    headers: { 'Authorization': "Bearer " + data.token }
+  };
+  return (dispatch) => {
+    axios.get(
+      `${base_link}api/rooms/${data.idRoom}/room_members`,
+      config
+    ).then((res) => {
+      dispatch(addMemberToRoom(res.data.data, data.idRoom))
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
+}
+
+export const addMemberToThisRoom = (data) => {
+  var config = {
+    headers: { 'Authorization': "Bearer " + data.token }
+  };
+  return (dispatch) => {
+    axios.get(
+      `${base_link}api/rooms/${data.idRoom}/invite`,
+      config
+    ).then((res) => {
+      // dispatch(addMemberToRoom(res.data.data, data.idRoom))
+      console.log(res)
     }).catch((error) => {
       console.log(error)
     });
@@ -27,7 +62,7 @@ export const login = (data) => {
     }
   }
   return (dispatch) => {
-    apiCaller.request_infused_by_data('http://192.168.1.189:3000/api/login', 'post', obj)
+    apiCaller.request_infused_by_data(`${base_link}api/login`, 'post', obj)
       .then(res => {
         dispatch(setCurrentUser(res.data.data))
       })
@@ -52,7 +87,10 @@ export const register = (data) => {
     }
   };
   return (dispatch) => {
-    apiCaller.request_infused_by_data('http://192.168.1.189:3000/api/signup', 'post', obj)
+    apiCaller.request_infused_by_data(`${base_link}api/signup`, 'post', obj)
+      .then(res => {
+        dispatch(setAllowRegister(true))
+      })
       .catch(error => {
         console.log(error.response.data)
         dispatch(setStatusRegister(error.response.data.errors))
@@ -61,7 +99,6 @@ export const register = (data) => {
 }
 
 export const letSendMessage = (data) => {
-  console.log(data.token)
   const obj = {
     message: {
       content: data.value
@@ -71,21 +108,22 @@ export const letSendMessage = (data) => {
     headers: { 'Authorization': "Bearer " + data.token }
   };
   return () => {
-    axios.post(`http://192.168.1.189:3000/api/rooms/${data.idRoom}/messages`, obj, config)
-      .then(res => {
-        console.log(res)
-      })
+    axios.post(`${base_link}api/rooms/${data.idRoom}/messages`, obj, config)
       .catch(error => {
         console.log(error.response.data.errors)
       });
   }
 }
 
+export const addMemberToRoom = (data, idRoom) => { return { type: actionTypes.addMemberToRoom, data: data, idRoom: idRoom } }
+
 export const setStatusRegister = (data) => { return { type: actionTypes.setStatusRegister, data: data } }
 
 export const setStatusLogin = (data) => { return { type: actionTypes.setStatusLogin, data: data } }
 
 export const setAllowLogin = (data) => { return { type: actionTypes.setAllowLogin, data: data } }
+
+export const setAllowRegister = (data) => { return { type: actionTypes.setAllowRegister, data: data } }
 
 export const setDataRoom = (data) => { return { type: actionTypes.setDataRoom, data: data } }
 

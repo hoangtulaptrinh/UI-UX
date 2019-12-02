@@ -6,11 +6,29 @@
 }
 .Header-ListRoom{
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   background-color:rgba(34, 34, 37, 0.5);
   height: 10vh;
   padding: 5px 10px 5px 10px;
+}
+.Top-Top{
+  display: flex;
+  justify-content: space-between;
+}
+.Bot-Bot{
+  display: flex;
+  justify-content: space-between;
+}
+.Bot-Header-ListRoom-Name{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85px;
+}
+.Bot-Header-ListRoom-Name > h6{
+  margin: 0;
+}
+.Icon-Circle{
 }
 input {
   width: 450px;
@@ -46,8 +64,8 @@ input {
 	border-right:2px solid #ddd;
   height:45px;
   background:#ddd;
-  left: 4.5%;
-  top: 50px;
+  left: 0.5%;
+  top: 65px;
   transform: rotate(-45deg);
 	box-shadow: 0 1px 2px 1px rgba(239, 33, 85, .5);
 }
@@ -130,9 +148,6 @@ input {
   display: flex;
   color: rgb(0, 108, 250);
 }
-.Top-Header-ListRoom > h4{
-  padding-left: 17px;
-}
 .Bot-Header-ListRoom{
   display: flex;
   align-items: center;
@@ -168,4 +183,16 @@ input {
 }
 .LogOut{
   cursor: pointer;
+}
+.create-room{
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 30px;
+}
+.create-room > p{
+  font-size: 18px;
+  margin: 0;
+  padding-top: 1px;
 }

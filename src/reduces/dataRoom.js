@@ -4,12 +4,8 @@ import _ from 'lodash'
 var initialState = []
 var myReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.setSendMessage:
-      // state[_.findIndex(state, { id: action.data.nameRoom })].data.push({ avatar: 'https://i.imgur.com/VjnUSxab.jpg', name: 'Hinataaaaaaa', time: 'Today at 4:45 PM', message: action.data.message, level: 'Member' });
-      return state;
-
-    case actionTypes.setSendGif:
-      // state[_.findIndex(state, { id: action.data.nameRoom })].data.push({ avatar: 'https://i.imgur.com/VjnUSxab.jpg', name: 'Hinataaaaaaa', time: 'Today at 4:45 PM', gif: action.data.gif, level: 'Member' });
+    case actionTypes.addMemberToRoom:
+      _.find(state, { id: action.idRoom }).Member = action.data
       return state;
 
     case actionTypes.setDataRoom:
@@ -21,6 +17,7 @@ var myReducer = (state = initialState, action) => {
           type: 'Work',
           numberNotificationUnRead: n.attributes.unread,
           Intro: n.attributes.description,
+          Member: []
         }
       ))
       return dataRoom;

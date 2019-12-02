@@ -330,3 +330,12 @@
   border: solid 1px red;
   background: none !important;
 }
+.No-Room{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.No-Room > p{
+  font-size: 35px;
+}

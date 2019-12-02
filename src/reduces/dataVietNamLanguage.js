@@ -6,7 +6,10 @@ var initialState = {
   Member: 'Thành Viên',
   AddMemberToThisRoom: 'Thêm Nhân Viên Vào Phòng Này',
   CurrentNumberOfPeopleInTheRoom: 'Số Người Hiện Tại Trong Phòng',
-  OnlinePeople: 'Số Người Trực Tuyến'
+  OnlinePeople: 'Số Người Trực Tuyến',
+  YouHaveNotEnteredAnyRoomYet:'Bạn chưa vào phòng Nào',
+  LogOut:'Đăng Xuất',
+  CreateANewRoom:'Tạo Phòng Mới'
 };
 var myReducer = (state = initialState, action) => {
   switch (action.type) {

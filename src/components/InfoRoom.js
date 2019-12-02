@@ -10,16 +10,16 @@ function InfoRoom(props) {
   const testRef = useRef();
   const [indexDiv, setIndexDiv] = useState(-1);
   const [divStyle, setdivStyle] = useState({});
-  var ListRoomArr;
+  var ListRoomArr;;
   if (props.currentRoom === -1) {
     ListRoomArr = []
   }
   if (props.currentRoom !== -1) {
-    ListRoomArr = _.uniqBy(_.map(_.find(props.dataRoom, { id: props.currentRoom }).data, (item) => ({
-      avatar: item.avatar,
-      name: item.name,
-      level: item.level
-    })), 'name');
+    ListRoomArr = _.map(_.find(props.dataRoom, { id: props.currentRoom }).Member, (item) => ({
+      avatar: 'https://i.imgur.com/VjnUSxab.jpg',
+      name: item.attributes.name,
+      level: item.attributes.level
+    }))
   }
   const lightTheme = props.changeTheme;
   const showInfoDiv = (e, index) => {
@@ -84,12 +84,12 @@ function InfoRoom(props) {
 
               <div className='User-InfoRoom'>
                 <div className='Avatar-InfoRoom' ref={testRef}>
-                  <img src={_.filter(ListRoomArr, { level: 'Admin' })[0].avatar} alt='Img-User'
+                  <img src={_.filter(ListRoomArr, { level: 'admin' })[0].avatar} alt='Img-User'
                     onClick={(e) => showInfoDiv(e, 99999)}
                   />
                 </div>
                 <div className='Name-User-InfoRoom'>
-                  <p>{_.filter(ListRoomArr, { level: 'Admin' })[0].name}</p>
+                  <p>{_.filter(ListRoomArr, { level: 'admin' })[0].name}</p>
                 </div>
                 <div
                   className={classNames('AhihiTest', {
@@ -97,9 +97,9 @@ function InfoRoom(props) {
                   })}
                   style={divStyle}>
                   <div className='Top'>
-                    <img src={_.filter(ListRoomArr, { level: 'Admin' })[0].avatar} alt='Img-User' />
+                    <img src={_.filter(ListRoomArr, { level: 'admin' })[0].avatar} alt='Img-User' />
                     <div className='name-show-info'>
-                      <p>{_.filter(ListRoomArr, { level: 'Admin' })[0].name}</p>
+                      <p>{_.filter(ListRoomArr, { level: 'admin' })[0].name}</p>
                       <p
                         className={classNames('levelAdmin', {
                           levelAdminLightTheme: lightTheme === true,
@@ -130,7 +130,7 @@ function InfoRoom(props) {
             ListRoomArr.length !== 0 ?
 
               <div className='Member' >
-                {_.map(_.filter(ListRoomArr, { level: 'Member' }), (item, index) =>
+                {_.map(_.filter(ListRoomArr, { level: 'member' }), (item, index) =>
                   <div className='User-InfoRoom' key={index} >
                     <div className='Avatar-InfoRoom'>
                       <img src={item.avatar} alt='Img-User' onClick={(e) => showInfoDiv(e, index)} />
@@ -163,7 +163,6 @@ function InfoRoom(props) {
               :
               null
           }
-
         </div>
       </div>
     </div>
@@ -177,7 +176,8 @@ const mapStatetoProps = (state) => {
     showInfoRoom: state.showInfoRoom,
     changeTheme: state.changeTheme,
     dataVietNamLanguage: state.dataVietNamLanguage,
-    changeVietNamLanguage: state.changeVietNamLanguage
+    changeVietNamLanguage: state.changeVietNamLanguage,
+    reRender: state.reRender
   }
 }
 

@@ -24,8 +24,9 @@ function ContentRoom(props) {
   const [messages, setMessages] = useState([]);
   //
   const startListening = () => {
+    console.log("Kết Nối Với Phòng: ", props.currentRoom);
     messagesCable.cable = ActionCable.createConsumer(
-      `http://192.168.1.189:3000/cable?token=${props.currentUser.attributes.authToken}&room_id=${props.currentRoom}`
+      `${actions.base_link}cable?token=${props.currentUser.attributes.authToken}&room_id=${props.currentRoom}`
     );
     messagesCable.channel = messagesCable.cable.subscriptions.create(
       {
@@ -98,14 +99,12 @@ function ContentRoom(props) {
     if (props.currentRoom !== -1) {
       if (messagesCable.channel !== undefined) {
         messagesCable.channel.unsubscribe();
+        console.log("Ngắt Kết Nối");
       }
       setMessages([]);
     }
   }
   //
-  if (props.currentRoom !== -1 && messages.length === 0) {
-    startListening();
-  }
   //
   // action cable
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -139,6 +138,9 @@ function ContentRoom(props) {
   useEffect(
     () => {
       changeRoom();
+      if (props.currentRoom !== -1) {
+        props.getRoomMember(props.currentUser.attributes.authToken, props.currentRoom)
+      }
     },
     [props.currentRoom]
   );
@@ -151,6 +153,14 @@ function ContentRoom(props) {
       })
     },
     [oneMessages]
+  );
+  useEffect(
+    () => {
+      if (props.currentRoom !== -1 && messages.length === 0) {
+        startListening();
+      }
+    },
+    [messages]
   );
   const sendMessage = (event) => {
     // valueMessage.trim() loại bỏ khoảng trống để check empty text area
@@ -169,7 +179,7 @@ function ContentRoom(props) {
     props.setValueMessage(`${valueMessage}${item}`)
   }
   const letShowGif = (item) => {
-    props.setSendGif(props.currentRoom, item)
+    props.letSendMessage(props.currentUser.attributes.authToken, props.currentRoom, `![Image](${item})`);
     setShowGif(!showGif)
   }
   const lightTheme = props.changeTheme;
@@ -244,7 +254,14 @@ function ContentRoom(props) {
               </div>
             )
             :
-            null
+            <div className='No-Room'>
+              {
+                props.changeVietNamLanguage ?
+                  <p>You haven't entered any room yet</p>
+                  :
+                  <p>{props.dataVietNamLanguage.YouHaveNotEnteredAnyRoomYet}</p>
+              }
+            </div>
         }
       </div>
 
@@ -339,7 +356,8 @@ const mapDispatchToProps = (dispatch) => {
     setSendMessage: (nameRoom, message) => { dispatch(actions.setSendMessage({ nameRoom: nameRoom, message: message })) },
     setValueMessage: (data) => { dispatch(actions.setValueMessage(data)) },
     setSendGif: (nameRoom, gif) => { dispatch(actions.setSendGif({ nameRoom: nameRoom, gif: gif })) },
-    letSendMessage: (token, idRoom, value) => { dispatch(actions.letSendMessage({ token: token, idRoom: idRoom, value: value })) }
+    letSendMessage: (token, idRoom, value) => { dispatch(actions.letSendMessage({ token: token, idRoom: idRoom, value: value })) },
+    getRoomMember: (token, idRoom) => { dispatch(actions.getRoomMember({ token: token, idRoom: idRoom })) }
   }
 }
 export default connect(mapStatetoProps, mapDispatchToProps)(ContentRoom);
