@@ -9,7 +9,7 @@ import classNames from 'classnames'
 
 function App(props) {
   useEffect(() => {
-    props.getApi(props.currentUser);
+    props.getApi(props.currentUser.attributes.authToken);
   }, [])
   return (
     <div
@@ -32,7 +32,7 @@ const mapStatetoProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    getApi: (data) => { dispatch(actions.getApi(data)) }
+    getApi: (token) => { dispatch(actions.getApi(token)) }
   }
 }
 

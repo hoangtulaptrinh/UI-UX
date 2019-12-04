@@ -51,7 +51,8 @@ function ContentRoom(props) {
                   data: {
                     id: parseInt(n.relationships.user.data.id),
                     type: n.relationships.user.data.type,
-                    name: _.find(data.messages.included, { 'id': `${n.relationships.user.data.id}` }).attributes.name
+                    name: _.find(data.messages.included, { 'id': `${n.relationships.user.data.id}` }).attributes.name,
+                    avatarUrl: _.find(data.messages.included, { 'id': `${n.relationships.user.data.id}` }).attributes.avatarUrl
                   }
                 }
               },
@@ -70,7 +71,8 @@ function ContentRoom(props) {
                   data: {
                     id: parseInt(n.relationships.user.data.id),
                     type: n.relationships.user.data.type,
-                    name: _.find(data.messages.included, { 'id': `${n.relationships.user.data.id}` }).attributes.name
+                    name: _.find(data.messages.included, { 'id': `${n.relationships.user.data.id}` }).attributes.name,
+                    avatarUrl: _.find(data.messages.included, { 'id': `${n.relationships.user.data.id}` }).attributes.avatarUrl
                   }
                 }
               },
@@ -228,7 +230,12 @@ function ContentRoom(props) {
                     CustomContainerLightTheme: lightTheme === true
                   })}
                 >
-                  <img src={'https://i.imgur.com/VjnUSxab.jpg'} alt='Img-User' href="#" id="TooltipExample" />
+                  {
+                    item.relationships.user.data.avatarUrl === null ?
+                      <img src='https://i.imgur.com/dDb0SJeb.jpg' alt='Img-User' href="#" id="TooltipExample" />
+                      :
+                      <img src={`${actions.base_link}${item.relationships.user.data.avatarUrl}`} alt='Img-User' href="#" id="TooltipExample" />
+                  }
                   <Tooltip className='Tooltip' placement="right" isOpen={tooltipOpen} target="TooltipExample" toggle={toggle}>
                     <div className='Info-User-On-Chat'>
                     </div>
@@ -247,7 +254,6 @@ function ContentRoom(props) {
                         <div className='Show-Message' dangerouslySetInnerHTML={{ __html: toBr(marked(item.attributes.content)) }} />
                         :
                         null
-                      // <img src={item.gif} alt='gif' />
                     }
                   </div>
                 </div>

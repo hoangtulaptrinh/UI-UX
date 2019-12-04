@@ -9,10 +9,15 @@ import * as actions from '../../actions/index';
 import _ from 'lodash'
 
 const AddMember = (props) => {
+  const [inputValue, setInputValue] = useState('');
+  const searchUser = (e) => {
+    setInputValue(e.target.value)
+  }
   const {
     className
   } = props;
   const [modal, setModal] = useState(false);
+  const [reRender, setReRender] = useState(false);
   useEffect(
     () => {
       if (modal === true) {
@@ -34,16 +39,18 @@ const AddMember = (props) => {
     const fullIdUser = _.map(props.allUser, n => parseInt(n.id))
     const idUserOnThisRoom = _.map(_.find(props.dataRoom, { id: props.currentRoom }).Member, item => parseInt(item.id))
     _.remove(fullIdUser, i => _.includes(idUserOnThisRoom, i));
-    listUser = _.map(fullUser, user => ({
+    listUser = _.filter(_.map(fullUser, user => ({
       id: user.id,
       name: user.name,
       onThisRoom: _.includes(fullIdUser, user.id)
-    }))
+    })), n => (_.includes(n.name.toLowerCase(), inputValue.toLowerCase())))
   }
   const toggle = () => setModal(!modal);
   const lightTheme = props.changeTheme;
-  const addThisMemberToThisRoom = (idUser) => {
-    props.addMemberToThisRoom(props.currentUser.attributes.authToken, idUser, props.currentRoom)
+  const addThisMemberToThisRoom = async (idUser) => {
+    await props.addMemberToThisRoom(props.currentUser.attributes.authToken, idUser, props.currentRoom)
+    props.getRoomMember(props.currentUser.attributes.authToken, props.currentRoom)
+    setReRender(!reRender)
   }
   return (
     <div className='Model-AddMember'>
@@ -77,7 +84,7 @@ const AddMember = (props) => {
                 className={classNames('search-circle', {
                   SearchCircleLightTheme: lightTheme === true,
                 })}
-                type="text" />
+                type="text" onChange={searchUser} />
               <div className="search-bar" />
             </div>
           </div>
@@ -138,7 +145,8 @@ const mapStatetoProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getAllUsers: () => { dispatch(actions.getAllUsers()) },
-    addMemberToThisRoom: (token, idUser, idRoom) => { dispatch(actions.addMemberToThisRoom({ token: token, idUser: idUser, idRoom: idRoom })) }
+    addMemberToThisRoom: (token, idUser, idRoom) => { dispatch(actions.addMemberToThisRoom({ token: token, idUser: idUser, idRoom: idRoom })) },
+    getRoomMember: (token, idRoom) => { dispatch(actions.getRoomMember({ token: token, idRoom: idRoom })) },
   }
 }
 

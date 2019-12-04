@@ -5,6 +5,7 @@ var initialState = []
 var myReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.addMemberToRoom:
+      console.log('add-add')
       _.find(state, { id: action.idRoom }).Member = action.data
       return state;
 

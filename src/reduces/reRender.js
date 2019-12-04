@@ -9,6 +9,10 @@ var myReducer = (state = initialState, action) => {
 
     case actionTypes.setAllUser:
       return !state;
+
+    case actionTypes.setReRender:
+      return !state;
+
     default:
       return state;
   }

@@ -17,8 +17,9 @@
 }
 .Bot-Bot{
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 120px;
+  margin-top: -5px;
 }
 .Bot-Header-ListRoom-Name{
   display: flex;

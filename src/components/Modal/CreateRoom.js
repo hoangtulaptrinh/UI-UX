@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Modal, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import React, { useState, useRef } from 'react';
+import { Modal, Dropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
 import { TiGroup } from 'react-icons/ti'
 import './CreateRoom.css'
 import { connect } from 'react-redux';
 import classNames from 'classnames'
-// import * as actions from '../../actions/index';
+import * as actions from '../../actions/index';
 
 const CreateRoom = (props) => {
   const {
@@ -18,7 +18,7 @@ const CreateRoom = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle1 = () => setDropdownOpen(prevState => !prevState);
-  var NameRoom, Description, RoomType;
+  var NameRoom, Description;
   if (props.changeVietNamLanguage === true) {
     NameRoom = 'Name Room'
     Description = 'Description'
@@ -29,6 +29,12 @@ const CreateRoom = (props) => {
   }
   const [roomType, setRoomType] = useState('Room Type');
   const lightTheme = props.changeTheme;
+  const nameRoom = useRef();
+  const description = useRef();
+  const createANewRoomWithClick = () => {
+    props.createANewRoom(props.currentUser.attributes.authToken, nameRoom.current.value, description.current.value, roomType.toLowerCase())
+    toggle()
+  }
   return (
     <div>
       <TiGroup className='TiGroup' color="danger" onClick={toggle} />
@@ -39,8 +45,8 @@ const CreateRoom = (props) => {
               FormLightTheme: lightTheme === false,
             })}
           >
-            <input type="text" placeholder={NameRoom} />
-            <input type="text" placeholder={Description} />
+            <input type="text" placeholder={NameRoom} ref={nameRoom} />
+            <input type="text" placeholder={Description} ref={description} />
             <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
               <DropdownToggle className='Drop-Down' caret>
                 {roomType}
@@ -80,6 +86,7 @@ const CreateRoom = (props) => {
               className={classNames('btn-btn', {
                 BtnBtnLightTheme: lightTheme === false,
               })}
+              onClick={createANewRoomWithClick}
             >Create</button>
           </div>
         </div>
@@ -99,6 +106,7 @@ const mapStatetoProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
+    createANewRoom: (token, name, description, room_type) => { dispatch(actions.createANewRoom({ token: token, name: name, description: description, room_type: room_type })) }
   }
 }
 

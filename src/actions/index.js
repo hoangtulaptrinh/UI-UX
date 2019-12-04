@@ -2,11 +2,11 @@ import actionTypes from '../const/actionTypes';
 import * as apiCaller from '../components/Api/apiCaller'
 import axios from 'axios'
 
-export const base_link = 'http://5808d5ce.ngrok.io/';
+export const base_link = 'http://192.168.1.189:3000/';
 
-export const getApi = (data) => {
+export const getApi = (token) => {
   var config = {
-    headers: { 'Authorization': "Bearer " + data.attributes.authToken }
+    headers: { 'Authorization': "Bearer " + token }
   };
   return (dispatch) => {
     axios.get(
@@ -49,7 +49,29 @@ export const addMemberToThisRoom = (data) => {
     axios.post(
       `${base_link}api/rooms/${data.idRoom}/invite`, obj, config)
       .then((res) => {
-        console.log(res)
+        dispatch(setReRender())
+      }).catch((error) => {
+        console.log(error)
+      });
+  }
+}
+
+export const createANewRoom = (data) => {
+  const obj = {
+    room: {
+      name: data.name,
+      description: data.description,
+      room_type: data.room_type
+    }
+  }
+  var config = {
+    headers: { 'Authorization': "Bearer " + data.token }
+  };
+  return (dispatch) => {
+    axios.post(
+      `${base_link}api/rooms`, obj, config)
+      .then((res) => {
+        dispatch(getApi(data.token))
       }).catch((error) => {
         console.log(error)
       });
@@ -129,6 +151,31 @@ export const letSendMessage = (data) => {
       });
   }
 }
+
+export const changeInfoUser = (data) => {
+  let fd = new FormData();
+  fd.append('user[avatar]', data.img)
+  var config = {
+    headers: {
+      'Authorization': "Bearer " + data.token,
+      'Content-Type': 'multipart/form-data'
+    }
+  };
+  return (dispatch) => {
+    axios.put(`${base_link}api/user`, fd, config)
+      .then(res => {
+        dispatch(letChangeInfoUser(res.data.data))
+        dispatch(setReRender())
+      })
+      .catch(error => {
+        console.log(error)
+      });
+  }
+}
+
+export const letChangeInfoUser = (data) => { return { type: actionTypes.letChangeInfoUser, data: data } }
+
+export const setReRender = () => { return { type: actionTypes.setReRender } }
 
 export const setAllUser = (data) => { return { type: actionTypes.setAllUser, data: data } }
 

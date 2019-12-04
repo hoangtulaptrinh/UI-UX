@@ -14,5 +14,7 @@ export default {
   setStatusRegister: 'SET_STATUS_REGISTER',
   setAllowRegister: 'SET_ALLOW_REGISTER',
   addMemberToRoom: 'ADD_MEMBER_TO_ROOM',
-  setAllUser: 'SET_ALL_USER'
+  setAllUser: 'SET_ALL_USER',
+  setReRender: 'SET_RERENDER',
+  letChangeInfoUser: 'LET_CHANGE_INFO_USER'
 };

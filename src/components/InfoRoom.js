@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash'
 import classNames from 'classnames'
 import IntroRoom from './Collapse/IntroRoom'
+import { base_link } from '../actions';
 
 function InfoRoom(props) {
   const ahihiRef = useRef();
@@ -15,11 +16,13 @@ function InfoRoom(props) {
     ListRoomArr = []
   }
   if (props.currentRoom !== -1) {
-    ListRoomArr = _.map(_.find(props.dataRoom, { id: props.currentRoom }).Member, (item) => ({
-      avatar: 'https://i.imgur.com/VjnUSxab.jpg',
+    ListRoomArr = _.uniqBy(_.map(_.find(props.dataRoom, { id: props.currentRoom }).Member, (item) => ({
+      id: item.id,
+      avatar: item.attributes.avatarUrl,
       name: item.attributes.name,
       level: item.attributes.level
-    }))
+    })), 'id');
+    console.log(ListRoomArr)
   }
   const lightTheme = props.changeTheme;
   const showInfoDiv = (e, index) => {
@@ -84,9 +87,16 @@ function InfoRoom(props) {
 
               <div className='User-InfoRoom'>
                 <div className='Avatar-InfoRoom' ref={testRef}>
-                  <img src={_.filter(ListRoomArr, { level: 'admin' })[0].avatar} alt='Img-User'
-                    onClick={(e) => showInfoDiv(e, 99999)}
-                  />
+                  {
+                    _.filter(ListRoomArr, { level: 'admin' })[0].avatar === null ?
+                      <img src='https://i.imgur.com/dDb0SJeb.jpg' alt='Img-User'
+                        onClick={(e) => showInfoDiv(e, 99999)}
+                      />
+                      :
+                      <img src={`${base_link}${_.filter(ListRoomArr, { level: 'admin' })[0].avatar}`} alt='Img-User'
+                        onClick={(e) => showInfoDiv(e, 99999)}
+                      />
+                  }
                 </div>
                 <div className='Name-User-InfoRoom'>
                   <p>{_.filter(ListRoomArr, { level: 'admin' })[0].name}</p>
@@ -97,7 +107,12 @@ function InfoRoom(props) {
                   })}
                   style={divStyle}>
                   <div className='Top'>
-                    <img src={_.filter(ListRoomArr, { level: 'admin' })[0].avatar} alt='Img-User' />
+                    {
+                      _.filter(ListRoomArr, { level: 'admin' })[0].avatar === null ?
+                        <img src='https://i.imgur.com/dDb0SJeb.jpg' alt='Img-User' />
+                        :
+                        <img src={`${base_link}${_.filter(ListRoomArr, { level: 'admin' })[0].avatar}`} alt='Img-User' />
+                    }
                     <div className='name-show-info'>
                       <p>{_.filter(ListRoomArr, { level: 'admin' })[0].name}</p>
                       <p
@@ -133,7 +148,11 @@ function InfoRoom(props) {
                 {_.map(_.filter(ListRoomArr, { level: 'member' }), (item, index) =>
                   <div className='User-InfoRoom' key={index} >
                     <div className='Avatar-InfoRoom'>
-                      <img src={item.avatar} alt='Img-User' onClick={(e) => showInfoDiv(e, index)} />
+                      {item.avatar === null ?
+                        <img src='https://i.imgur.com/dDb0SJeb.jpg' alt='Img-User' onClick={(e) => showInfoDiv(e, index)} />
+                        :
+                        <img src={`${base_link}${item.avatar}`} alt='Img-User' onClick={(e) => showInfoDiv(e, index)} />
+                      }
                     </div>
                     <div className='Name-User-InfoRoom'>
                       <p>{item.name}</p>
@@ -145,7 +164,11 @@ function InfoRoom(props) {
                       })}
                       style={divStyle}>
                       <div className='Top'>
-                        <img src={item.avatar} alt='Img-User' />
+                        {item.avatar === null ?
+                          <img src='https://i.imgur.com/dDb0SJeb.jpg' alt='Img-User' />
+                          :
+                          <img src={`${base_link}${item.avatar}`} alt='Img-User' />
+                        }
                         <div className='name-show-info'>
                           <p>{item.name}</p>
                           <p
