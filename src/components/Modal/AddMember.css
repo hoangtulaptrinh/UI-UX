@@ -3,30 +3,30 @@
 }
 .Icon-AddMember{
   font-size: 20px;
-  color: rgb(167, 171, 173);
+  color: #ffffff7c;
 }
 /* LightTheme */
 .IconAddMemberLightTheme{
   color: black;
 }
 .Modal-Header{
-  background-color: rgba(255, 255, 255, 0.959);
+  background-color: rgba(255, 255, 255, 0.904);
 }
 .Modal-Header > h5 > p{
   padding-left: 10px;
   margin: 0px;
 }
 .ModalHeaderLightTheme{
-  color: white;
+  color: rgba(255, 255, 255, 0.822);
   background-color: #303436;
 }
 .ModalBody{
   height: auto;
-  background-color: #F0F3F3;
+  background-color: rgba(240, 243, 243, 0.925);
 }
 .ModalBodyLightTheme{
   background-color: #36393F;
-  color: rgb(0, 225, 255);
+  color: rgb(255, 255, 255);
 }
 .AddMember-Filter{
   height: 50px;
@@ -97,4 +97,10 @@
 }
 .Icon-OnThisRoom{
   cursor: not-allowed;
+}
+.NameMemberToAddThisRoom{
+  color: #ffffff7c;
+}
+.OnThisRoomLightTheme{
+  color: rgb(255, 51, 0);
 }

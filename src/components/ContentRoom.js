@@ -134,6 +134,10 @@ function ContentRoom(props) {
     document.addEventListener('keydown', sendMessage)
     return function cleanup() {
       document.removeEventListener('keydown', sendMessage)
+      if (messagesCable.channel !== undefined && props.currentRoom === -1) {
+        messagesCable.channel.unsubscribe();
+        console.log("Ngắt Kết Nối");
+      }
     };
   })
   //
@@ -353,7 +357,8 @@ const mapStatetoProps = (state) => {
     valueMessage: state.valueMessage,
     dataVietNamLanguage: state.dataVietNamLanguage,
     changeVietNamLanguage: state.changeVietNamLanguage,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    allowLogin: state.allowLogin,
   }
 }
 const mapDispatchToProps = (dispatch) => {

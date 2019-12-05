@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import './ChangeInfo.css'
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
-import { Modal, Button, FormGroup, Label, Input } from 'reactstrap';
-import classNames from 'classnames'
+import { Modal } from 'reactstrap';
+import classNames from 'classnames';
 
 const ChangeInfo = (props) => {
   const {
@@ -11,9 +11,6 @@ const ChangeInfo = (props) => {
   } = props;
 
   const [modal, setModal] = useState(false);
-  // const [avatar, setAvatar] = useState(null);
-  // const nameUser1 = useRef();
-  // const passUser = useRef();
   useEffect(
     () => {
       if (props.currentRoom !== -1 && modal === false) {
@@ -28,8 +25,7 @@ const ChangeInfo = (props) => {
     if (!files.length) {
       console.log('no files');
     }
-    // setAvatar(files[0])
-    props.changeInfoUser(props.currentUser.attributes.authToken, files[0])
+    props.changeInfoUser(props.currentUser.attributes.authToken, files[0], props.currentRoom)
     toggle()
   }
   const lightTheme = props.changeTheme;
@@ -68,7 +64,7 @@ const mapStatetoProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeInfoUser: (token, img) => { dispatch(actions.changeInfoUser({ token: token, img: img })) },
+    changeInfoUser: (token, img, idRoom) => { dispatch(actions.changeInfoUser({ token: token, img: img, idRoom: idRoom })) },
     getRoomMember: (token, idRoom) => { dispatch(actions.getRoomMember({ token: token, idRoom: idRoom })) }
   }
 }

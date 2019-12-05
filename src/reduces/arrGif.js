@@ -69,7 +69,27 @@ var initialState = [
   'https://media.giphy.com/media/dFt9HvDTOMc7u/giphy.gif',
   'https://media.giphy.com/media/wBpEC20vx7HXi/giphy.gif',
   'https://media.giphy.com/media/D5DfpQZMEh17i/giphy.gif',
-  'https://media.giphy.com/media/Jmgx0H8XlE9uhquL6t/giphy.gif'
+  'https://media.giphy.com/media/Jmgx0H8XlE9uhquL6t/giphy.gif',
+  'https://media.giphy.com/media/gKTPGoWfAlJUqq4rsF/giphy.gif',
+  'https://media.giphy.com/media/3o7WIvmbRJ7Y5zTAgU/giphy.gif',
+  'https://media.giphy.com/media/pRiHGQqVVVfj2/giphy.gif',
+  'https://media.giphy.com/media/UdjPbef8d0TPW/giphy.gif',
+  'https://media.giphy.com/media/KkOKTdlP8dARy/giphy.gif',
+  'https://media.giphy.com/media/U6SqBmifGGHkae9JFQ/giphy.gif',
+  'https://media.giphy.com/media/zTMf5NIrt1AiI/giphy.gif',
+  'https://media.giphy.com/media/d2YXDh1EVVWjETUA/giphy.gif',
+  'https://media.giphy.com/media/1AfIJwcdEwSayUaCcR/giphy.gif',
+  'https://media.giphy.com/media/xThta55LcTvk8Ocs5q/giphy.gif',
+  'https://media.giphy.com/media/yYd4AeOA7rsoE/giphy.gif',
+  'https://media.giphy.com/media/VEnBxJiLH9Qpc3X9d4/giphy.gif',
+  'https://media.giphy.com/media/U43NN9To9lki1msFNr/giphy.gif',
+  'https://media.giphy.com/media/cL55wP8PCEd9x0zEuV/giphy.gif',
+  'https://media.giphy.com/media/hWZeHijJa7XLG/giphy.gif',
+  'https://media.giphy.com/media/ZhGpjA1XidFQI/giphy.gif',
+  'https://media.giphy.com/media/PhNly6l5T1lezEeOcB/giphy.gif',
+  'https://media.giphy.com/media/9NwBXFgYdlDpK/giphy.gif',
+  'https://media.giphy.com/media/7MhWdR3StysOQ/giphy.gif',
+  'https://media.giphy.com/media/FFwmZf7Soj2LK/giphy.gif'
 ];
 var myReducer = (state = initialState, action) => {
   switch (action.type) {

@@ -18,7 +18,7 @@
 .Bot-Bot{
   display: flex;
   justify-content: space-between;
-  width: 120px;
+  width: 140px;
   margin-top: -5px;
 }
 .Bot-Header-ListRoom-Name{
@@ -27,6 +27,7 @@
   align-items: center;
 }
 .Bot-Header-ListRoom-Name > h6{
+  font-size: 20px;
   margin: 0;
 }
 input {
@@ -233,4 +234,14 @@ input {
 }
 .TopHeaderListRoomLightTheme > h4{
   color: rgb(0, 255, 242);
+}
+.Test-Test-Test-Test{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Icon-Reset{
+  font-size: 25px;
+  margin-right: 20px;
+  cursor: pointer;
 }

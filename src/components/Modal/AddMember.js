@@ -49,7 +49,6 @@ const AddMember = (props) => {
   const lightTheme = props.changeTheme;
   const addThisMemberToThisRoom = async (idUser) => {
     await props.addMemberToThisRoom(props.currentUser.attributes.authToken, idUser, props.currentRoom)
-    props.getRoomMember(props.currentUser.attributes.authToken, props.currentRoom)
     setReRender(!reRender)
   }
   return (
@@ -100,7 +99,12 @@ const AddMember = (props) => {
                     <div className='Img-Member-To-Add'>
                       <img src='https://i.imgur.com/VjnUSxab.jpg' alt='Add-Img-User' />
                     </div>
-                    <div className='Name-Member-To-Add'>
+                    <div
+                      className={classNames('Name-Member-To-Add', {
+                        NameMemberToAddThisRoom: item.onThisRoom === true,
+                        OnThisRoomLightTheme: lightTheme === true && item.onThisRoom === true,
+                      })}
+                    >
                       {item.name}
                     </div>
                   </div>
@@ -108,6 +112,7 @@ const AddMember = (props) => {
                     <IoMdPersonAdd
                       className={classNames('Icon-AddMember', {
                         IconAddMemberLightTheme: lightTheme === true,
+                        OnThisRoomLightTheme: lightTheme === true && item.onThisRoom === true,
                       })}
                       onClick={() => addThisMemberToThisRoom(item.id)}
                     />

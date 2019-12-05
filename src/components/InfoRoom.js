@@ -22,7 +22,6 @@ function InfoRoom(props) {
       name: item.attributes.name,
       level: item.attributes.level
     })), 'id');
-    console.log(ListRoomArr)
   }
   const lightTheme = props.changeTheme;
   const showInfoDiv = (e, index) => {

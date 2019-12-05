@@ -48,7 +48,11 @@ const CreateRoom = (props) => {
             <input type="text" placeholder={NameRoom} ref={nameRoom} />
             <input type="text" placeholder={Description} ref={description} />
             <Dropdown isOpen={dropdownOpen} toggle={toggle1}>
-              <DropdownToggle className='Drop-Down' caret>
+              <DropdownToggle
+                className={classNames('Drop-Down', {
+                  DropDownLightTheme: lightTheme === false,
+                })}
+                caret>
                 {roomType}
               </DropdownToggle>
               <DropdownMenu>

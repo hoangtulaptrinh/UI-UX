@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom";
 import CreateRoom from './Modal/CreateRoom'
 import ChangeInfo from './Modal/ChangeInfo'
 import { IoLogoGameControllerB } from 'react-icons/io';
+import { FiRefreshCcw } from 'react-icons/fi'
 
 function ListRoom(props) {
   let history = useHistory();
@@ -33,9 +34,12 @@ function ListRoom(props) {
   })), n => (_.includes(n.nameRoom.toLowerCase(), inputValue.toLowerCase())))
   const lightTheme = props.changeTheme;
   const logOut = () => {
-    history.goBack();
     props.setCurrentRoom(-1);
     props.setAllowLogin();
+    history.goBack();
+  }
+  const letRefresh = () => {
+    props.getApi(props.currentUser.attributes.authToken);
   }
   return (
     <div
@@ -64,13 +68,17 @@ function ListRoom(props) {
             }
           </div>
         </div>
-        <div className='Bot-Bot'>
-          <div className='Bot-Header-ListRoom-Img'>
-            <ChangeInfo />
+        <div className='Test-Test-Test-Test'>
+          <div className='Bot-Bot'>
+            <div className='Bot-Header-ListRoom-Img'>
+              <ChangeInfo />
+            </div>
+            <div className='Bot-Header-ListRoom-Name'>
+              <h6>{props.currentUser.attributes.name}</h6>
+            </div>
           </div>
-          <div className='Bot-Header-ListRoom-Name'>
-            {/* <FaCircle className='Icon-Circle' /> */}
-            <h6>{props.currentUser.attributes.name}</h6>
+          <div>
+            <FiRefreshCcw className='Icon-Reset' onClick={letRefresh} />
           </div>
         </div>
       </div>
@@ -188,7 +196,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setCurrentRoom: (data) => { dispatch(actions.setCurrentRoom(data)) },
     setAllowLogin: () => { dispatch(actions.setAllowLogin(false)) },
-    setCurrentUser: () => { dispatch(actions.setCurrentUser({})) }
+    setCurrentUser: () => { dispatch(actions.setCurrentUser({})) },
+    getApi: (token) => { dispatch(actions.getApi(token)) }
   }
 }
 

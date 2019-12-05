@@ -2,7 +2,7 @@ import actionTypes from '../const/actionTypes';
 import * as apiCaller from '../components/Api/apiCaller'
 import axios from 'axios'
 
-export const base_link = 'http://ddtchat.herokuapp.com/';
+export const base_link = 'http://192.168.1.189:3000/';
 
 export const getApi = (token) => {
   var config = {
@@ -29,6 +29,7 @@ export const getRoomMember = (data) => {
       `${base_link}api/rooms/${data.idRoom}/room_members`,
       config
     ).then((res) => {
+      console.log('addMemberToRoom')
       dispatch(addMemberToRoom(res.data.data, data.idRoom))
     }).catch((error) => {
       console.log(error)
@@ -49,8 +50,13 @@ export const addMemberToThisRoom = (data) => {
     axios.post(
       `${base_link}api/rooms/${data.idRoom}/invite`, obj, config)
       .then((res) => {
+        dispatch(getRoomMember({ token: data.token, idRoom: data.idRoom }))
+      })
+      .then((res) => {
+        console.log('addMemberToThisRoom')
         dispatch(setReRender())
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(error)
       });
   }
@@ -164,8 +170,12 @@ export const changeInfoUser = (data) => {
   return (dispatch) => {
     axios.put(`${base_link}api/user`, fd, config)
       .then(res => {
+        console.log('change avatar')
         dispatch(letChangeInfoUser(res.data.data))
-        dispatch(setReRender())
+      })
+      .then((res) => {
+        if (data.idRoom !== -1)
+          dispatch(getRoomMember({ token: data.token, idRoom: data.idRoom }))
       })
       .catch(error => {
         console.log(error)
