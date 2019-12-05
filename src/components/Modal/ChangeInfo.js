@@ -11,9 +11,9 @@ const ChangeInfo = (props) => {
   } = props;
 
   const [modal, setModal] = useState(false);
-  const [avatar, setAvatar] = useState(null);
-  const nameUser = useRef();
-  const passUser = useRef();
+  // const [avatar, setAvatar] = useState(null);
+  // const nameUser1 = useRef();
+  // const passUser = useRef();
   useEffect(
     () => {
       if (props.currentRoom !== -1 && modal === false) {
@@ -28,15 +28,11 @@ const ChangeInfo = (props) => {
     if (!files.length) {
       console.log('no files');
     }
-    setAvatar(files[0])
-  }
-  const LetToChangeInfo = () => {
-    // props.changeInfoUser(props.currentUser.attributes.authToken, avatar)
-    console.log(avatar, nameUser.current.value, passUser.current.value)
+    // setAvatar(files[0])
+    props.changeInfoUser(props.currentUser.attributes.authToken, files[0])
     toggle()
   }
   const lightTheme = props.changeTheme;
-  console.log(avatar)
   return (
     <div>
       <div className='div-change-avatar' onClick={toggle}>
@@ -53,27 +49,9 @@ const ChangeInfo = (props) => {
             ChangeInfoBodyLightTheme: lightTheme === false
           })}
         >
-          <FormGroup>
-            <Label for="exampleEmail">Name</Label>
-            <Input type="text" name="email" id="exampleEmail" placeholder="name" ref={nameUser} />
-          </FormGroup>
-          <FormGroup>
-            <Label for="examplePassword">Password</Label>
-            <Input type="password" name="password" id="examplePassword" placeholder="password" ref={passUser} />
-          </FormGroup>
-          <FormGroup>
-            <Label for="exampleFile">Avatar</Label>
-            <Input type="file" name="file" id="exampleFile"
-              onChange={onFileChange}
-            />
-          </FormGroup>
-          <Button outline color="success" onClick={LetToChangeInfo}
-            className={classNames('ChangeInfoBtn', {
-              ChangeInfoBtnLightTheme: lightTheme === false
-            })}
-          >
-            Submit
-          </Button>
+          <input type="file" name="file" id="exampleFile"
+            onChange={onFileChange}
+          />
         </div>
       </Modal>
     </div>

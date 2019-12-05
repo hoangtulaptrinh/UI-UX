@@ -2,7 +2,7 @@ import actionTypes from '../const/actionTypes';
 import * as apiCaller from '../components/Api/apiCaller'
 import axios from 'axios'
 
-export const base_link = 'http://9fc5028b.ngrok.io/';
+export const base_link = 'http://ddtchat.herokuapp.com/';
 
 export const getApi = (token) => {
   var config = {
