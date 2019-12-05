@@ -2,7 +2,7 @@ import actionTypes from '../const/actionTypes';
 import * as apiCaller from '../components/Api/apiCaller'
 import axios from 'axios'
 
-export const base_link = 'http://192.168.1.189:3000/';
+export const base_link = 'http://9fc5028b.ngrok.io/';
 
 export const getApi = (token) => {
   var config = {

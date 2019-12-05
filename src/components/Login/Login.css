@@ -4,7 +4,7 @@
 	background:#c8c8c8d2;
   font:600 16px/18px 'Open Sans',sans-serif;
   height: 100vh;
-  background:url(../../img/sakura.jpg) no-repeat center;
+  background:url(../../img/cropped-1600-900-705599.jpg) no-repeat center;
 }jpg
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
@@ -152,6 +152,20 @@ a{color:inherit;text-decoration:none}
 	text-align:center;
 	color: rgb(205, 209, 202);
 }
+.foot-lnk > label,a{
+	cursor: pointer;
+	color: rgb(255, 255, 255);
+}
+.foot-lnk > label,a:hover{
+	text-decoration: none;
+}
+.foot-lnk > label:hover{
+	cursor: pointer;
+	color: #0056b3;
+}
 .height{
   height: auto;
+}
+.login-html > label{
+	cursor: pointer;
 }

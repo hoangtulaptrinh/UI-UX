@@ -8,16 +8,29 @@
 }
 .Change-Info-User-Body{
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  background: none;
-  color: white;
+  background: rgba(240, 243, 243, 0.973);
+  color: black;
+  height: auto;
+  width: auto;
 }
-.Change-Info-User-Body > input{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin: 2px;
-  z-index: 9;
+.ChangeInfoBodyLightTheme{
+  background: black;
+}
+.ChangeInfoBtnLightTheme{
+  background: black !important;
+}
+#exampleFile{
+  padding: 0px;
+}
+.form-group > label{
+  margin-left: 10px;
+}
+#exampleEmail, #examplePassword, #exampleFile{
+  width: 370px !important;
+  height: auto;
+}
+#my-file-selector{
+  margin-left: 15px;
 }

@@ -16,5 +16,6 @@ export default {
   addMemberToRoom: 'ADD_MEMBER_TO_ROOM',
   setAllUser: 'SET_ALL_USER',
   setReRender: 'SET_RERENDER',
-  letChangeInfoUser: 'LET_CHANGE_INFO_USER'
+  letChangeInfoUser: 'LET_CHANGE_INFO_USER',
+  setOnlinePeople: 'SET_ONLINE_PEOPLE'
 };

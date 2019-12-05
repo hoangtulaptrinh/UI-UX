@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Modal } from 'reactstrap';
+import React, { useState, useEffect, useRef } from 'react';
 import './ChangeInfo.css'
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
+import { Modal, Button, FormGroup, Label, Input } from 'reactstrap';
+import classNames from 'classnames'
 
 const ChangeInfo = (props) => {
   const {
@@ -10,6 +11,9 @@ const ChangeInfo = (props) => {
   } = props;
 
   const [modal, setModal] = useState(false);
+  const [avatar, setAvatar] = useState(null);
+  const nameUser = useRef();
+  const passUser = useRef();
   useEffect(
     () => {
       if (props.currentRoom !== -1 && modal === false) {
@@ -24,9 +28,15 @@ const ChangeInfo = (props) => {
     if (!files.length) {
       console.log('no files');
     }
-    props.changeInfoUser(props.currentUser.attributes.authToken, files[0])
+    setAvatar(files[0])
+  }
+  const LetToChangeInfo = () => {
+    // props.changeInfoUser(props.currentUser.attributes.authToken, avatar)
+    console.log(avatar, nameUser.current.value, passUser.current.value)
     toggle()
   }
+  const lightTheme = props.changeTheme;
+  console.log(avatar)
   return (
     <div>
       <div className='div-change-avatar' onClick={toggle}>
@@ -38,8 +48,32 @@ const ChangeInfo = (props) => {
         }
       </div>
       <Modal isOpen={modal} toggle={toggle} className={className}>
-        <div className='Change-Info-User-Body'>
-          <input id="my-file-selector" type="file" name="file" onChange={onFileChange} />
+        <div
+          className={classNames('Change-Info-User-Body', {
+            ChangeInfoBodyLightTheme: lightTheme === false
+          })}
+        >
+          <FormGroup>
+            <Label for="exampleEmail">Name</Label>
+            <Input type="text" name="email" id="exampleEmail" placeholder="name" ref={nameUser} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="examplePassword">Password</Label>
+            <Input type="password" name="password" id="examplePassword" placeholder="password" ref={passUser} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="exampleFile">Avatar</Label>
+            <Input type="file" name="file" id="exampleFile"
+              onChange={onFileChange}
+            />
+          </FormGroup>
+          <Button outline color="success" onClick={LetToChangeInfo}
+            className={classNames('ChangeInfoBtn', {
+              ChangeInfoBtnLightTheme: lightTheme === false
+            })}
+          >
+            Submit
+          </Button>
         </div>
       </Modal>
     </div>
@@ -51,6 +85,7 @@ const mapStatetoProps = (state) => {
     currentUser: state.currentUser,
     reRender: state.reRender,
     currentRoom: state.currentRoom,
+    changeTheme: state.changeTheme
   }
 }
 const mapDispatchToProps = (dispatch) => {
