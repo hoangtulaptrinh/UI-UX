@@ -17,5 +17,6 @@ export default {
   setAllUser: 'SET_ALL_USER',
   setReRender: 'SET_RERENDER',
   letChangeInfoUser: 'LET_CHANGE_INFO_USER',
-  setOnlinePeople: 'SET_ONLINE_PEOPLE'
+  setOnlinePeople: 'SET_ONLINE_PEOPLE',
+  setIsNewRoom: 'SET_IS_NEW_ROOM'
 };

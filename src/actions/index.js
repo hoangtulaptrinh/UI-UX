@@ -77,8 +77,12 @@ export const createANewRoom = (data) => {
     axios.post(
       `${base_link}api/rooms`, obj, config)
       .then((res) => {
+        dispatch(setIsNewRoom(true))
+      })
+      .then((res) => {
         dispatch(getApi(data.token))
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(error)
       });
   }
@@ -182,6 +186,8 @@ export const changeInfoUser = (data) => {
       });
   }
 }
+
+export const setIsNewRoom = (data) => { return { type: actionTypes.setIsNewRoom, data: data } }
 
 export const letChangeInfoUser = (data) => { return { type: actionTypes.letChangeInfoUser, data: data } }
 

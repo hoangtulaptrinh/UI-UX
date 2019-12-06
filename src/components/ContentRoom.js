@@ -18,6 +18,7 @@ import { Tooltip } from 'reactstrap';
 import ActionCable from 'actioncable';
 
 function ContentRoom(props) {
+  console.log(props.isNewRoom)
   // action cable
   const [messagesCable] = useState({});
   const [oneMessages, setOneMessages] = useState([]);
@@ -25,6 +26,7 @@ function ContentRoom(props) {
   //
   const startListening = () => {
     console.log("Kết Nối Với Phòng: ", props.currentRoom);
+    props.setIsNewRoom(false)
     messagesCable.cable = ActionCable.createConsumer(
       `${actions.base_link}cable?token=${props.currentUser.attributes.authToken}&room_id=${props.currentRoom}`
     );
@@ -78,7 +80,9 @@ function ContentRoom(props) {
               },
               type: n.type
             }))
-            setMessages(mapIdDataToInt)
+            if (mapIdDataToInt.length !== 0) {
+              setMessages(mapIdDataToInt)
+            }
             nextTick(() => {
               // khi lấy tin nhắn cũ thì chuyển xuống cuối để đọc tin nhắn mới nhất
               mainRoomRef.current.scrollTop = mainRoomRef.current.scrollHeight
@@ -163,6 +167,7 @@ function ContentRoom(props) {
   useEffect(
     () => {
       if (props.currentRoom !== -1 && messages.length === 0) {
+        console.log(messages)
         startListening();
       }
     },
@@ -203,7 +208,7 @@ function ContentRoom(props) {
             :
             null
         }</p>
-        <PieChart />
+        {/* <PieChart /> */}
         <div className='Icon-Header-ContentRoom'>
           <SwitchLanguage />
           <div className='Switch-Day-Night'>
@@ -359,6 +364,7 @@ const mapStatetoProps = (state) => {
     changeVietNamLanguage: state.changeVietNamLanguage,
     currentUser: state.currentUser,
     allowLogin: state.allowLogin,
+    isNewRoom: state.isNewRoom
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -368,7 +374,8 @@ const mapDispatchToProps = (dispatch) => {
     setValueMessage: (data) => { dispatch(actions.setValueMessage(data)) },
     setSendGif: (nameRoom, gif) => { dispatch(actions.setSendGif({ nameRoom: nameRoom, gif: gif })) },
     letSendMessage: (token, idRoom, value) => { dispatch(actions.letSendMessage({ token: token, idRoom: idRoom, value: value })) },
-    getRoomMember: (token, idRoom) => { dispatch(actions.getRoomMember({ token: token, idRoom: idRoom })) }
+    getRoomMember: (token, idRoom) => { dispatch(actions.getRoomMember({ token: token, idRoom: idRoom })) },
+    setIsNewRoom: (data) => { dispatch(actions.setIsNewRoom(data)) }
   }
 }
 export default connect(mapStatetoProps, mapDispatchToProps)(ContentRoom);

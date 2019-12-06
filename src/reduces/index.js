@@ -18,6 +18,7 @@ import allowRegister from './allowRegister'
 import reRender from './reRender'
 import allUser from './allUser'
 import onlinePeople from './onlinePeople'
+import isNewRoom from './isNewRoom'
 
 const myReducer = combineReducers({
   dataRoom: dataRoom,
@@ -37,7 +38,8 @@ const myReducer = combineReducers({
   allowRegister: allowRegister,
   reRender: reRender,
   allUser: allUser,
-  onlinePeople: onlinePeople
+  onlinePeople: onlinePeople,
+  isNewRoom: isNewRoom
 });
 
 export default myReducer;
