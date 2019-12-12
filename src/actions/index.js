@@ -2,7 +2,7 @@ import actionTypes from '../const/actionTypes';
 import * as apiCaller from '../components/Api/apiCaller'
 import axios from 'axios'
 
-export const base_link = 'http://192.168.1.189:3000/';
+export const base_link = 'http://29e11b85.ngrok.io/';
 
 export const getApi = (token) => {
   var config = {
@@ -186,7 +186,24 @@ export const changeInfoUser = (data) => {
       });
   }
 }
-
+// remove room
+// export const letDeleteThisRoom = (data) => {
+//   const obj = {
+//     message: {
+//       content: data.value
+//     }
+//   }
+//   var config = {
+//     headers: { 'Authorization': "Bearer " + data.token }
+//   };
+//   return () => {
+//     axios.post(`${base_link}api/rooms/${data.idRoom}/messages`, obj, config)
+//       .catch(error => {
+//         console.log(error.response.data.errors)
+//       });
+//   }
+// }
+// remove room
 export const setIsNewRoom = (data) => { return { type: actionTypes.setIsNewRoom, data: data } }
 
 export const letChangeInfoUser = (data) => { return { type: actionTypes.letChangeInfoUser, data: data } }

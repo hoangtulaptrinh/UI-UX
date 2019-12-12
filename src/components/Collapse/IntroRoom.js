@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import { Collapse, CardBody, Card } from 'reactstrap';
+import { Collapse, CardBody, Card, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import './IntroRoom.css'
 import _ from 'lodash'
 import classNames from 'classnames'
+import * as actions from '../../actions/index';
 
 const IntroRoom = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
   const lightTheme = props.changeTheme;
+  const removeThisRoomHere = () => {
+    console.log(props.isAdmin)
+    props.setCurrentRoom(-1);
+  }
   return (
     <div >
       <div className='IntroRoom' onClick={toggle}>
@@ -33,6 +38,21 @@ const IntroRoom = (props) => {
                 :
                 null
             }
+            {
+              props.isAdmin === true ?
+                <Button outline color="danger" className='remove-btn-room'
+                  onClick={removeThisRoomHere}
+                >
+                  {
+                    props.changeVietNamLanguage ?
+                      <p>Remove This Room</p>
+                      :
+                      <p>{props.dataVietNamLanguage.RemoveThisRoom}</p>
+                  }
+                </Button>
+                :
+                null
+            }
           </CardBody>
         </Card>
       </Collapse>
@@ -46,8 +66,14 @@ const mapStatetoProps = (state) => {
     currentRoom: state.currentRoom,
     changeTheme: state.changeTheme,
     dataVietNamLanguage: state.dataVietNamLanguage,
-    changeVietNamLanguage: state.changeVietNamLanguage
+    changeVietNamLanguage: state.changeVietNamLanguage,
   }
 }
 
-export default connect(mapStatetoProps)(IntroRoom);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCurrentRoom: (data) => { dispatch(actions.setCurrentRoom(data)) }
+  }
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(IntroRoom);

@@ -11,7 +11,7 @@ const PieChart = (props) => {
   const lightTheme = props.changeTheme;
   let colorScale = ["cyan", "navy"];
   if (lightTheme === false) {
-    colorScale = ["green", "red"];
+    colorScale = ["cyan", "red"];
   }
   var ListRoomArr;
   if (props.currentRoom === -1) {
@@ -32,20 +32,25 @@ const PieChart = (props) => {
         >
           Chart
         </PopoverHeader>
-        <PopoverBody>
+        <PopoverBody
+          className={classNames('Popover-Body-PieChart', {
+            PopoverBodyPieChartLightTheme: lightTheme === false
+          })}
+        >
           {
             props.currentRoom !== -1 ?
               <div
                 className={classNames('PieChart-Body', {
                   PieChartBodyLightTheme: lightTheme === false
-                })}>
+                })}
+              >
                 <VictoryPie
                   colorScale={colorScale}
                   innerRadius={100}
                   labels={() => { }} // ẩn đi label
                   data={[
                     { x: "Online", y: 1 },
-                    { x: "Offline", y: ListRoomArr.length }
+                    { x: "Offline", y: 1 }
                   ]}
                 />
                 <div className='Info-Chart'>
@@ -68,7 +73,8 @@ const PieChart = (props) => {
                       })}
                     >
                       <p>Offline:</p>
-                      <p>{_.uniqBy(_.find(props.dataRoom, { id: props.currentRoom }).data, 'name').length - 1}</p>
+                      {/* <p>{_.uniqBy(_.find(props.dataRoom, { id: props.currentRoom }).data, 'name').length - 1}</p> */}
+                      <p>1</p>
                     </div>
                   </div>
                 </div>

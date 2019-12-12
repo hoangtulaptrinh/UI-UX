@@ -12,6 +12,7 @@ var initialState = {
   CreateANewRoom: 'Tạo Phòng Mới',
   NameRoom: 'Tên Phòng',
   Description: 'Miêu Tả Qua Về Phòng',
+  RemoveThisRoom: 'Xóa Phòng Này'
 };
 var myReducer = (state = initialState, action) => {
   switch (action.type) {

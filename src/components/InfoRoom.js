@@ -5,6 +5,7 @@ import _ from 'lodash'
 import classNames from 'classnames'
 import IntroRoom from './Collapse/IntroRoom'
 import { base_link } from '../actions';
+import { TiDelete } from 'react-icons/ti'
 
 function InfoRoom(props) {
   const ahihiRef = useRef();
@@ -15,6 +16,7 @@ function InfoRoom(props) {
   if (props.currentRoom === -1) {
     ListRoomArr = []
   }
+  let isAdmin = false;
   if (props.currentRoom !== -1) {
     ListRoomArr = _.uniqBy(_.map(_.find(props.dataRoom, { id: props.currentRoom }).Member, (item) => ({
       id: item.id,
@@ -22,6 +24,9 @@ function InfoRoom(props) {
       name: item.attributes.name,
       level: item.attributes.level
     })), 'id');
+    if (_.filter(ListRoomArr, { level: 'admin' })[0] !== undefined && props.currentUser.id === _.filter(ListRoomArr, { level: 'admin' })[0].id) {
+      isAdmin = true;
+    }
   }
   const lightTheme = props.changeTheme;
   const showInfoDiv = (e, index) => {
@@ -53,6 +58,9 @@ function InfoRoom(props) {
       document.removeEventListener('click', clickOutSide)
     }
   }
+  const deleteThisUser = (id) => {
+    console.log(id)
+  }
   return (
     <div
       className={classNames('InfoRoom', {
@@ -61,7 +69,7 @@ function InfoRoom(props) {
       })}
     >
       <div className='Header-InfoRoom' >
-        <IntroRoom />
+        <IntroRoom isAdmin={isAdmin} />
       </div>
       <div ref={ahihiRef}
         className={classNames('Body-InfoRoom', {
@@ -156,6 +164,14 @@ function InfoRoom(props) {
                     <div className='Name-User-InfoRoom'>
                       <p>{item.name}</p>
                     </div>
+                    <div className='div-delete-member'>
+                      {
+                        props.currentUser.id === _.filter(ListRoomArr, { level: 'admin' })[0].id ?
+                          <TiDelete className='delete-member' onClick={() => deleteThisUser(item.id)} />
+                          :
+                          null
+                      }
+                    </div>
                     {/* Member-Info */}
                     <div
                       className={classNames('AhihiTest', {
@@ -199,7 +215,8 @@ const mapStatetoProps = (state) => {
     changeTheme: state.changeTheme,
     dataVietNamLanguage: state.dataVietNamLanguage,
     changeVietNamLanguage: state.changeVietNamLanguage,
-    reRender: state.reRender
+    reRender: state.reRender,
+    currentUser: state.currentUser,
   }
 }
 

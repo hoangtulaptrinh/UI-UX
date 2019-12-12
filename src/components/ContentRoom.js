@@ -18,7 +18,6 @@ import { Tooltip } from 'reactstrap';
 import ActionCable from 'actioncable';
 
 function ContentRoom(props) {
-  console.log(props.isNewRoom)
   // action cable
   const [messagesCable] = useState({});
   const [oneMessages, setOneMessages] = useState([]);
@@ -208,7 +207,7 @@ function ContentRoom(props) {
             :
             null
         }</p>
-        {/* <PieChart /> */}
+        <PieChart />
         <div className='Icon-Header-ContentRoom'>
           <SwitchLanguage />
           <div className='Switch-Day-Night'>
