@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import IntroRoom from './Collapse/IntroRoom'
 import { base_link } from '../actions';
 import { TiDelete } from 'react-icons/ti'
+import Inbox from './Popovers/Inbox'
 
 function InfoRoom(props) {
   const ahihiRef = useRef();
@@ -127,6 +128,7 @@ function InfoRoom(props) {
                           levelAdminLightTheme: lightTheme === true,
                         })}
                       >Admin</p>
+                      <Inbox />
                     </div>
                   </div>
                 </div>
@@ -191,6 +193,7 @@ function InfoRoom(props) {
                               levelMemberLightTheme: lightTheme === true,
                             })}
                           >Member</p>
+                          <Inbox />
                         </div>
                       </div>
                     </div>

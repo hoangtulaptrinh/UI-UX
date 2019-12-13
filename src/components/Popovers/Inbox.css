@@ -1,0 +1,10 @@
+.mess-mess-mess{
+  font-size: 22px;
+  cursor: pointer;
+}
+.secret-message{
+  width: 400px;
+}
+.secret-input{
+  width: 220px !important;
+}
