@@ -49,8 +49,8 @@ const PieChart = (props) => {
                   innerRadius={100}
                   labels={() => { }} // ẩn đi label
                   data={[
-                    { x: "Online", y: 1 },
-                    { x: "Offline", y: 1 }
+                    { x: "Online", y: 2 },
+                    { x: "Offline", y: 0 }
                   ]}
                 />
                 <div className='Info-Chart'>
