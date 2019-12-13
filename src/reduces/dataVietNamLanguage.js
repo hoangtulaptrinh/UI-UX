@@ -1,18 +1,18 @@
 // import actionTypes from '../const/actionTypes';
 
 var initialState = {
-  InfoRoom: 'Thông Tin Phòng',
-  Admin: 'Người Quản Trị',
-  Member: 'Thành Viên',
-  AddMemberToThisRoom: 'Thêm Thành Viên Vào Phòng Này',
-  CurrentNumberOfPeopleInTheRoom: 'Số Người Hiện Tại Trong Phòng',
-  OnlinePeople: 'Số Người Trực Tuyến',
-  YouHaveNotEnteredAnyRoomYet: 'Bạn chưa vào phòng Nào',
-  LogOut: 'Đăng Xuất',
-  CreateANewRoom: 'Tạo Phòng Mới',
-  NameRoom: 'Tên Phòng',
-  Description: 'Miêu Tả Qua Về Phòng',
-  RemoveThisRoom: 'Xóa Phòng Này'
+  InfoRoom: 'Thông tin phòng',
+  Admin: 'Người quản trị',
+  Member: 'Thành viên',
+  AddMemberToThisRoom: 'Thêm thành viên vào phòng này',
+  CurrentNumberOfPeopleInTheRoom: 'Số người hiện tại trong phòng',
+  OnlinePeople: 'Số người trực tuyến',
+  YouHaveNotEnteredAnyRoomYet: 'Bạn chưa vào phòng nào',
+  LogOut: 'Đăng xuất',
+  CreateANewRoom: 'Tạo phòng mới',
+  NameRoom: 'Tên phòng',
+  Description: 'Mô tả qua về phòng',
+  RemoveThisRoom: 'Xóa phòng này'
 };
 var myReducer = (state = initialState, action) => {
   switch (action.type) {

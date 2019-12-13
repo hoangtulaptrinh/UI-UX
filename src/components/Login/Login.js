@@ -24,7 +24,7 @@ function Login(props) {
     history.push('/App')
   }
   if (props.allowRegister === true) {
-    alert('dang ky thanh cong moi ban dang nhap')
+    alert('Đăng ký thành công, mời bạn đăng nhập!')
     props.setAllowRegister();
   }
   const letRegister = () => {
